@@ -6,12 +6,6 @@ tags: ['Python']
 visible: true 
 ---
 
-<Underline> Test </Underline>
-<Box> Test </Box>
-<Circle> Test </Circle>
-<Highlight> Test </Highlight>
-<StrikeThough> Test </StrikeThough>
-<CrossedOff> Test </CrossedOff>
 
 ## What is Tween?
 
@@ -24,7 +18,13 @@ It behaves a bit like WSGI Middleware, but have the ability to access the Pyrami
 > A registry of configuration information consulted by Pyramid while servicing an application. An application registry maps resource types to views, as well as housing other application-specific component registrations. Every Pyramid application has one (and only one) application registry.
 
 ## Why use Tween?
-Apply a common behavior for all requests.
+
+Tween is similar to python decorators. It's used to  <Box>**apply a common behavior for all requests**</Box>.
+
+There are some examples:
+- validation (request parameters' type)
+- monitoring (add zipkin header, timer)
+- add special headers (add `Access-Control-Allow-Origin` to allow CORS)
 
 ## The lifecycle of request
 add picture here.
@@ -41,7 +41,9 @@ def tween_factory(handler, registry):
         return tween_func
     return handler
 ```
+
 `handler`: The next tween in the stack.
+
 `registry`: the pyramid registry
 
 ## Control the order of tweens

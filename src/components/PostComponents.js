@@ -50,6 +50,11 @@ const Blockquote = props => <blockquote style={{
     padding: '2rem'
 }} {...props} />
 
+const Ul = props => <ul style={{
+    padding: '0 1rem',
+    listStyleType: 'disc',
+}} {...props} />
+
 const components = {
     h2: H2,
     h3: H3,
@@ -60,8 +65,9 @@ const components = {
     Box,
     Circle,
     Highlight,
-    StrikeThrough,
-    CrossedOff
+    del: StrikeThrough,
+    CrossedOff,
+    ul: Ul
 }
 
 export default components
