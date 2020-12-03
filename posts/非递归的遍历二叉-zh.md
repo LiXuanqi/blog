@@ -1,5 +1,5 @@
 ---
-title: 非递归的遍历二叉
+title: 非递归的遍历二叉树
 date: 2018-11-22T07:00:01.670Z
 tags:
   - Algorithm
