@@ -1,6 +1,6 @@
 ---
 title: Traverse binary tree without recursion
-slug: traverse-binary-tree-without-recursion
+id: traverse-binary-tree-without-recursion
 date: 2018-11-22T06:55:47.732Z
 tags:
   - Algorithm

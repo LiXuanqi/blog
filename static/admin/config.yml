@@ -10,10 +10,11 @@ collections:
     label: "Blog" # Used in the UI
     folder: "posts" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
+    identifier_field: id
     slug: "{{slug}}-{{language}}" # Filename template, e.g., YYYY-MM-DD-title.md
     fields: # The fields for each document, usually in front matter
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Slug", name: "slug", widget: "string"}
+      - {label: "ID", name: "id", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Tags", name: "tags", widget: "list"}
       - {label: "Language", name: "language", widget: "select", options: ["en", "zh"]}
