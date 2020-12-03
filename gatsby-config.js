@@ -69,7 +69,6 @@ module.exports = {
         ]
       }
     },
-    `gatsby-plugin-i18n-mdx`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     // `gatsby-plugin-feed`,
