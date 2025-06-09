@@ -1,4 +1,5 @@
 import { PostSection } from "@/components/PostSection";
+import { getAllPosts } from '@/lib/mdx'
 
 const MOCK_POSTS = [
     {slug: 'hi', title: 'hi', date:'2024-01-03'},
@@ -7,7 +8,8 @@ const MOCK_POSTS = [
     {slug: 'hi', title: 'hi', date:'2024-01-03'},
 ];
 
-export default function BlogsPage() {
+export default async function BlogsPage() {
+    const posts = await getAllPosts()
     return (
         <div className="min-h-screen bg-background">
             <div className="max-w-4xl mx-auto px-6 py-12">
@@ -24,7 +26,7 @@ export default function BlogsPage() {
                 {/* Main content */}
 
                 {/* <BlogList postsByYear={{'2024': getAllPosts()}} /> */}
-                <PostSection sectionTitle='2024' posts={MOCK_POSTS} />
+                <PostSection sectionTitle='2024' posts={posts} />
                 <PostSection sectionTitle='2023' posts={MOCK_POSTS} />
                 <PostSection sectionTitle='2022' posts={MOCK_POSTS} />
 

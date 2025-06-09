@@ -23,7 +23,7 @@ export function PostSection({ sectionTitle, posts }: {
           {posts.map((post, index) => (
 
             <Link
-              key={post.slug} href={`/blog/${post.slug}`} legacyBehavior passHref>
+              key={post.slug} href={`/blogs/${post.slug}`} legacyBehavior passHref>
               <div
 
                 className="group block py-3 border-b border-gray-200 dark:border-gray-700 last:border-b-0 transition-all duration-200 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 md:hover:-ml-6 md:hover:-mr-6 md:hover:pl-6 md:hover:pr-6 md:hover:rounded-r-lg"
