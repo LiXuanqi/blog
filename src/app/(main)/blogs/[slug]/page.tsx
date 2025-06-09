@@ -1,39 +1,15 @@
+import { MDX_COMPONENTS } from "@/components/mdx-components";
 import { getAllPosts, getPostBySlug } from "@/lib/mdx";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { notFound } from "next/navigation";
+import remarkGfm from 'remark-gfm'
+// import rehypeHighlight from 'rehype-highlight'
 
 interface PageProps {
     params: { slug: string }
 }
 
-// Custom components for MDX
-const components = {
-    h1: ({ children, ...props }: any) => (
-        <h1 className="text-3xl font-bold mt-8 mb-4" {...props}>
-            {children}
-        </h1>
-    ),
-    h2: ({ children, ...props }: any) => (
-        <h2 className="text-2xl font-semibold mt-6 mb-3" {...props}>
-            {children}
-        </h2>
-    ),
-    p: ({ children, ...props }: any) => (
-        <p className="mb-4 leading-relaxed" {...props}>
-            {children}
-        </p>
-    ),
-    code: ({ children, ...props }: any) => (
-        <code className="bg-gray-100 px-1 py-0.5 rounded text-sm" {...props}>
-            {children}
-        </code>
-    ),
-    pre: ({ children, ...props }: any) => (
-        <pre className="bg-gray-900 text-white p-4 rounded-lg overflow-x-auto mb-4" {...props}>
-            {children}
-        </pre>
-    ),
-}
+
 
 
 export default async function BlogPage({ params }: PageProps) {
@@ -52,10 +28,10 @@ export default async function BlogPage({ params }: PageProps) {
             <div className="prose prose-lg max-w-none">
                 <MDXRemote
                     source={post.content}
-                    components={components}
+                    components={MDX_COMPONENTS}
                     options={{
                         mdxOptions: {
-                            // remarkPlugins: [remarkGfm],
+                            remarkPlugins: [remarkGfm],
                             // rehypePlugins: [rehypeHighlight],
                         },
                     }}
