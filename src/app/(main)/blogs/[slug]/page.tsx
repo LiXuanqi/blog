@@ -3,7 +3,7 @@ import { getAllPosts, getPostBySlug } from "@/lib/mdx";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { notFound } from "next/navigation";
 import remarkGfm from 'remark-gfm'
-// import rehypeHighlight from 'rehype-highlight'
+import rehypeShiki from '@shikijs/rehype'
 
 interface PageProps {
     params: { slug: string }
@@ -17,7 +17,7 @@ export default async function BlogPage({ params }: PageProps) {
     console.log(post);
     if (!post) {
         notFound()
-      }
+    }
     return (
         <article className="max-w-4xl mx-auto px-4 py-8">
             <header className="mb-8">
@@ -31,8 +31,32 @@ export default async function BlogPage({ params }: PageProps) {
                     components={MDX_COMPONENTS}
                     options={{
                         mdxOptions: {
+                            // Github markdown flavor
                             remarkPlugins: [remarkGfm],
-                            // rehypePlugins: [rehypeHighlight],
+                            rehypePlugins: [
+                                // Code highlight
+                                [rehypeShiki, {
+                                    themes: {
+                                        light: 'github-light',
+                                        dark: 'github-dark'
+                                    },
+                                    langs: [
+                                        'javascript',
+                                        'typescript',
+                                        'jsx',
+                                        'tsx',
+                                        'css',
+                                        'html',
+                                        'json',
+                                        'markdown',
+                                        'bash',
+                                        'python',
+                                        'go',
+                                        'rust'
+                                    ],
+                                    inline: 'tailing-curly-colon',
+                                }]
+                            ],
                         },
                     }}
                 />

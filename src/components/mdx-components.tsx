@@ -32,15 +32,15 @@ export const MDX_COMPONENTS = {
         </blockquote>
     ),
     // inline code
-    code: ({ children, ...props }: any) => (
-        <code className="bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold" {...props}>
-            {children}
-        </code>
-    ),
+    // code: ({ children, ...props }: any) => (
+    //     <code className="bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold" {...props}>
+    //         {children}
+    //     </code>
+    // ),
     // code block 
     // TODO
     pre: ({ children, ...props }: any) => (
-        <pre className="bg-gray-900 text-white p-4 rounded-lg overflow-x-auto mb-4" {...props}>
+        <pre className="overflow-x-auto mb-4 rounded-lg" {...props}>
           {children}
         </pre>
       ),

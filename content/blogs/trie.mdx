@@ -57,7 +57,7 @@ def find(self, word):
     return node.is_word_end
 ```
 
-`find(word)` is very similar to `insert(word)`. The differences are:
+`find(word){:python}` is very similar to `insert(word)`. The differences are:
 
 - return `False` if node doesn't exist
 - check whether last node is a word or partial string. e.g. If trie only has word "apple" and we call `find(app)`, the path exists, but it's not a word.
