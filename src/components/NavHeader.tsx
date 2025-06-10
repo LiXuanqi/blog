@@ -46,7 +46,7 @@ function NavItem({text, url}: {
     return (
         <NavigationMenuItem>
             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href={url} legacyBehavior>{text}</Link>
+                <Link href={url}>{text}</Link>
             </NavigationMenuLink>
         </NavigationMenuItem>
     );
