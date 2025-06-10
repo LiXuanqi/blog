@@ -1,15 +1,10 @@
 import { PostSection } from "@/components/PostSection";
 import { getAllPosts } from '@/lib/mdx'
 
-const MOCK_POSTS = [
-    {slug: 'hi', title: 'hi', date:'2024-01-03'},
-    {slug: 'hi', title: 'hi', date:'2024-01-03'},
-    {slug: 'hi', title: 'hi', date:'2024-01-03'},
-    {slug: 'hi', title: 'hi', date:'2024-01-03'},
-];
 
 export default async function BlogsPage() {
     const posts = await getAllPosts()
+    const { postsByYear, sortedYears } = _groupPostsByYear(posts);
     return (
         <div className="min-h-screen bg-background">
             <div className="max-w-4xl mx-auto px-6 py-12">
@@ -25,44 +20,55 @@ export default async function BlogsPage() {
                 </div>
                 {/* Main content */}
 
-                {/* <BlogList postsByYear={{'2024': getAllPosts()}} /> */}
-                <PostSection sectionTitle='2024' posts={posts} />
-                <PostSection sectionTitle='2023' posts={MOCK_POSTS} />
-                <PostSection sectionTitle='2022' posts={MOCK_POSTS} />
+                {
+                    sortedYears.map((year) => <PostSection key={year} sectionTitle={year} posts={postsByYear[year]} />)
+                }
+
 
             </div>
         </div>
 
     );
-
 }
 
 
 export type Post = {
-  slug: string;
-  title: string;
-  date: string
-
+    slug: string;
+    title: string;
+    date: string
 }
 
-// export function PostSection({ postsByYear }: {
-//   postsByYear: Record<string, ReadonlyArray<Post>>
-// }) {
+function _groupPostsByYear(posts: ReadonlyArray<Post>): {
+    postsByYear: Record<string, ReadonlyArray<Post>>;
+    sortedYears: ReadonlyArray<string>
+} {
 
-//   const years = Object.keys(postsByYear);
+    const grouped = posts.reduce((acc, post) => {
+        const year = new Date(post.date).getFullYear().toString();
 
-//   return (
-//     <div className="space-y-12">
-//       {years.map((year) => (
-//         <div key={year} className="year-section">
-//           {/* Posts List */}
-//           <div className="posts-container max-w-2xl">
-//             <PostList sectionTitle={year} posts={postsByYear[year]} />
+        if (!acc[year]) {
+            acc[year] = [];
+        }
 
-//           </div>
-//         </div>
-//       ))}
-//     </div>
-//   );
+        acc[year].push(post);
+        return acc;
+    }, {} as Record<string, Post[]>);
 
-// }
+    // Convert arrays to ReadonlyArray and sort posts within each year by date (newest first)
+    const postsByYear: Record<string, ReadonlyArray<Post>> = {};
+
+    // Sort years in descending order (newest years first)
+    const sortedYears = Object.keys(grouped).sort((a, b) => parseInt(b) - parseInt(a));
+    console.log(sortedYears);
+
+    sortedYears.forEach(year => {
+        postsByYear[year] = grouped[year].sort((a, b) =>
+            new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
+    });
+
+    return {
+        sortedYears,
+        postsByYear
+    };
+}
