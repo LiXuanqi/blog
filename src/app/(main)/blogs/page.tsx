@@ -1,3 +1,4 @@
+import Hero from "@/components/hero";
 import { PostSection } from "@/components/PostSection";
 import { getAllPosts } from '@/lib/mdx'
 
@@ -9,15 +10,8 @@ export default async function BlogsPage() {
         <div className="min-h-screen bg-background">
             <div className="max-w-4xl mx-auto px-6 py-12">
                 {/* Header */}
-                <div className="mb-12">
-                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-                        <span className="border-b-4 border-pink-400 pb-1">Blog</span>
-                    </h1>
-                    <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
-                        Thoughts on web development, programming, and technology.
-                        I write about what I learn and build.
-                    </p>
-                </div>
+                <Hero title="Blog" content="Thoughts on web development, programming, and technology.
+                        I write about what I learn and build"/>
                 {/* Main content */}
 
                 {

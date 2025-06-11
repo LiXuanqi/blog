@@ -14,7 +14,6 @@ interface PageProps {
 
 export default async function BlogPage({ params }: PageProps) {
     const post = await getPostBySlug(params.slug)
-    console.log(post);
     if (!post) {
         notFound()
     }
