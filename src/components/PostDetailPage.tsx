@@ -15,9 +15,9 @@ interface PostDetailPageProps {
 export default function PostDetailPage({ post }: PostDetailPageProps) {
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div className="flex gap-8">
                 {/* Main Content */}
-                <article className="lg:col-span-3">
+                <article className="flex-1 lg:max-w-none">
                     <header className="mb-8">
                         <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
                         {/* <p className="text-gray-600">{post.date}</p> */}
@@ -65,22 +65,20 @@ export default function PostDetailPage({ post }: PostDetailPageProps) {
                 </article>
 
                 {/* Right Sidebar */}
-                <aside className="lg:col-span-1">
-                    <div className="sticky top-8">
-                        {post.tags && post.tags.length > 0 && (
-                            <div className="bg-card border rounded-lg p-6">
-                                <h3 className="text-lg font-semibold mb-4 text-foreground">Tags</h3>
-                                <div className="flex flex-wrap gap-2">
-                                    {post.tags.map((tag) => (
-                                        <Badge key={tag} variant="secondary">
-                                            #{tag}
-                                        </Badge>
-                                    ))}
-                                </div>
+                {post.tags && post.tags.length > 0 && (
+                    <aside className="hidden lg:block w-64 border-l border-border pl-8">
+                        <div className="sticky top-24">
+                            <h3 className="text-lg font-semibold mb-4 text-foreground">Tags</h3>
+                            <div className="flex flex-wrap gap-2">
+                                {post.tags.map((tag) => (
+                                    <Badge key={tag} variant="secondary">
+                                        #{tag}
+                                    </Badge>
+                                ))}
                             </div>
-                        )}
-                    </div>
-                </aside>
+                        </div>
+                    </aside>
+                )}
             </div>
         </div>
     )
