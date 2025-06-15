@@ -23,7 +23,7 @@ export default function PostDetailPage({ post }: PostDetailPageProps) {
             {/* <p className="text-gray-600">{post.date}</p> */}
           </header>
 
-          <div className="prose prose-lg max-w-none">
+          <div className="prose prose-lg max-w-none dark:prose-invert">
             <MDXRemote
               source={post.content}
               components={MDX_COMPONENTS}
