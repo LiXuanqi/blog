@@ -1,0 +1,116 @@
+name: Xuanqi Li
+address: Sunnyvale, CA 94089
+tel: 408.406.8721
+email: lixuanqi1995@gmail.com
+github: github.com/LiXuanqi
+linkedin: www.linkedin.com/in/xuanqi-li
+blog: lixuanqi.netlify.app
+
+# about: todo
+
+education:
+  - name: Northeastern University
+    time: 09/2018 – 12/2019
+    desc:
+      - M.S. Information Systems, concentrating in Computer Software Engineering, GPA 3.89
+
+# skills:
+#   languages:
+#     - Java
+#     - Python
+#     - TypeScript(JavaScript)
+#     - Rust
+#     - Scala
+#     - Go
+#     - Bash
+#     - SQL
+#     - HTML5/CSS3
+#   frameworks:
+#     - Flask
+#     - Spring Framework
+#     - React
+#     - Vue
+#     - Angular
+#     - Flutter
+
+#   databases:
+#     - MySQL
+#     - Cassandra
+#     - Redshift
+#     - MongoDB
+#     - Redis
+
+#   tools:
+#     - Git
+#     - Kafka
+#     - ElasticSearch
+#     - Splunk
+#     - Spark
+#     - MapReduce
+#     - Apache Beam
+#     - VIM
+#     - GraphQL
+
+workExperience:
+  - position: Senior Software Engineer
+    time: 04/2024 - Present
+    company: Airtable
+    location: San Francisco, CA
+    desc:
+      - Responsible for the performance and architecture of core worker service, which powers airtable tables
+      - Build in-house <strong>memory relational database</strong> with <strong>Rust</strong> to support more table records and faster query
+      - Worked on interop protocol to improve the data exchange performance between Rust and Typescript.
+      - Migrated the most popular third part API "list rows" to a <strong>Node.js</strong> thread implemetation which improves the overall base performance.
+  - position: Senior Software Engineer
+    time: 08/2021 – 04/2024
+    company: LinkedIn
+    location: Sunnyvale, CA
+    desc:
+      - Built APIs with <strong>Java</strong> for Pages Admin Experience features such as analytics, invitation, follow.
+      - Created offline workflow with <strong>Spark(Scala)</strong> to power the email and notification features
+      - Adapted the concept of <strong>Server Driven User Interface (SDUI)</strong> to my org which saves about <strong>66.7%</strong> work to onboard a new feature.
+      - One of member of Productivity Working Group and improved Engineer happiness and productivity. e.g. unified code formatter and test framework.
+      - Helped manager on LoE estimation and quaterly team project planning
+      - Acted as mentor, code reviewer, project leader and got reward such as MVP, Top interviewers.
+  - position: Software Engineer at Ads Platform
+    time: 01/2020 - 08/2021
+    company: Yelp
+    location: San Francisco, CA
+    desc:
+      - One of the developers/maintainers for the <strong>Yelp Campaign Management APIs</strong>.
+      - Developed the customization features (e.g. Location targeting, Keywords targeting) for campaigns with <strong>AWS SQS</strong>, <strong>Kafka</strong>, <strong>StreamSQL</strong>, <strong>Redshift</Strong>
+      - Migrated daily ad inventory ETL from <strong>MapReduce</strong> to <strong>Spark</strong> and reduced the <strong>75%</strong> runtime and cost.
+      - Led the project to integrate our experimentation platform into Ads team, cooperated with stakeholders across teams, and advocate new tool in Ads team (~50 engineers).
+      - <strong>Release engineer</strong> for deploying code across multiple teams
+      - <strong>Mentored new hires</strong> and helped them onboard smoothly and quickly.
+      - Joined <strong>on-call</strong> rotation to debug production issues across Ad system.
+      - Became the on-point who answered any question related to our system in team slack channel.
+      - One of the <strong>instructors of Ads academy</strong> and teached ~ 20 new hires each cohort.
+  - position: Software Engineering Intern
+    time: 05/2019 – 08/2019
+    company: Yelp
+    location: San Francisco, CA
+    desc:
+      - Designed the schema of new <strong>Cassandra</strong> table to support more complex and flexible query.
+      - Modified a <strong>MapReduce</strong> batch and persisted data into <strong>AWS S3</strong>, <strong>Cassandra</strong> and <strong>Redshift</strong>
+      - Created a <strong>RESTful API</strong> using <strong>Pyramid</strong> and manipulated <strong>MySQL</strong> tables with <strong>SQLALchemy</strong>.
+      - Built a <strong>Python</strong> batch for comparing or backfilling Cassandra tables in the past two years(140GB) and solved the performance problems of querying without partition key.
+
+projects:
+  - name: "Snackathon: A React and Flask based Web Application for snack availability detection"
+    desc:
+      - Build the front end with <strong>React</strong>, <strong>Bootstrap</strong> and backend with <strong>Flask</strong>, <strong>Redis</strong>
+      - Programed Raspberry Pi and controled the camera to take the photo for snack rack per 10 seconds.
+      - Implemented the tool with <strong>OpenCV</strong> for labeling pictures and preprocess data with <strong>Numpy</strong>, <strong>Pandas</strong>.
+      - Trained the Support Vector Machine (SVM) model with <strong>scikit-learn</strong> and stored on disk with pickle.
+  # - name: An Angular and Spring based IoT Application for device monitoring
+  #   desc:
+  #     - Created a dashboard web application with advanced charts using <strong>Angular</strong>, <strong>Ant Design</strong>, <strong>D3.js</strong> for monitoring
+  #     - Developed the backend with <strong>Spring Boot</strong>, <strong>Spring Data JPA</strong>, <strong>Spring WebSocket</strong>
+  #     - Design the <strong>RESTful API</strong> and implemented the <strong>token-based authentication</strong> feature with <strong>Spring Security</strong>, <strong>JWT</strong>.
+  #     - Containerized the application with <strong>Docker</strong> and Docker compose and deployed at <strong>AWS EC2</strong>.
+  #     - Sold the application to a chinese company and made <strong>$2,000</strong>
+  - name: "Undefined: My personal tech blog"
+    desc:
+      - Created with <strong>Gatsby(React)</strong> to optimize <strong>SEO</strong> and managed data with <strong>GraphQL</strong>.
+      - Supported the dark/light mode toggle, i18n, latex formula, mdx, code highlight.
