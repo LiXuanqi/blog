@@ -8,6 +8,8 @@
 //   }
 
 import { loadResumeData } from "@/lib/yaml";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 const ResumeSection = ({
   title,
@@ -87,6 +89,17 @@ export default function ResumePage() {
   const resume = loadResumeData();
   return (
     <div className="bg-white min-h-screen print:min-h-0">
+      {/* Back button - hidden when printing */}
+      <div className="print:hidden fixed top-4 left-4 z-10">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 transition-colors"
+        >
+          <ArrowLeft size={16} />
+          <span className="text-sm font-medium">Back to Home</span>
+        </Link>
+      </div>
+
       <div className="max-w-[8.5in] mx-auto p-6 print:p-4 bg-white">
         <div>
           <h1 className="text-2xl print:text-xl font-semibold text-center mb-3 print:mb-2">
