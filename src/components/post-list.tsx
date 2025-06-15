@@ -10,7 +10,7 @@ export function PostList({  posts, limit, urlPrefix = '/blogs' }: {
     return (
         <div className="w-full">
         <div className="border-l-2 border-border-muted pl-6 space-y-0">
-          {displayPosts.map((post, index) => (
+          {displayPosts.map((post) => (
 
             <Link
               key={post.slug} href={`${urlPrefix}/${post.slug}`} passHref>

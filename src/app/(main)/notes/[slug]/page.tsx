@@ -3,11 +3,12 @@ import { getAllNotes, getNoteBySlug } from "@/lib/mdx";
 import { notFound } from "next/navigation";
 
 interface PageProps {
-    params: { slug: string }
+    params: Promise<{ slug: string }>
 }
 
 export default async function NotePage({ params }: PageProps) {
-    const note = await getNoteBySlug(params.slug)
+    const { slug } = await params
+    const note = await getNoteBySlug(slug)
     if (!note) {
         notFound()
     }

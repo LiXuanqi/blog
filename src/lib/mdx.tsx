@@ -104,7 +104,7 @@ async function getLocalPostBySlug(slug: string, directory: string = blogsDirecto
       tags: Array.isArray(data.tags) ? data.tags : [],
       source: 'local' as const
     }
-  } catch (error) {
+  } catch {
     return null
   }
 }

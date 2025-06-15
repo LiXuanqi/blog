@@ -3,11 +3,12 @@ import { getAllPosts, getPostBySlug } from "@/lib/mdx";
 import { notFound } from "next/navigation";
 
 interface PageProps {
-    params: { slug: string }
+    params: Promise<{ slug: string }>
 }
 
 export default async function BlogPage({ params }: PageProps) {
-    const post = await getPostBySlug(params.slug)
+    const { slug } = await params
+    const post = await getPostBySlug(slug)
     if (!post) {
         notFound()
     }
