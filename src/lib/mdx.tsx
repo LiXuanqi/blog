@@ -12,6 +12,7 @@ export interface Post {
   date: string
   excerpt: string
   content: string
+  tags?: string[]
   source?: 'local' | 'github'
   repo?: string
   path?: string
@@ -48,6 +49,7 @@ async function getLocalPosts(directory: string = blogsDirectory): Promise<Post[]
         title: data.title,
         date: data.date,
         excerpt: data.excerpt,
+        tags: Array.isArray(data.tags) ? data.tags : [],
         source: 'local' as const
       }
     })
@@ -62,6 +64,7 @@ function convertGitHubPostToPost(githubPost: GitHubPost): Post {
     date: githubPost.date,
     excerpt: githubPost.excerpt || '',
     content: githubPost.content,
+    tags: [], // GitHub posts don't have tags extracted yet
     source: 'github' as const,
     repo: githubPost.repo,
     path: githubPost.path
@@ -98,6 +101,7 @@ async function getLocalPostBySlug(slug: string, directory: string = blogsDirecto
       title: data.title,
       date: data.date,
       excerpt: data.excerpt,
+      tags: Array.isArray(data.tags) ? data.tags : [],
       source: 'local' as const
     }
   } catch (error) {
