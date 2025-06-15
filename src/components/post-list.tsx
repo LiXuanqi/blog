@@ -1,9 +1,10 @@
 
 import { Post } from "@/lib/mdx";
 import Link from "next/link";
-export function PostList({  posts, limit }: {
+export function PostList({  posts, limit, urlPrefix = '/blogs' }: {
     posts: ReadonlyArray<Post>
     limit?: number
+    urlPrefix?: string
   }) {
     const displayPosts = limit ? posts.slice(0, limit) : posts
     return (
@@ -12,7 +13,7 @@ export function PostList({  posts, limit }: {
           {displayPosts.map((post, index) => (
 
             <Link
-              key={post.slug} href={`/blogs/${post.slug}`} passHref>
+              key={post.slug} href={`${urlPrefix}/${post.slug}`} passHref>
               <div
 
                 className="group block py-3 border-b border-gray-200 dark:border-gray-700 last:border-b-0 transition-all duration-200 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 md:hover:-ml-6 md:hover:-mr-6 md:hover:pl-6 md:hover:pr-6 md:hover:rounded-r-lg"

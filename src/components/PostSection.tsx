@@ -2,12 +2,11 @@ import { Post } from "@/lib/mdx";
 import { PostList } from "./post-list";
 
 
-export function PostSection({ sectionTitle, posts }: {
+export function PostSection({ sectionTitle, posts, urlPrefix }: {
   sectionTitle: string;
   posts: ReadonlyArray<Post>
+  urlPrefix?: string;
 }) {
-
-
   return (
     <div key={sectionTitle} className="mb-8">
       {/* Year Header */}
@@ -18,11 +17,10 @@ export function PostSection({ sectionTitle, posts }: {
       </div>
 
       {/* Posts List */}
-      <PostList posts={posts}/>
+      <PostList posts={posts} urlPrefix={urlPrefix}/>
       
     </div>
   );
-
 }
 
 

@@ -9,6 +9,7 @@ export default async function NotesPage() {
             title="Notes" 
             description="Personal notes, quick thoughts, and learning snippets. A collection of my digital garden."
             posts={notes}
+            urlPrefix="/notes"
         />
     );
 }

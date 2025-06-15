@@ -1,11 +1,12 @@
 import Hero from "@/components/hero";
 import { PostList } from "@/components/post-list";
 import SectionHeader from "@/components/section-header";
-import { getAllPosts } from "@/lib/mdx";
+import { getAllNotes, getAllPosts } from "@/lib/mdx";
 import Image from "next/image";
 
 export default async function Home() {
-  const posts = await getAllPosts()
+  const articles = await getAllPosts()
+  const notes = await getAllNotes()
   return (
     // TODO: same layout as blogs home page
     <div className="min-h-screen bg-background">
@@ -26,14 +27,14 @@ export default async function Home() {
         </div>
 
         <div className="mt-16 space-y-16">
-          {/* <Section>
+          <Section>
             <SectionHeader title="Notes" subtitle="Personal notes" ctaUrl="/notes"/>
-            <PostList posts={posts} limit={3}/>
-          </Section> */}
+            <PostList posts={notes} limit={3} urlPrefix="/notes"/>
+          </Section>
 
           <Section>
             <SectionHeader title="Articles" subtitle="Guides, references" ctaUrl="/blogs"/>
-            <PostList posts={posts} limit={3}/>
+            <PostList posts={articles} limit={3}/>
           </Section>
         </div>
       </div>

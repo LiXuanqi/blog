@@ -6,9 +6,10 @@ interface PostListPageProps {
   title: string;
   description: string;
   posts: ReadonlyArray<Post>;
+  urlPrefix?: string;
 }
 
-export default function PostListPage({ title, description, posts }: PostListPageProps) {
+export default function PostListPage({ title, description, posts, urlPrefix }: PostListPageProps) {
   const { postsByYear, sortedYears } = groupPostsByYear(posts);
   
   return (
@@ -19,7 +20,7 @@ export default function PostListPage({ title, description, posts }: PostListPage
         
         {/* Main content */}
         {sortedYears.map((year) => (
-          <PostSection key={year} sectionTitle={year} posts={postsByYear[year]} />
+          <PostSection key={year} sectionTitle={year} posts={postsByYear[year]} urlPrefix={urlPrefix} />
         ))}
       </div>
     </div>
