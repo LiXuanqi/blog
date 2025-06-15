@@ -17,8 +17,8 @@ const ResumeSection = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div>
-      <h2 className="uppercase border-b-[1px] border-solid border-black font-semibold font-['Roboto_Slab_Variable']">
+    <div className="mb-4 print:mb-3">
+      <h2 className="uppercase border-b-[1px] border-solid border-black font-semibold text-sm mb-2 print:text-xs print:mb-1">
         {title}
       </h2>
       {children}
@@ -34,21 +34,27 @@ interface ResumeItemProps {
 
 const ResumeItem = ({ title, location, time, desc }: ResumeItemProps) => {
   return (
-    <div>
+    <div className="mb-3 print:mb-2">
       <div className="flex justify-between">
         <div>
           <div className="flex flex-row items-center">
-            <h3 style={{ fontWeight: 700, fontSize: "110%" }}>{title}</h3>
+            <h3 className="font-bold text-sm print:text-xs">{title}</h3>
           </div>
-          <span>{location}</span>
+          <span className="text-sm print:text-xs text-gray-600">
+            {location}
+          </span>
         </div>
-        <div style={{ fontWeight: 700, fontSize: "110%" }}>
+        <div className="font-bold text-sm print:text-xs">
           <span>{time}</span>
         </div>
       </div>
-      <ul className="list-disc pl-8">
+      <ul className="list-disc pl-6 print:pl-4 text-sm print:text-xs leading-tight">
         {desc.map((item, index) => (
-          <li key={index} dangerouslySetInnerHTML={{ __html: item }} />
+          <li
+            key={index}
+            dangerouslySetInnerHTML={{ __html: item }}
+            className="mb-1 print:mb-0"
+          />
         ))}
       </ul>
     </div>
@@ -80,18 +86,18 @@ const ResumeItem = ({ title, location, time, desc }: ResumeItemProps) => {
 export default function ResumePage() {
   const resume = loadResumeData();
   return (
-    <div className="bg-white min-h-screen">
-      <div className="max-w-[8.5in] mx-auto p-8 bg-white">
+    <div className="bg-white min-h-screen print:min-h-0">
+      <div className="max-w-[8.5in] mx-auto p-6 print:p-4 bg-white">
         <div>
-          <h1 className="text-4xl font-semibold text-center mb-4">
+          <h1 className="text-2xl print:text-xl font-semibold text-center mb-3 print:mb-2">
             {resume.name}
           </h1>
-          <div className="text-center mb-2">
+          <div className="text-center mb-1 text-sm print:text-xs">
             <span>{resume.address} | </span>
             <span>{resume.tel} | </span>
             <span>{resume.email}</span>
           </div>
-          <div className="text-center mb-6">
+          <div className="text-center mb-4 print:mb-3 text-sm print:text-xs">
             <a href={`http://${resume.github}`} className="hover:underline">
               {resume.github}
             </a>
