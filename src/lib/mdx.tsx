@@ -4,6 +4,7 @@ import matter from 'gray-matter'
 import { fetchPostsFromGitHub, fetchPostBySlugFromGitHub, type GitHubPost, type GitHubRepoConfig } from './github-api'
 
 const blogsDirectory = path.join(process.cwd(), 'content/blogs')
+const notesDirectory = path.join(process.cwd(), 'content/notes')
 
 export interface Post {
   slug: string
@@ -27,13 +28,17 @@ const GITHUB_REPOS: GitHubRepoConfig[] = [
   }
 ]
 
-async function getLocalPosts(): Promise<Post[]> {
-  const fileNames = fs.readdirSync(blogsDirectory)
+async function getLocalPosts(directory: string = blogsDirectory): Promise<Post[]> {
+  if (!fs.existsSync(directory)) {
+    return []
+  }
+  
+  const fileNames = fs.readdirSync(directory)
   const allPostsData = fileNames
     .filter(name => name.endsWith('.mdx'))
     .map((fileName) => {
       const slug = fileName.replace(/\.mdx$/, '')
-      const fullPath = path.join(blogsDirectory, fileName)
+      const fullPath = path.join(directory, fileName)
       const fileContents = fs.readFileSync(fullPath, 'utf8')
       const { data, content } = matter(fileContents)
 
@@ -65,7 +70,7 @@ function convertGitHubPostToPost(githubPost: GitHubPost): Post {
 
 export async function getAllPosts(): Promise<Post[]> {
   const [localPosts, githubPosts] = await Promise.all([
-    getLocalPosts(),
+    getLocalPosts(blogsDirectory),
     fetchPostsFromGitHub(GITHUB_REPOS)
   ])
 
@@ -77,9 +82,13 @@ export async function getAllPosts(): Promise<Post[]> {
   return allPosts.sort((a, b) => (a.date < b.date ? 1 : -1))
 }
 
-async function getLocalPostBySlug(slug: string): Promise<Post | null> {
+export async function getAllNotes(): Promise<Post[]> {
+  return await getLocalPosts(notesDirectory)
+}
+
+async function getLocalPostBySlug(slug: string, directory: string = blogsDirectory): Promise<Post | null> {
   try {
-    const fullPath = path.join(blogsDirectory, `${slug}.mdx`)
+    const fullPath = path.join(directory, `${slug}.mdx`)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
     const { data, content } = matter(fileContents)
 
@@ -97,10 +106,16 @@ async function getLocalPostBySlug(slug: string): Promise<Post | null> {
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
-  // Try local first
-  const localPost = await getLocalPostBySlug(slug)
-  if (localPost) {
-    return localPost
+  // Try blogs first
+  const blogPost = await getLocalPostBySlug(slug, blogsDirectory)
+  if (blogPost) {
+    return blogPost
+  }
+
+  // Try notes
+  const notePost = await getLocalPostBySlug(slug, notesDirectory)
+  if (notePost) {
+    return notePost
   }
 
   // Try GitHub repos
@@ -110,6 +125,10 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   }
 
   return null
+}
+
+export async function getNoteBySlug(slug: string): Promise<Post | null> {
+  return await getLocalPostBySlug(slug, notesDirectory)
 }
 
 // Helper function to add a GitHub repository configuration

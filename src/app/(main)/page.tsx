@@ -25,15 +25,17 @@ export default async function Home() {
           </div>
         </div>
 
-        <Section>
-          <SectionHeader title="Notes" subtitle="Personal notes" ctaUrl="/notes"/>
-          <PostList posts={posts}/>
-        </Section>
+        <div className="mt-16 space-y-16">
+          {/* <Section>
+            <SectionHeader title="Notes" subtitle="Personal notes" ctaUrl="/notes"/>
+            <PostList posts={posts} limit={3}/>
+          </Section> */}
 
-        <Section>
-          <SectionHeader title="Articles" subtitle="Guides, references" ctaUrl="/blogs"/>
-          <PostList posts={posts}/>
-        </Section>
+          <Section>
+            <SectionHeader title="Articles" subtitle="Guides, references" ctaUrl="/blogs"/>
+            <PostList posts={posts} limit={3}/>
+          </Section>
+        </div>
       </div>
     </div>
   );
@@ -45,13 +47,9 @@ function Section({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
-
-        <section className="mb-4">
-          {children}
-        </section>
-
+    <section>
+      {children}
+    </section>
   );
-
 }

@@ -1,13 +1,15 @@
 
-import { Post } from "@/app/(main)/blogs/page";
+import { Post } from "@/lib/mdx";
 import Link from "next/link";
-export function PostList({  posts }: {
+export function PostList({  posts, limit }: {
     posts: ReadonlyArray<Post>
+    limit?: number
   }) {
+    const displayPosts = limit ? posts.slice(0, limit) : posts
     return (
         <div className="w-full">
         <div className="border-l-2 border-border-muted pl-6 space-y-0">
-          {posts.map((post, index) => (
+          {displayPosts.map((post, index) => (
 
             <Link
               key={post.slug} href={`/blogs/${post.slug}`} passHref>

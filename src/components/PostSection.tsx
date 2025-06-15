@@ -1,4 +1,4 @@
-import { Post } from "@/app/(main)/blogs/page";
+import { Post } from "@/lib/mdx";
 import { PostList } from "./post-list";
 
 
