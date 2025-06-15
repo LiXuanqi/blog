@@ -2,11 +2,12 @@ import Hero from "@/components/hero";
 import { PostList } from "@/components/post-list";
 import SectionHeader from "@/components/section-header";
 import { getAllNotes, getAllPosts } from "@/lib/mdx";
+import { SITE_CONFIG } from "@/lib/site-config";
 import Image from "next/image";
 
 export default async function Home() {
-  const articles = await getAllPosts()
-  const notes = await getAllNotes()
+  const articles = await getAllPosts();
+  const notes = await getAllNotes();
   return (
     // TODO: same layout as blogs home page
     <div className="min-h-screen bg-background">
@@ -14,27 +15,38 @@ export default async function Home() {
         {/* About me section */}
         <div className="flex gap-6">
           <div className="w-2/3">
-            <Hero title="Hey, I'm Sam!" content="Backend engineer by day, explorer by night. " />
+            <Hero
+              title={`Hey, I'm ${SITE_CONFIG.name}!`}
+              content={SITE_CONFIG.description}
+            />
           </div>
           <div className="w-1/3">
             <Image
-              src="/home-logo-2.png"
+              src={SITE_CONFIG.assets.profileImage}
               width={500}
               height={500}
-              alt="Picture of the author"
+              alt={`Picture of ${SITE_CONFIG.name}`}
             />
           </div>
         </div>
 
         <div className="mt-16 space-y-16">
           <Section>
-            <SectionHeader title="Notes" subtitle="Personal notes" ctaUrl="/notes"/>
-            <PostList posts={notes} limit={3} urlPrefix="/notes"/>
+            <SectionHeader
+              title={SITE_CONFIG.sections.notes.title}
+              subtitle={SITE_CONFIG.sections.notes.subtitle}
+              ctaUrl="/notes"
+            />
+            <PostList posts={notes} limit={3} urlPrefix="/notes" />
           </Section>
 
           <Section>
-            <SectionHeader title="Articles" subtitle="Guides, references" ctaUrl="/blogs"/>
-            <PostList posts={articles} limit={3}/>
+            <SectionHeader
+              title={SITE_CONFIG.sections.articles.title}
+              subtitle={SITE_CONFIG.sections.articles.subtitle}
+              ctaUrl="/blogs"
+            />
+            <PostList posts={articles} limit={3} />
           </Section>
         </div>
       </div>
@@ -42,15 +54,10 @@ export default async function Home() {
   );
 }
 
-
 function Section({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <section>
-      {children}
-    </section>
-  );
+  return <section>{children}</section>;
 }

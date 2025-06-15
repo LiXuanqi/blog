@@ -1,15 +1,16 @@
 import PostListPage from "@/components/PostListPage";
-import { getAllNotes } from '@/lib/mdx'
+import { getAllNotes } from "@/lib/mdx";
+import { SITE_CONFIG } from "@/lib/site-config";
 
 export default async function NotesPage() {
-    const notes = await getAllNotes()
-    
-    return (
-        <PostListPage 
-            title="Notes" 
-            description="Personal notes, quick thoughts, and learning snippets. A collection of my digital garden."
-            posts={notes}
-            urlPrefix="/notes"
-        />
-    );
+  const notes = await getAllNotes();
+
+  return (
+    <PostListPage
+      title={SITE_CONFIG.notes.title}
+      description={SITE_CONFIG.notes.description}
+      posts={notes}
+      urlPrefix="/notes"
+    />
+  );
 }

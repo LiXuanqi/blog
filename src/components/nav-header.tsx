@@ -9,6 +9,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { ModeToggle } from "@/components/ui/mode-toggle";
+import { SITE_CONFIG } from "@/lib/site-config";
 
 export default function NavHeader() {
   return (
@@ -17,10 +18,10 @@ export default function NavHeader() {
         <Link href="/" className="text-xl font-bold">
           <div className="flex items-center">
             <Image
-              src="/logo.png"
+              src={SITE_CONFIG.assets.logo}
               width={50}
               height={50}
-              alt="Picture of the author"
+              alt={`${SITE_CONFIG.name} logo`}
             />
             {/* <span>1x7</span> */}
           </div>
@@ -38,8 +39,9 @@ function NavTabs() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        <NavItem text="Blog" url="/blogs" />
-        <NavItem text="Notes" url="/notes" />
+        {SITE_CONFIG.navigation.map((item) => (
+          <NavItem key={item.url} text={item.text} url={item.url} />
+        ))}
       </NavigationMenuList>
     </NavigationMenu>
   );
