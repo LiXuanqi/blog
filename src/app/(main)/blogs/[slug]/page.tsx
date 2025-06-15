@@ -3,7 +3,10 @@ import { getAllPosts, getPostBySlug } from "@/lib/mdx";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { notFound } from "next/navigation";
 import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
 import rehypeShiki from '@shikijs/rehype'
+import rehypeKatex from 'rehype-katex'
+import 'katex/dist/katex.min.css'
 
 interface PageProps {
     params: { slug: string }
@@ -30,9 +33,11 @@ export default async function BlogPage({ params }: PageProps) {
                     components={MDX_COMPONENTS}
                     options={{
                         mdxOptions: {
-                            // Github markdown flavor
-                            remarkPlugins: [remarkGfm],
+                            // Github markdown flavor + math support
+                            remarkPlugins: [remarkGfm, remarkMath],
                             rehypePlugins: [
+                                // Math rendering
+                                rehypeKatex,
                                 // Code highlight
                                 [rehypeShiki, {
                                     themes: {
@@ -51,7 +56,8 @@ export default async function BlogPage({ params }: PageProps) {
                                         'bash',
                                         'python',
                                         'go',
-                                        'rust'
+                                        'rust',
+                                        'java'
                                     ],
                                     inline: 'tailing-curly-colon',
                                 }]
