@@ -1,7 +1,11 @@
 ---
 title: Union Find
 date: 2023-12-02
+description: "Hello World"
+tags: ["Algorithm"]
+visible: true
 ---
+
 ## Introduction
 
 Union-Find, also known as **Disjoint-Set** Data Structure, is a data structure that helps solve the problem of partitioning a set into disjoint subsets. It provides efficient operations to determine whether two elements belong to the same subset and to merge (or union) two subsets together.

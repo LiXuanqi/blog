@@ -10,9 +10,12 @@ export interface Post {
   slug: string;
   title: string;
   date: string;
-  excerpt: string;
   content: string;
   tags?: string[];
+  // Optional fields that may exist in frontmatter
+  description?: string; // Used in both blogs and notes
+  visible?: boolean; // Used for draft/publish control
+  // GitHub integration fields
   source?: "local" | "github";
   repo?: string;
   path?: string;
@@ -39,9 +42,9 @@ async function getLocalPosts(
 
   const fileNames = fs.readdirSync(directory);
   const allPostsData = fileNames
-    .filter((name) => name.endsWith(".mdx"))
+    .filter((name) => name.endsWith(".mdx") || name.endsWith(".md"))
     .map((fileName) => {
-      const slug = fileName.replace(/\.mdx$/, "");
+      const slug = fileName.replace(/\.(mdx?|md)$/, "");
       const fullPath = path.join(directory, fileName);
       const fileContents = fs.readFileSync(fullPath, "utf8");
       const { data, content } = matter(fileContents);
@@ -51,13 +54,19 @@ async function getLocalPosts(
         content,
         title: data.title,
         date: data.date,
-        excerpt: data.excerpt,
         tags: Array.isArray(data.tags) ? data.tags : [],
+        description: data.description,
+        visible: data.visible,
         source: "local" as const,
       };
     });
 
   return allPostsData.sort((a, b) => (a.date < b.date ? 1 : -1));
+}
+
+// Helper function to filter visible posts
+function filterVisiblePosts(posts: Post[]): Post[] {
+  return posts.filter((post) => post.visible !== false);
 }
 
 // function convertGitHubPostToPost(githubPost: GitHubPost): Post {
@@ -91,34 +100,48 @@ export async function getAllPosts(): Promise<Post[]> {
   //
   // return allPosts.sort((a, b) => (a.date < b.date ? 1 : -1))
 
-  return localPosts.sort((a, b) => (a.date < b.date ? 1 : -1));
+  // Filter out posts that are marked as not visible
+  const visiblePosts = filterVisiblePosts(localPosts);
+  return visiblePosts.sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
 export async function getAllNotes(): Promise<Post[]> {
-  return await getLocalPosts(notesDirectory);
+  const localNotes = await getLocalPosts(notesDirectory);
+  // Filter out notes that are marked as not visible
+  const visibleNotes = filterVisiblePosts(localNotes);
+  return visibleNotes.sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
 async function getLocalPostBySlug(
   slug: string,
   directory: string = blogsDirectory,
 ): Promise<Post | null> {
-  try {
-    const fullPath = path.join(directory, `${slug}.mdx`);
-    const fileContents = fs.readFileSync(fullPath, "utf8");
-    const { data, content } = matter(fileContents);
+  // Try both .mdx and .md extensions
+  const extensions = [".mdx", ".md"];
 
-    return {
-      slug,
-      content,
-      title: data.title,
-      date: data.date,
-      excerpt: data.excerpt,
-      tags: Array.isArray(data.tags) ? data.tags : [],
-      source: "local" as const,
-    };
-  } catch {
-    return null;
+  for (const ext of extensions) {
+    try {
+      const fullPath = path.join(directory, `${slug}${ext}`);
+      const fileContents = fs.readFileSync(fullPath, "utf8");
+      const { data, content } = matter(fileContents);
+
+      return {
+        slug,
+        content,
+        title: data.title,
+        date: data.date,
+        tags: Array.isArray(data.tags) ? data.tags : [],
+        description: data.description,
+        visible: data.visible,
+        source: "local" as const,
+      };
+    } catch {
+      // Continue to next extension
+      continue;
+    }
   }
+
+  return null;
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {

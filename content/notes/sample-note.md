@@ -1,8 +1,9 @@
 ---
 title: Sample Note
 date: 2024-01-15
-excerpt: This is a sample note to demonstrate the notes functionality
+description: This is a sample note to demonstrate the notes functionality
 tags: ["notes", "learning", "demo"]
+visible: true
 ---
 
 # Sample Note

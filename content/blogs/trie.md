@@ -1,8 +1,11 @@
 ---
 title: Trie
 date: 2024-01-10
-tags: ["data-structures", "algorithms", "trees", "strings"]
+description: "Hello World"
+tags: ["Algorithm"]
+visible: true
 ---
+
 ## Introduction
 
 Trie, also known as a prefix tree, is a data structure used for efficient retrieval of strings or words, particularly when there is a need for prefix-based operations. e.g. Autocomplete
