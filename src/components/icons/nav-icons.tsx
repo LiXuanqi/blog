@@ -55,3 +55,15 @@ export const ResumeIcon: React.FC<IconProps> = ({
     <circle cx="7" cy="3" r="1" fill="#EF4444" />
   </svg>
 );
+
+export const BookmarksIcon: React.FC<IconProps> = ({
+  size = 16,
+  className = "",
+}) => (
+  <svg width={size} height={size} viewBox="0 0 16 16" className={className}>
+    <rect x="4" y="2" width="8" height="12" fill="#F59E0B" rx="1" />
+    <polygon points="8,2 8,8 6,6 4,8 4,2" fill="#DC2626" />
+    <rect x="6" y="10" width="4" height="1" fill="#FFFFFF" />
+    <rect x="6" y="12" width="3" height="1" fill="#FFFFFF" />
+  </svg>
+);

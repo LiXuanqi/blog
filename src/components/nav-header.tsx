@@ -10,7 +10,12 @@ import {
 } from "@/components/ui/navigation-menu";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { SITE_CONFIG } from "@/lib/site-config";
-import { BlogIcon, NotesIcon, ResumeIcon } from "@/components/icons/nav-icons";
+import {
+  BlogIcon,
+  NotesIcon,
+  ResumeIcon,
+  BookmarksIcon,
+} from "@/components/icons/nav-icons";
 
 export default function NavHeader() {
   return (
@@ -68,6 +73,8 @@ function NavItem({
         return <BlogIcon size={16} />;
       case "notes":
         return <NotesIcon size={16} />;
+      case "bookmarks":
+        return <BookmarksIcon size={16} />;
       case "resume":
         return <ResumeIcon size={16} />;
       default:
