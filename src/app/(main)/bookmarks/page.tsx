@@ -78,7 +78,7 @@ function BookmarkItem({ bookmark }: { bookmark: Bookmark }) {
         </Link>
       </HoverCardTrigger>
       {(bookmark.description || bookmark.url) && (
-        <HoverCardContent className="w-80">
+        <HoverCardContent className="w-80" align="start" sideOffset={8}>
           <Link
             href={bookmark.url}
             target="_blank"
