@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { SITE_CONFIG } from "@/lib/site-config";
+import { BlogIcon, NotesIcon, ResumeIcon } from "@/components/icons/nav-icons";
 
 export default function NavHeader() {
   return (
@@ -40,18 +41,49 @@ function NavTabs() {
     <NavigationMenu>
       <NavigationMenuList>
         {SITE_CONFIG.navigation.map((item) => (
-          <NavItem key={item.url} text={item.text} url={item.url} />
+          <NavItem
+            key={item.url}
+            text={item.text}
+            url={item.url}
+            icon={item.icon}
+          />
         ))}
       </NavigationMenuList>
     </NavigationMenu>
   );
 }
 
-function NavItem({ text, url }: { text: string; url: string }) {
+function NavItem({
+  text,
+  url,
+  icon,
+}: {
+  text: string;
+  url: string;
+  icon?: string;
+}) {
+  const getIcon = (iconName?: string) => {
+    switch (iconName) {
+      case "blog":
+        return <BlogIcon size={16} />;
+      case "notes":
+        return <NotesIcon size={16} />;
+      case "resume":
+        return <ResumeIcon size={16} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <NavigationMenuItem>
       <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-        <Link href={url}>{text}</Link>
+        <Link href={url}>
+          <div className="flex items-center gap-2">
+            {icon && <span className="flex items-center">{getIcon(icon)}</span>}
+            <span className="leading-none">{text}</span>
+          </div>
+        </Link>
       </NavigationMenuLink>
     </NavigationMenuItem>
   );
