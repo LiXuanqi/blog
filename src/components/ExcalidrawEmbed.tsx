@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ExcalidrawElement } from "@excalidraw/excalidraw/types/element/types";
-import { AppState } from "@excalidraw/excalidraw/types/types";
 import "@excalidraw/excalidraw/index.css";
 
 interface ExcalidrawEmbedProps {
@@ -12,8 +10,8 @@ interface ExcalidrawEmbedProps {
 }
 
 interface ExcalidrawData {
-  elements: ExcalidrawElement[];
-  appState: Partial<AppState>;
+  elements: unknown[];
+  appState: Record<string, unknown>;
 }
 
 export function ExcalidrawEmbed({
