@@ -3,7 +3,7 @@ import { SvglIcon } from "@/components/icons/bookmark-icons";
 interface Bookmark {
   title: string;
   url: string;
-  icon: string;
+  icon?: string;
   description?: string;
 }
 
@@ -13,6 +13,10 @@ const bookmarks: Bookmark[] = [
     url: "https://svgl.app",
     icon: "svgl",
     description: "SVG logos",
+  },
+  {
+    title: "transform",
+    url: "https://transform.tools/",
   },
 ];
 
@@ -36,7 +40,9 @@ export default function BookmarksPage() {
 }
 
 function BookmarkItem({ bookmark }: { bookmark: Bookmark }) {
-  const getIcon = (iconName: string) => {
+  const getIcon = (iconName?: string) => {
+    if (!iconName) return null;
+
     switch (iconName) {
       case "svgl":
         return <SvglIcon />;
@@ -44,6 +50,8 @@ function BookmarkItem({ bookmark }: { bookmark: Bookmark }) {
         return null;
     }
   };
+
+  const icon = getIcon(bookmark.icon);
 
   return (
     <a
@@ -53,9 +61,11 @@ function BookmarkItem({ bookmark }: { bookmark: Bookmark }) {
       className="block p-3 border border-border rounded-lg hover:bg-muted/50 transition-colors group"
     >
       <div className="flex items-center gap-3">
-        <span className="flex-shrink-0 group-hover:scale-110 transition-transform">
-          {getIcon(bookmark.icon)}
-        </span>
+        {icon && (
+          <span className="flex-shrink-0 group-hover:scale-110 transition-transform">
+            {icon}
+          </span>
+        )}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
             <h3 className="font-medium text-foreground group-hover:text-primary transition-colors">
