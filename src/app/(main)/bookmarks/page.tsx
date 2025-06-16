@@ -13,37 +13,88 @@ interface Bookmark {
   description?: string;
 }
 
-const bookmarks: Bookmark[] = [
+interface BookmarkSection {
+  title: string;
+  description?: string;
+  bookmarks: Bookmark[];
+}
+
+const bookmarkSections: BookmarkSection[] = [
   {
-    title: "svgl",
-    url: "https://svgl.app",
-    icon: "svgl",
-    description: "SVG logos",
+    title: "Tools",
+    bookmarks: [
+      {
+        title: "svgl",
+        url: "https://svgl.app",
+        icon: "svgl",
+        description: "SVG logos collection",
+      },
+      {
+        title: "transform",
+        url: "https://transform.tools/",
+        description: "Transform data between formats",
+      },
+    ],
   },
   {
-    title: "transform",
-    url: "https://transform.tools/",
-    description: "Transform data",
+    title: "Articles",
+    bookmarks: [
+      {
+        title: "React Documentation",
+        url: "https://react.dev",
+        description: "Official React documentation",
+      },
+      {
+        title: "Next.js Docs",
+        url: "https://nextjs.org/docs",
+        description: "Next.js framework documentation",
+      },
+    ],
+  },
+  {
+    title: "Talks",
+    bookmarks: [
+      {
+        title: "Tailwind CSS",
+        url: "https://tailwindcss.com",
+        description: "Utility-first CSS framework",
+      },
+      {
+        title: "shadcn/ui",
+        url: "https://ui.shadcn.com",
+        description: "Beautiful UI components",
+      },
+    ],
   },
 ];
 
 export default function BookmarksPage() {
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">
-      <div className="mb-8">
+      <div className="mb-12">
         <h1 className="text-3xl font-bold mb-4">Bookmarks</h1>
         <p className="text-muted-foreground">
           A curated collection of useful development resources and tools.
         </p>
       </div>
 
-      <ul className="space-y-1">
-        {bookmarks.map((bookmark, index) => (
-          <li key={index}>
-            <BookmarkItem bookmark={bookmark} />
-          </li>
+      <div className="space-y-12">
+        {bookmarkSections.map((section, sectionIndex) => (
+          <section key={sectionIndex}>
+            <div className="mb-6">
+              <h2 className="text-2xl font-semibold mb-2">{section.title}</h2>
+            </div>
+
+            <ul className="space-y-2">
+              {section.bookmarks.map((bookmark, bookmarkIndex) => (
+                <li key={bookmarkIndex}>
+                  <BookmarkItem bookmark={bookmark} />
+                </li>
+              ))}
+            </ul>
+          </section>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

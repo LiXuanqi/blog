@@ -246,6 +246,16 @@ $$
 $$
 ```
 
+### Excalidraw Diagrams
+
+Embed interactive diagrams using Excalidraw:
+
+```mdx
+// Load from .excalidraw file in public folder
+
+<ExcalidrawEmbed src="/my-drawing.excalidraw" height={600} />
+```
+
 ## 🚀 Deployment
 
 The project is optimized for deployment on platforms like Vercel, Netlify, or any Node.js hosting service.
