@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { generateSlug } from "@/lib/toc";
+import { ExcalidrawEmbed } from "./ExcalidrawEmbed";
 
 interface MDXComponentProps {
   children?: ReactNode;
@@ -97,4 +98,17 @@ export const MDX_COMPONENTS = {
       {children}
     </ul>
   ),
+
+  // Excalidraw component
+  ExcalidrawEmbed: ({
+    data,
+    src,
+    height,
+    ...props
+  }: {
+    data?: string;
+    src?: string;
+    height?: number;
+    [key: string]: unknown;
+  }) => <ExcalidrawEmbed data={data} src={src} height={height} {...props} />,
 };

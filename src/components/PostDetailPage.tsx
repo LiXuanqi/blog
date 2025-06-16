@@ -78,9 +78,6 @@ export default function PostDetailPage({ post }: PostDetailPageProps) {
         {/* Right Sidebar */}
         <aside className="hidden lg:block lg:w-64 xl:w-72 border-l border-border pl-6 lg:pl-8">
           <div className="sticky top-24 space-y-8">
-            {/* Table of Contents */}
-            <TableOfContents items={tocItems} variant="sidebar" />
-
             {/* Tags */}
             {post.tags && post.tags.length > 0 && (
               <div>
@@ -96,6 +93,9 @@ export default function PostDetailPage({ post }: PostDetailPageProps) {
                 </div>
               </div>
             )}
+
+            {/* Table of Contents */}
+            <TableOfContents items={tocItems} variant="sidebar" />
           </div>
         </aside>
       </div>
