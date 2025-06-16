@@ -1,4 +1,10 @@
+import Link from "next/link";
 import { SvglIcon } from "@/components/icons/bookmark-icons";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 interface Bookmark {
   title: string;
@@ -17,6 +23,7 @@ const bookmarks: Bookmark[] = [
   {
     title: "transform",
     url: "https://transform.tools/",
+    description: "Transform data",
   },
 ];
 
@@ -30,11 +37,13 @@ export default function BookmarksPage() {
         </p>
       </div>
 
-      <div className="space-y-4">
+      <ul className="space-y-1">
         {bookmarks.map((bookmark, index) => (
-          <BookmarkItem key={index} bookmark={bookmark} />
+          <li key={index}>
+            <BookmarkItem bookmark={bookmark} />
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
@@ -54,34 +63,42 @@ function BookmarkItem({ bookmark }: { bookmark: Bookmark }) {
   const icon = getIcon(bookmark.icon);
 
   return (
-    <a
-      href={bookmark.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block p-3 border border-border rounded-lg hover:bg-muted/50 transition-colors group"
-    >
-      <div className="flex items-center gap-3">
-        {icon && (
-          <span className="flex-shrink-0 group-hover:scale-110 transition-transform">
-            {icon}
-          </span>
-        )}
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2">
-            <h3 className="font-medium text-foreground group-hover:text-primary transition-colors">
-              {bookmark.title}
-            </h3>
-            <span className="text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity">
-              ↗
-            </span>
+    <HoverCard>
+      <HoverCardTrigger asChild>
+        <Link
+          href={bookmark.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block py-1 text-primary hover:underline"
+        >
+          <div className="flex">
+            {icon && <div className="flex-shrink-0 mt-0.5 pr-2">{icon}</div>}
+            {bookmark.title}
           </div>
-          {bookmark.description && (
-            <p className="text-sm text-muted-foreground mt-1">
-              {bookmark.description}
-            </p>
-          )}
-        </div>
-      </div>
-    </a>
+        </Link>
+      </HoverCardTrigger>
+      {(bookmark.description || bookmark.url) && (
+        <HoverCardContent className="w-80">
+          <Link
+            href={bookmark.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-start gap-3 hover:bg-muted/20 rounded p-1 -m-1 transition-colors block"
+          >
+            {icon && <div className="flex-shrink-0 mt-0.5">{icon}</div>}
+            <div className="flex-1 space-y-1">
+              {bookmark.description && (
+                <p className="text-sm text-foreground">
+                  {bookmark.description}
+                </p>
+              )}
+              <p className="text-xs text-primary font-mono break-all">
+                {bookmark.url}
+              </p>
+            </div>
+          </Link>
+        </HoverCardContent>
+      )}
+    </HoverCard>
   );
 }
