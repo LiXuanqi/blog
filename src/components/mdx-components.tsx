@@ -101,14 +101,12 @@ export const MDX_COMPONENTS = {
 
   // Excalidraw component
   ExcalidrawEmbed: ({
-    data,
     src,
     height,
     ...props
   }: {
-    data?: string;
     src?: string;
     height?: number;
     [key: string]: unknown;
-  }) => <ExcalidrawEmbed data={data} src={src} height={height} {...props} />,
+  }) => <ExcalidrawEmbed src={src} height={height} {...props} />,
 };

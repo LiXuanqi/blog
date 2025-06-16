@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import "@excalidraw/excalidraw/index.css";
 
 interface ExcalidrawEmbedProps {
-  data?: string; // JSON string of excalidraw data
   src?: string; // Path to .excalidraw file
   height?: number;
 }
@@ -14,11 +13,7 @@ interface ExcalidrawData {
   appState: Record<string, unknown>;
 }
 
-export function ExcalidrawEmbed({
-  data,
-  src,
-  height = 400,
-}: ExcalidrawEmbedProps) {
+export function ExcalidrawEmbed({ src, height = 400 }: ExcalidrawEmbedProps) {
   const [excalidrawData, setExcalidrawData] = useState<ExcalidrawData>({
     elements: [],
     appState: {},
@@ -33,20 +28,9 @@ export function ExcalidrawEmbed({
     });
   }, []);
 
-  // Parse initial data or fetch from file
+  // Fetch excalidraw file
   useEffect(() => {
-    if (data) {
-      try {
-        const parsedData = JSON.parse(data);
-        setExcalidrawData({
-          elements: parsedData.elements || [],
-          appState: parsedData.appState || {},
-        });
-      } catch (error) {
-        console.error("Failed to parse Excalidraw data:", error);
-      }
-    } else if (src) {
-      // Fetch the .excalidraw file
+    if (src) {
       fetch(src)
         .then((response) => response.json())
         .then((parsedData) => {
@@ -59,7 +43,7 @@ export function ExcalidrawEmbed({
           console.error("Failed to fetch Excalidraw file:", error);
         });
     }
-  }, [data, src]);
+  }, [src]);
 
   if (!ExcalidrawComponent) {
     return (
