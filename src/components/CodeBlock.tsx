@@ -31,7 +31,7 @@ export function CodeBlock({ children, ...props }: CodeBlockProps) {
   };
 
   return (
-    <div className="relative group my-6">
+    <div className="relative group my-6 bg-card dark:bg-[#24292e] border border-border rounded-lg shadow-sm">
       {/* Copy button */}
       <Button
         size="sm"
