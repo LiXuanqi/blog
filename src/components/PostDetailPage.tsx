@@ -64,8 +64,20 @@ export default function PostDetailPage({ post }: PostDetailPageProps) {
                           "go",
                           "rust",
                           "java",
+                          "yaml",
+                          "sql",
+                          "dockerfile",
                         ],
                         inline: "tailing-curly-colon",
+                        transformers: [
+                          {
+                            name: "add-copy-button",
+                            pre(node) {
+                              // Add data attributes for copy functionality
+                              node.properties["data-code-block"] = true;
+                            },
+                          },
+                        ],
                       },
                     ],
                   ],

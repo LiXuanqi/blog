@@ -131,3 +131,47 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Enhanced code block styling */
+@layer components {
+  /* Ensure shiki code blocks have proper line height and padding */
+  .shiki {
+    @apply !bg-transparent;
+  }
+
+  /* Style for inline code (not inside pre blocks) */
+  :not(pre) > code {
+    @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono font-medium text-foreground;
+  }
+
+  /* Ensure code inside pre blocks is not affected */
+  pre code {
+    @apply bg-transparent p-0 rounded-none;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+  }
+
+  /* Improve code block line numbers if used */
+  .shiki .line {
+    @apply px-0;
+  }
+
+  /* Custom scrollbar for code blocks */
+  pre::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  pre::-webkit-scrollbar-track {
+    @apply bg-muted/30 rounded;
+  }
+
+  pre::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded;
+  }
+
+  pre::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+}

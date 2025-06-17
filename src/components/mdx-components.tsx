@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { generateSlug } from "@/lib/toc";
 import { ExcalidrawEmbed } from "./ExcalidrawEmbed";
+import { CodeBlock } from "./CodeBlock";
 
 interface MDXComponentProps {
   children?: ReactNode;
@@ -79,18 +80,11 @@ export const MDX_COMPONENTS = {
       {children}
     </blockquote>
   ),
-  // inline code
-  // code: ({ children, ...props }: MDXComponentProps) => (
-  //     <code className="bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold" {...props}>
-  //         {children}
-  //     </code>
-  // ),
+  // inline code - removed to prevent conflict with code blocks
+  // Inline code styling is handled via CSS: :not(pre) > code
   // code block
-  // TODO
   pre: ({ children, ...props }: MDXComponentProps) => (
-    <pre className="overflow-x-auto mb-4 rounded-lg" {...props}>
-      {children}
-    </pre>
+    <CodeBlock {...props}>{children}</CodeBlock>
   ),
 
   ul: ({ children, ...props }: MDXComponentProps) => (
