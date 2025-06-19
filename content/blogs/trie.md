@@ -14,13 +14,14 @@ It has 3 main operations:
 
 - insert(word): add a new word to trie.
 - find(word): determine if a given word exists in the trie.
-- start_with(): find all words in the trie that have a given prefix
+- start_with(prefix): find all words in the trie that have a given prefix
 
 ## TrieNode
 
-Bellow is a trie which stores words: app, apple, apply and boy
+Bellow is a trie which stores words: **app, apple, apply and boy**
 
-![TrieNode](/trie.png)
+  <img src="/trie.png" alt="Trie Node" width={600} height={600} />
+
 
 In a trie, each node represents a character or a partial string. The root node represents an empty string, and each additional node represents a character or a combination of characters that form a prefix or complete word. **The edges between nodes represent the characters that lead from one node to another.**
 
