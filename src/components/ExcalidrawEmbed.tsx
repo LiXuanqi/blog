@@ -65,7 +65,7 @@ export function ExcalidrawEmbed({ src, height = 400 }: ExcalidrawEmbedProps) {
       // Use a small delay to ensure the component is fully rendered
       const timer = setTimeout(() => {
         try {
-          excalidrawAPI.scrollToContent(null, {
+          excalidrawAPI.scrollToContent(excalidrawData.elements, {
             fitToContent: true,
             animate: true,
             duration: 300,
