@@ -1,5 +1,5 @@
 ---
-title: Design review website like Yelp
+title: Design Review Website Like Yelp
 date: 2025-06-19
 description: ""
 tags: ["System Design"]
@@ -8,23 +8,23 @@ visible: true
 
 ## Requirements
 
-**Functional requirements**
+**Functional Requirements**
 
-- User can search the business by name, category, location
-- User can rate the business with rating (1-5 scores) and optional comments
-- User can see average score if the business with up to 60-second data latency.
+- Users can search for businesses by name, category, and location
+- Users can rate businesses with a rating (1-5 stars) and optional comments
+- Users can see the average score of businesses with up to 60-second data latency
 
-**Non-functional requirements**
+**Non-functional Requirements**
 
-- Availability > Consistency: reading the stale score and comments is fine.
-- Low latency ({'<'}500ms>) for business search
-- DAU: 1M. Peak DAU: 3M
+- Availability > Consistency: reading stale scores and comments is acceptable
+- Low latency ({'<'}500ms) for business search
+- DAU: 1M, Peak DAU: 3M
 
-## Core entities
+## Core Entities
 
 - User: name, ...
 - Business: name, category, location, avgScore
-- Rate: score, comment, businessId, userId
+- Rating: score, comment, businessId, userId
 
 ## APIs
 
@@ -32,32 +32,36 @@ visible: true
 - GET `/businesses/:businessId/ratings`
 - POST `/businesses/:businessId/ratings` body: `{score, comment}`
 
-## High-level design
+## High-level Design
 
 <ExcalidrawEmbed height={600} src="/yelp-high-level.excalidraw" />
 
-## Deep dive
+## Deep Dive
 
-### How to handle average score?
+### How to Handle Average Score?
 
-- "60-second data latency" is the requirement.
-- offline (cron job per minute, Flink) works, but it's overkill.
-- If each business has avgScore and totalRateCount, we can do a math per write operation.
+The requirement allows for 60-second data latency. An offline approach (cron job per minute, Flink) would work, but it's overkill for this scale.
 
-`(avgScore * totalRateCount) * newScore / (totalRateCount) + 1`
+If each business stores `avgScore` and `totalRatingCount`, we can calculate the new average on each write operation:
 
-It requires modifying 2 tables, business, rating, so we need transaction.
+```
+newAvgScore = (avgScore × totalRatingCount + newScore) / (totalRatingCount + 1)
+```
+
+This requires modifying two tables (business and rating), so we need a transaction:
 
 ```sql
 BEGIN TRANSACTION;
 
-INSERT ... INTO RATING;
-UPDATE ... IN BUSINESS;
+INSERT ... INTO rating;
+UPDATE ... SET avg_score = ..., total_rating_count = ... WHERE business_id = ...;
 
 COMMIT;
 ```
 
-### How to handle concurrent write?
+### How to Handle Concurrent Writes?
 
-- lock the row
-- optimistic transaction
+Two main approaches:
+
+- **Row locking**: Lock the business row during updates
+- **Optimistic concurrency control**: Use version numbers and retry on conflicts
