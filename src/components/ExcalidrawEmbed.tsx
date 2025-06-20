@@ -8,6 +8,17 @@ interface ExcalidrawEmbedProps {
   height?: number;
 }
 
+interface ExcalidrawAPI {
+  scrollToContent: (
+    elements?: unknown[] | null,
+    options?: {
+      fitToContent?: boolean;
+      animate?: boolean;
+      duration?: number;
+    },
+  ) => void;
+}
+
 interface ExcalidrawData {
   elements: unknown[];
   appState: Record<string, unknown>;
@@ -20,6 +31,9 @@ export function ExcalidrawEmbed({ src, height = 400 }: ExcalidrawEmbedProps) {
   });
   const [ExcalidrawComponent, setExcalidrawComponent] =
     useState<React.ComponentType<Record<string, unknown>> | null>(null);
+  const [excalidrawAPI, setExcalidrawAPI] = useState<ExcalidrawAPI | null>(
+    null,
+  );
 
   // Dynamically import Excalidraw
   useEffect(() => {
@@ -45,6 +59,26 @@ export function ExcalidrawEmbed({ src, height = 400 }: ExcalidrawEmbedProps) {
     }
   }, [src]);
 
+  // Auto-fit content when API is available and data is loaded
+  useEffect(() => {
+    if (excalidrawAPI && excalidrawData.elements.length > 0) {
+      // Use a small delay to ensure the component is fully rendered
+      const timer = setTimeout(() => {
+        try {
+          excalidrawAPI.scrollToContent(null, {
+            fitToContent: true,
+            animate: true,
+            duration: 300,
+          });
+        } catch (error) {
+          console.warn("Failed to auto-fit content:", error);
+        }
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+  }, [excalidrawAPI, excalidrawData.elements]);
+
   if (!ExcalidrawComponent) {
     return (
       <div className="my-6 border border-border rounded-lg overflow-hidden">
@@ -62,12 +96,14 @@ export function ExcalidrawEmbed({ src, height = 400 }: ExcalidrawEmbedProps) {
     <div className="my-6 border border-border rounded-lg overflow-hidden">
       <div style={{ height: `${height}px` }}>
         <ExcalidrawComponent
+          excalidrawAPI={(api: ExcalidrawAPI) => setExcalidrawAPI(api)}
           initialData={{
             elements: excalidrawData.elements,
             appState: {
               ...excalidrawData.appState,
               viewModeEnabled: true,
             },
+            scrollToContent: true,
           }}
           viewModeEnabled={true}
           theme="auto"
