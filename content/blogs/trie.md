@@ -22,7 +22,6 @@ Bellow is a trie which stores words: **app, apple, apply and boy**
 
   <img src="/trie.png" alt="Trie Node" width={600} height={600} />
 
-
 In a trie, each node represents a character or a partial string. The root node represents an empty string, and each additional node represents a character or a combination of characters that form a prefix or complete word. **The edges between nodes represent the characters that lead from one node to another.**
 
 ```python
@@ -71,3 +70,4 @@ def find(self, word):
 
 - [LC208](https://leetcode.com/problems/implement-trie-prefix-tree/description/)
 - [LC1166](https://leetcode.com/problems/design-file-system/)
+- [LC1268](https://leetcode.com/problems/search-suggestions-system/)
