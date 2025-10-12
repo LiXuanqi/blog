@@ -27,7 +27,7 @@ export const MDX_COMPONENTS = {
     return (
       <h1
         id={id}
-        className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance"
+        className="scroll-m-20 text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 mb-6 mt-0"
         {...props}
       >
         {children}
@@ -39,7 +39,7 @@ export const MDX_COMPONENTS = {
     return (
       <h2
         id={id}
-        className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0"
+        className="scroll-m-20 text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 first:mt-0 mt-12 mb-6"
         {...props}
       >
         {children}
@@ -51,7 +51,7 @@ export const MDX_COMPONENTS = {
     return (
       <h3
         id={id}
-        className="scroll-m-20 text-2xl font-semibold tracking-tight"
+        className="scroll-m-20 text-xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 mt-10 mb-4"
         {...props}
       >
         {children}
@@ -63,7 +63,7 @@ export const MDX_COMPONENTS = {
     return (
       <h4
         id={id}
-        className="scroll-m-20 text-xl font-semibold tracking-tight"
+        className="scroll-m-20 text-lg font-semibold tracking-tight text-gray-900 dark:text-gray-100 mt-6 mb-3"
         {...props}
       >
         {children}
@@ -71,12 +71,18 @@ export const MDX_COMPONENTS = {
     );
   },
   p: ({ children, ...props }: MDXComponentProps) => (
-    <p className="leading-7 [&:not(:first-child)]:mt-6" {...props}>
+    <p
+      className="leading-7 text-gray-700 dark:text-gray-300 [&:not(:first-child)]:mt-6 mb-6"
+      {...props}
+    >
       {children}
     </p>
   ),
   blockquote: ({ children, ...props }: MDXComponentProps) => (
-    <blockquote className="mt-6 border-l-2 pl-6 italic" {...props}>
+    <blockquote
+      className="my-6 border-l-4 border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800/50 pl-6 pr-4 py-4 text-gray-700 dark:text-gray-300 rounded-r-lg"
+      {...props}
+    >
       {children}
     </blockquote>
   ),
@@ -88,9 +94,49 @@ export const MDX_COMPONENTS = {
   ),
 
   ul: ({ children, ...props }: MDXComponentProps) => (
-    <ul className="my-6 ml-6 list-disc [&>li]:mt-2" {...props}>
+    <ul className="my-6 space-y-3 text-gray-700 dark:text-gray-300" {...props}>
       {children}
     </ul>
+  ),
+
+  ol: ({ children, ...props }: MDXComponentProps) => (
+    <ol className="my-6 space-y-3 text-gray-700 dark:text-gray-300" {...props}>
+      {children}
+    </ol>
+  ),
+
+  li: ({ children, ...props }: MDXComponentProps) => (
+    <li
+      className="leading-7 relative pl-6 before:content-['•'] before:absolute before:left-0 before:text-gray-400 dark:before:text-gray-500 before:font-bold"
+      {...props}
+    >
+      {children}
+    </li>
+  ),
+
+  strong: ({ children, ...props }: MDXComponentProps) => (
+    <strong
+      className="font-semibold text-gray-900 dark:text-gray-100"
+      {...props}
+    >
+      {children}
+    </strong>
+  ),
+
+  em: ({ children, ...props }: MDXComponentProps) => (
+    <em className="italic text-gray-600 dark:text-gray-400" {...props}>
+      {children}
+    </em>
+  ),
+
+  a: ({ children, href, ...props }: MDXComponentProps & { href?: string }) => (
+    <a
+      href={href}
+      className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors no-underline hover:underline"
+      {...props}
+    >
+      {children}
+    </a>
   ),
 
   // Excalidraw component

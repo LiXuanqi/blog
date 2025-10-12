@@ -19,19 +19,21 @@ export default function PostDetailPage({ post }: PostDetailPageProps) {
   const tocItems = processTocItems(extractTocFromMarkdown(post.content));
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <div className="flex gap-6 lg:gap-8">
+    <div className="max-w-6xl mx-auto px-6 py-12">
+      <div className="flex gap-8 lg:gap-12">
         {/* Main Content */}
-        <article className="flex-1 lg:max-w-none">
-          <header className="mb-8">
-            <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+        <article className="flex-1 min-w-0">
+          <header className="mb-12">
+            <h1 className="text-4xl font-bold mb-6 text-gray-900 dark:text-gray-100">
+              {post.title}
+            </h1>
             {/* <p className="text-gray-600">{post.date}</p> */}
           </header>
 
           {/* Mobile TOC */}
           <TableOfContents items={tocItems} variant="mobile" />
 
-          <div className="prose prose-lg max-w-none dark:prose-invert">
+          <div className="max-w-none">
             <MDXRemote
               source={post.content}
               components={MDX_COMPONENTS}
@@ -88,7 +90,7 @@ export default function PostDetailPage({ post }: PostDetailPageProps) {
         </article>
 
         {/* Right Sidebar */}
-        <aside className="hidden lg:block lg:w-64 xl:w-72 border-l border-border pl-6 lg:pl-8">
+        <aside className="hidden lg:block lg:w-64 xl:w-72 border-l border-gray-200 dark:border-gray-700 pl-8">
           <div className="sticky top-24 space-y-8">
             {/* Tags */}
             {post.tags && post.tags.length > 0 && (

@@ -48,26 +48,26 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --border-muted: #eee8d5;
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --radius: 0.5rem;
+  --background: #ffffff;
+  --foreground: #1f2937;
+  --card: #ffffff;
+  --card-foreground: #1f2937;
+  --popover: #ffffff;
+  --popover-foreground: #1f2937;
+  --primary: #1f2937;
+  --primary-foreground: #ffffff;
+  --secondary: #f9fafb;
+  --secondary-foreground: #1f2937;
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+  --accent: #f3f4f6;
+  --accent-foreground: #1f2937;
+  --destructive: #ef4444;
+  --border: #e5e7eb;
+  --border-muted: #f3f4f6;
+  --input: #e5e7eb;
+  --ring: #9ca3af;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -87,24 +87,24 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --card: #1e293b;
+  --card-foreground: #f1f5f9;
+  --popover: #1e293b;
+  --popover-foreground: #f1f5f9;
+  --primary: #f1f5f9;
+  --primary-foreground: #0f172a;
+  --secondary: #334155;
+  --secondary-foreground: #f1f5f9;
+  --muted: #334155;
+  --muted-foreground: #94a3b8;
+  --accent: #334155;
+  --accent-foreground: #f1f5f9;
+  --destructive: #ef4444;
+  --border: #475569;
+  --input: #475569;
+  --ring: #64748b;
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -151,32 +151,54 @@
 
   /* Ensure light mode code blocks have correct background */
   .light pre:not(.shiki) {
-    background-color: oklch(0.97 0 0 / 0.5) !important;
-    color: oklch(0.145 0 0) !important;
+    background-color: #f9fafb !important;
+    color: #374151 !important;
   }
 
   .dark pre:not(.shiki) {
-    background-color: #24292e !important;
-    color: white !important;
+    background-color: #111827 !important;
+    color: #e5e7eb !important;
   }
 
   /* Style for inline code (not inside pre blocks) */
   :not(pre) > code {
-    @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono font-medium text-foreground;
+    @apply bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-2 py-1 rounded text-sm font-mono font-medium border border-gray-200 dark:border-gray-700;
   }
 
   /* Ensure code inside pre blocks is not affected */
   pre code {
-    @apply bg-transparent p-0 rounded-none;
+    @apply bg-transparent rounded-none;
+    padding: 0 !important;
+    margin: 0 !important;
     font-family: inherit;
     font-size: inherit;
     font-weight: inherit;
     color: inherit;
+    display: block;
+    white-space: pre;
+    overflow-wrap: normal;
+    word-break: normal;
   }
 
   /* Improve code block line numbers if used */
   .shiki .line {
     @apply px-0;
+  }
+
+  /* Ensure proper spacing for Shiki code blocks */
+  .shiki {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Add proper spacing to code block containers */
+  pre.shiki {
+    padding: 1rem !important;
+    padding-right: 3.5rem !important;
+    overflow-x: auto !important;
+    white-space: pre !important;
+    word-wrap: normal !important;
+    max-width: 100% !important;
   }
 
   /* Custom scrollbar for code blocks */
@@ -185,14 +207,45 @@
   }
 
   pre::-webkit-scrollbar-track {
-    @apply bg-muted/30 rounded;
+    @apply bg-gray-100 dark:bg-gray-800 rounded;
   }
 
   pre::-webkit-scrollbar-thumb {
-    @apply bg-muted-foreground/30 rounded;
+    @apply bg-gray-300 dark:bg-gray-600 rounded;
   }
 
   pre::-webkit-scrollbar-thumb:hover {
-    @apply bg-muted-foreground/50;
+    @apply bg-gray-400 dark:bg-gray-500;
+  }
+
+  /* Table styling similar to OpenAI docs */
+  table {
+    @apply w-full my-8 border-collapse;
+  }
+
+  table th {
+    @apply border-b border-gray-200 dark:border-gray-700 px-4 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-gray-800/50;
+  }
+
+  table td {
+    @apply border-b border-gray-200 dark:border-gray-700 px-4 py-3 text-sm text-gray-700 dark:text-gray-300;
+  }
+
+  table tr:last-child td {
+    @apply border-b-0;
+  }
+
+  /* Better spacing for prose content */
+  .prose {
+    @apply max-w-none;
+  }
+
+  /* OpenAI-style alert/note boxes */
+  .note {
+    @apply my-6 p-4 rounded-lg border-l-4 border-blue-400 bg-blue-50 dark:bg-blue-950/30 dark:border-blue-500;
+  }
+
+  .warning {
+    @apply my-6 p-4 rounded-lg border-l-4 border-yellow-400 bg-yellow-50 dark:bg-yellow-950/30 dark:border-yellow-500;
   }
 }
