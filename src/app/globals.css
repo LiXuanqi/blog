@@ -144,6 +144,22 @@
     text-decoration: var(--shiki-dark-text-decoration) !important;
   }
 
+  /* Fallback styling for plain code blocks without language (not processed by Shiki) */
+  pre:not(.shiki) {
+    @apply bg-muted/50 text-foreground;
+  }
+
+  /* Ensure light mode code blocks have correct background */
+  .light pre:not(.shiki) {
+    background-color: oklch(0.97 0 0 / 0.5) !important;
+    color: oklch(0.145 0 0) !important;
+  }
+
+  .dark pre:not(.shiki) {
+    background-color: #24292e !important;
+    color: white !important;
+  }
+
   /* Style for inline code (not inside pre blocks) */
   :not(pre) > code {
     @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono font-medium text-foreground;
