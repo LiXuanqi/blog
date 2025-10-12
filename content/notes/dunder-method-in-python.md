@@ -1,8 +1,8 @@
 ---
-title: Design Review Website Like Yelp
-date: 2025-06-19
+title: Dunder method in Python
+date: 2025-08-16
 description: ""
-tags: ["System Design"]
+tags: ["Python"]
 visible: true
 ---
 

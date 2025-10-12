@@ -158,7 +158,7 @@ export default function ResumePage() {
             ))}
           </ResumeSection>
 
-          <ResumeSection title="Projects">
+          {/* <ResumeSection title="Projects">
             {resume.projects.map((project, index) => (
               <ResumeItem
                 key={index}
@@ -168,7 +168,7 @@ export default function ResumePage() {
                 desc={project.desc}
               />
             ))}
-          </ResumeSection>
+          </ResumeSection> */}
         </div>
       </div>
     </div>

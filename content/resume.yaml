@@ -4,7 +4,7 @@ tel: 408.406.8721
 email: lixuanqi1995@gmail.com
 github: github.com/LiXuanqi
 linkedin: www.linkedin.com/in/xuanqi-li
-blog: lixuanqi.netlify.app
+blog: blog-sepia-theta-23.vercel.app/
 
 # about: todo
 
@@ -57,21 +57,34 @@ workExperience:
     company: Airtable
     location: San Francisco, CA
     desc:
-      - Responsible for the performance and architecture of core worker service, which powers airtable tables
-      - Build in-house <strong>memory relational database</strong> with <strong>Rust</strong> to support more table records and faster query
-      - Worked on interop protocol to improve the data exchange performance between Rust and Typescript.
-      - Migrated the most popular third part API "list rows" to a <strong>Node.js</strong> thread implemetation which improves the overall base performance.
+      - Airtable is a no-code platform for building custom databases and workflows with a spreadsheet-like interface. My team is responsible for improving application <strong>vertical scalability</strong>, a critical initiative that grew from <strong>6 to 14 engineers</strong> since I joined.
+      - Core contributor to in-house <strong>relational database built from scratch</strong>, implementing cascading deletion system for removeModel operations (DROP TABLE with FK/relationship cleanup), consolidating <strong>Rust-TypeScript interop</strong> protocols for <strong>30% improved data exchange performance</strong>, and optimizing cold-load performance through deferred index statistics
+      - Orchestrated seamless migration from legacy in-memory systems to new relational database architecture, designing <strong>dual-write strategy</strong> to gradually migrate data and business logic without service disruption
+      - Led multi-quarter re-architecture of <strong>Node.js</strong> request processing framework from <strong>single-threaded to multi-threaded</strong> implementation, delivering significant throughput improvements for high-concurrency workloads
+      - Enhanced team productivity by configuring <strong>Rust-analyzer</strong> integration with custom <strong>Bazel</strong> build system, enabling full IDE support (auto-completion, linting, error detection) for Rust development
+      # - Responsible for the performance and architecture of core worker service, which powers airtable tables
+      # - Build in-house <strong>memory relational database</strong> with <strong>Rust</strong> to support more table records and faster query
+      # - Worked on interop protocol to improve the data exchange performance between Rust and Typescript.
+      # - Migrated the most popular third part API "list rows" to a <strong>Node.js</strong> thread implemetation which improves the overall base performance.
   - position: Senior Software Engineer
     time: 08/2021 – 04/2024
     company: LinkedIn
     location: Sunnyvale, CA
     desc:
-      - Built APIs with <strong>Java</strong> for Pages Admin Experience features such as analytics, invitation, follow.
-      - Created offline workflow with <strong>Spark(Scala)</strong> to power the email and notification features
-      - Adapted the concept of <strong>Server Driven User Interface (SDUI)</strong> to my org which saves about <strong>66.7%</strong> work to onboard a new feature.
-      - One of member of Productivity Working Group and improved Engineer happiness and productivity. e.g. unified code formatter and test framework.
-      - Helped manager on LoE estimation and quaterly team project planning
-      - Acted as mentor, code reviewer, project leader and got reward such as MVP, Top interviewers.
+      # - Owned backend development for LinkedIn Pages admin dashboard, enabling businesses to manage their company presence, track follower analytics, and engage with their professional audience across 67M business pages
+      # - Built APIs with <strong>Java</strong> for Pages Admin Experience features such as analytics, invitation, follow.
+      # - Created offline workflow with <strong>Spark(Scala)</strong> to power the email and notification features
+      # - Adapted the concept of <strong>Server Driven User Interface (SDUI)</strong> to my org which saves about <strong>66.7%</strong> work to onboard a new feature.
+      # - One of member of Productivity Working Group and improved Engineer happiness and productivity. e.g. unified code formatter and test framework.
+      # - Helped manager on LoE estimation and quaterly team project planning
+      # - Acted as mentor, code reviewer, project leader and got reward such as MVP, Top interviewers.
+      - Owned end-to-end backend development for <strong>LinkedIn Pages</strong> admin experience, empowering <strong>67M+ businesses</strong> to manage company presence and analyze follower engagement
+      - Collaborated with cross-functional teams (PM, Design, Marketing, Support) and platform teams (Premium, Feed, Invitations, Infrastructure) to deliver weekly analytics notifications, page-to-page following, invitation credits, competitor analytics, and dashboard redesign
+      - Built <strong>Java</strong> APIs and <strong>Spark</strong> data pipelines integrating with internal <strong>NoSQL databases</strong> (document, graph, time-series) for real-time insights and batch processing
+      - Pioneered <strong>Server Driven UI (SDUI)</strong> architecture adoption, reducing feature development time by <strong>67%</strong> and eliminating mobile app releases for UI changes
+      - Productivity Working Group initiatives - conducted engineer interviews, leveraged <strong>LLM analysis</strong> to prioritize improvements, co-authored company-wide best practices, and championed modern tooling adoption (<strong>JUnit, AssertJ, GitHub Copilot</strong>)
+      - Mentored interns and frontend engineers transitioning to backend, supported quarterly OKR planning, and recognized with <strong>MVP award</strong> and <strong>Top Interviewer</strong> distinction
+
   - position: Software Engineer at Ads Platform
     time: 01/2020 - 08/2021
     company: Yelp
