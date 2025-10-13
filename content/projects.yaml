@@ -1,0 +1,9 @@
+projects:
+  - id: 1
+    title: "xgit - Enhanced Git Tool"
+    description: "An enhanced Git tool built with Rust that provides AI-powered commit messages, interactive branch management, and GitHub PR integration. Features smart branch pruning, statistics tracking, and seamless git passthrough."
+    technologies: ["Rust", "LLM", "GitHub API", "CLI"]
+    githubUrl: "https://github.com/LiXuanqi/xgit"
+    status: "Completed"
+    featured: true
+    year: "2024"

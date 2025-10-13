@@ -3,59 +3,34 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, ExternalLink, Calendar, Code, Star } from "lucide-react";
 import Hero from "@/components/hero";
+import fs from "fs";
+import path from "path";
+import yaml from "js-yaml";
 
-// This is a template page - you can modify the projects data structure and content
-const SAMPLE_PROJECTS = [
-  {
-    id: 1,
-    title: "Next.js Blog Platform",
-    description:
-      "A modern blog platform built with Next.js, TypeScript, and Tailwind CSS. Features MDX support, dark mode, and responsive design.",
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "MDX"],
-    githubUrl: "https://github.com/username/nextjs-blog",
-    liveUrl: "https://blog-demo.vercel.app",
-    status: "Completed",
-    featured: true,
-    year: "2024",
-  },
-  {
-    id: 2,
-    title: "E-commerce API",
-    description:
-      "RESTful API for e-commerce applications with authentication, payment processing, and inventory management.",
-    technologies: ["Node.js", "Express", "PostgreSQL", "Redis"],
-    githubUrl: "https://github.com/username/ecommerce-api",
-    status: "In Progress",
-    featured: true,
-    year: "2024",
-  },
-  {
-    id: 3,
-    title: "Task Management App",
-    description:
-      "A productivity app for managing tasks and projects with real-time collaboration features.",
-    technologies: ["React", "Firebase", "Material-UI"],
-    githubUrl: "https://github.com/username/task-manager",
-    liveUrl: "https://task-manager-demo.netlify.app",
-    status: "Completed",
-    featured: false,
-    year: "2023",
-  },
-  {
-    id: 4,
-    title: "Weather Dashboard",
-    description:
-      "Real-time weather dashboard with location-based forecasts and interactive charts.",
-    technologies: ["Vue.js", "Chart.js", "OpenWeather API"],
-    githubUrl: "https://github.com/username/weather-dashboard",
-    liveUrl: "https://weather-dashboard-demo.vercel.app",
-    status: "Completed",
-    featured: false,
-    year: "2023",
-  },
-];
+type Project = {
+  id: number;
+  title: string;
+  description: string;
+  technologies: string[];
+  githubUrl: string;
+  liveUrl?: string;
+  status: string;
+  featured: boolean;
+  year: string;
+};
 
-const ProjectCard = ({ project }: { project: (typeof SAMPLE_PROJECTS)[0] }) => {
+type ProjectsData = {
+  projects: Project[];
+};
+
+async function getProjects(): Promise<Project[]> {
+  const projectsPath = path.join(process.cwd(), "content", "projects.yaml");
+  const fileContents = fs.readFileSync(projectsPath, "utf8");
+  const data = yaml.load(fileContents) as ProjectsData;
+  return data.projects;
+}
+
+const ProjectCard = ({ project }: { project: Project }) => {
   return (
     <Card className="group hover:shadow-lg transition-all duration-300 border-l-4 border-l-blue-500">
       <CardHeader>
@@ -136,9 +111,10 @@ const ProjectCard = ({ project }: { project: (typeof SAMPLE_PROJECTS)[0] }) => {
   );
 };
 
-export default function ProjectsPage() {
-  const featuredProjects = SAMPLE_PROJECTS.filter((p) => p.featured);
-  const otherProjects = SAMPLE_PROJECTS.filter((p) => !p.featured);
+export default async function ProjectsPage() {
+  const projects = await getProjects();
+  const featuredProjects = projects.filter((p) => p.featured);
+  const otherProjects = projects.filter((p) => !p.featured);
 
   return (
     <div className="min-h-screen bg-background">
