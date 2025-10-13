@@ -67,3 +67,19 @@ export const BookmarksIcon: React.FC<IconProps> = ({
     <rect x="6" y="12" width="3" height="1" fill="#FFFFFF" />
   </svg>
 );
+
+export const ProjectsIcon: React.FC<IconProps> = ({
+  size = 16,
+  className = "",
+}) => (
+  <svg width={size} height={size} viewBox="0 0 16 16" className={className}>
+    <rect x="2" y="3" width="5" height="5" fill="#8B5CF6" rx="1" />
+    <rect x="9" y="3" width="5" height="5" fill="#06B6D4" rx="1" />
+    <rect x="2" y="10" width="5" height="3" fill="#F59E0B" rx="1" />
+    <rect x="9" y="10" width="5" height="3" fill="#EF4444" rx="1" />
+    <circle cx="4.5" cy="5.5" r="0.5" fill="#FFFFFF" />
+    <circle cx="11.5" cy="5.5" r="0.5" fill="#FFFFFF" />
+    <circle cx="4.5" cy="11.5" r="0.5" fill="#FFFFFF" />
+    <circle cx="11.5" cy="11.5" r="0.5" fill="#FFFFFF" />
+  </svg>
+);

@@ -15,6 +15,7 @@ import {
   NotesIcon,
   ResumeIcon,
   BookmarksIcon,
+  ProjectsIcon,
 } from "@/components/icons/nav-icons";
 
 export default function NavHeader() {
@@ -71,6 +72,8 @@ function NavItem({
     switch (iconName) {
       case "blog":
         return <BlogIcon size={16} />;
+      case "projects":
+        return <ProjectsIcon size={16} />;
       case "notes":
         return <NotesIcon size={16} />;
       case "bookmarks":

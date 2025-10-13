@@ -5,6 +5,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import Hero from "@/components/hero";
 
 interface Bookmark {
   title: string;
@@ -70,30 +71,33 @@ const bookmarkSections: BookmarkSection[] = [
 
 export default function BookmarksPage() {
   return (
-    <div className="max-w-4xl mx-auto px-6 py-12">
-      <div className="mb-12">
-        <h1 className="text-3xl font-bold mb-4">Bookmarks</h1>
-        <p className="text-muted-foreground">
-          A curated collection of useful development resources and tools.
-        </p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <div className="max-w-4xl mx-auto px-6 py-12">
+        {/* Header */}
+        <Hero
+          title="Bookmarks"
+          content="A curated collection of useful development resources and tools."
+        />
 
-      <div className="space-y-12">
-        {bookmarkSections.map((section, sectionIndex) => (
-          <section key={sectionIndex}>
-            <div className="mb-6">
-              <h2 className="text-2xl font-semibold mb-2">{section.title}</h2>
-            </div>
+        <div className="space-y-12">
+          {bookmarkSections.map((section, sectionIndex) => (
+            <section key={sectionIndex}>
+              <div className="mb-6">
+                <h2 className="text-2xl font-semibold text-foreground mb-2">
+                  {section.title}
+                </h2>
+              </div>
 
-            <ul className="space-y-2">
-              {section.bookmarks.map((bookmark, bookmarkIndex) => (
-                <li key={bookmarkIndex}>
-                  <BookmarkItem bookmark={bookmark} />
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))}
+              <ul className="space-y-2">
+                {section.bookmarks.map((bookmark, bookmarkIndex) => (
+                  <li key={bookmarkIndex}>
+                    <BookmarkItem bookmark={bookmark} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
       </div>
     </div>
   );

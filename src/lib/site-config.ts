@@ -38,6 +38,7 @@ export const SITE_CONFIG = {
   navigation: [
     { text: "Blog", url: "/blogs", icon: "blog" },
     { text: "Notes", url: "/notes", icon: "notes" },
+    { text: "Projects", url: "/projects", icon: "projects" },
     { text: "Bookmarks", url: "/bookmarks", icon: "bookmarks" },
     { text: "Resume", url: "/resume", icon: "resume" },
   ],
