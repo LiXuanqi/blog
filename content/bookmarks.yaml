@@ -1,0 +1,31 @@
+sections:
+  - title: "Tools"
+    description: "Useful development tools and utilities"
+    bookmarks:
+      - title: "svgl"
+        url: "https://svgl.app"
+        icon: "svgl"
+        description: "SVG logos collection"
+      - title: "transform"
+        url: "https://transform.tools/"
+        description: "Transform data between formats"
+
+  - title: "Articles"
+    description: "Documentation and learning resources"
+    bookmarks:
+      - title: "Staff archetypes"
+        url: "https://staffeng.com/guides/staff-archetypes/"
+        description: "4 common archetypes of Staff+ roles"
+
+  - title: "Courses"
+    description: "Awesome courses resources"
+    bookmarks:
+      - title: "CMU 15-445/645"
+        url: "https://15445.courses.cs.cmu.edu/fall2025/"
+        description: "Intro to Database Systems"
+
+  - title: "Talks"
+    description: "Conference talks and presentations"
+    bookmarks:
+      - title: "What Exactly is the Event Loop?"
+        url: "https://www.youtube.com/watch?v=8aGhZQkoFbQ&t=3s"

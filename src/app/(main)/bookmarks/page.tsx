@@ -6,6 +6,9 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import Hero from "@/components/hero";
+import fs from "fs";
+import path from "path";
+import yaml from "js-yaml";
 
 interface Bookmark {
   title: string;
@@ -20,56 +23,19 @@ interface BookmarkSection {
   bookmarks: Bookmark[];
 }
 
-const bookmarkSections: BookmarkSection[] = [
-  {
-    title: "Tools",
-    bookmarks: [
-      {
-        title: "svgl",
-        url: "https://svgl.app",
-        icon: "svgl",
-        description: "SVG logos collection",
-      },
-      {
-        title: "transform",
-        url: "https://transform.tools/",
-        description: "Transform data between formats",
-      },
-    ],
-  },
-  {
-    title: "Articles",
-    bookmarks: [
-      {
-        title: "React Documentation",
-        url: "https://react.dev",
-        description: "Official React documentation",
-      },
-      {
-        title: "Next.js Docs",
-        url: "https://nextjs.org/docs",
-        description: "Next.js framework documentation",
-      },
-    ],
-  },
-  {
-    title: "Talks",
-    bookmarks: [
-      {
-        title: "Tailwind CSS",
-        url: "https://tailwindcss.com",
-        description: "Utility-first CSS framework",
-      },
-      {
-        title: "shadcn/ui",
-        url: "https://ui.shadcn.com",
-        description: "Beautiful UI components",
-      },
-    ],
-  },
-];
+type BookmarksData = {
+  sections: BookmarkSection[];
+};
 
-export default function BookmarksPage() {
+async function getBookmarks(): Promise<BookmarkSection[]> {
+  const bookmarksPath = path.join(process.cwd(), "content", "bookmarks.yaml");
+  const fileContents = fs.readFileSync(bookmarksPath, "utf8");
+  const data = yaml.load(fileContents) as BookmarksData;
+  return data.sections;
+}
+
+export default async function BookmarksPage() {
+  const bookmarkSections = await getBookmarks();
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto px-6 py-12">
@@ -86,6 +52,11 @@ export default function BookmarksPage() {
                 <h2 className="text-2xl font-semibold text-foreground mb-2">
                   {section.title}
                 </h2>
+                {section.description && (
+                  <p className="text-muted-foreground text-sm">
+                    {section.description}
+                  </p>
+                )}
               </div>
 
               <ul className="space-y-2">
