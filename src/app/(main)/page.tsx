@@ -6,8 +6,8 @@ import { SITE_CONFIG } from "@/lib/site-config";
 import Image from "next/image";
 
 export default async function Home() {
-  const articles = await getAllPosts();
-  const notes = await getAllNotes();
+  const articles = await getAllPosts("en");
+  const notes = await getAllNotes("en");
   return (
     // TODO: same layout as blogs home page
     <div className="min-h-screen bg-background">

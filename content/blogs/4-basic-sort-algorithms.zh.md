@@ -1,38 +1,38 @@
 ---
-title: 4 排序算法
+title: 4种基础排序算法
 date: 2018-11-25
-description: "An introduction to fundamental sorting algorithms with implementations and complexity analysis"
-tags: ["Algorithm", "Sorting", "Data Structures"]
+description: "介绍基础排序算法的实现和复杂度分析"
+tags: ["算法", "排序", "数据结构"]
 visible: true
 ---
 
-## 综述
+## 概述
 
-This article introduces four fundamental sorting algorithms:
+本文介绍四种基础排序算法：
 
-- **Selection Sort** - Simple comparison-based algorithm
-- **Merge Sort** - Efficient divide-and-conquer approach
-- **Quicksort** - Fast in-place sorting algorithm
-- **Bucket Sort** - Distribution-based sorting method
+- **选择排序** - 简单的基于比较的算法
+- **归并排序** - 高效的分治法
+- **快速排序** - 快速的原地排序算法
+- **桶排序** - 基于分布的排序方法
 
-Practice these algorithms [here](https://www.lintcode.com/problem/sort-integers/description).
+在这里练习这些算法：[LintCode](https://www.lintcode.com/problem/sort-integers/description)
 
 ---
 
-## Selection Sort
+## 选择排序
 
-![Selection Sort Animation](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Selection_sort_animation.gif/250px-Selection_sort_animation.gif)
+![选择排序动画](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Selection_sort_animation.gif/250px-Selection_sort_animation.gif)
 
-### Algorithm Overview
+### 算法概述
 
-Selection sort divides the array into two parts:
+选择排序将数组分为两部分：
 
-- A sorted sublist (initially empty)
-- An unsorted sublist (initially the entire array)
+- 已排序子列表（初始为空）
+- 未排序子列表（初始为整个数组）
 
-The algorithm repeatedly finds the smallest element in the unsorted sublist, swaps it with the leftmost unsorted element, and expands the sorted sublist boundary by one position.
+算法反复在未排序子列表中找到最小元素，将其与未排序部分的最左边元素交换，并将已排序子列表的边界扩展一个位置。
 
-### Implementation
+### 实现
 
 ```java
 public class Solution {
@@ -45,7 +45,7 @@ public class Solution {
             return;
         }
 
-        // Place one element in its correct position per iteration
+        // 每次迭代将一个元素放在正确位置
         for (int i = 0; i < A.length; i++) {
             int minIndex = findSmallest(A, i);
             swap(A, minIndex, i);
@@ -70,26 +70,26 @@ public class Solution {
 }
 ```
 
-### Complexity Analysis
+### 复杂度分析
 
-- **Time Complexity:** O(n²)
-- **Space Complexity:** O(1)
-- **Stability:** Unstable
+- **时间复杂度：** O(n²)
+- **空间复杂度：** O(1)
+- **稳定性：** 不稳定
 
 ---
 
-## Merge Sort
+## 归并排序
 
-![Merge Sort Animation](https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif)
+![归并排序动画](https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif)
 
-### Algorithm Overview
+### 算法概述
 
-Merge sort uses a divide-and-conquer strategy:
+归并排序使用分治策略：
 
-1. **Divide:** Split the array into two halves recursively until each subarray contains a single element
-2. **Conquer:** Merge the sorted subarrays back together using two pointers
+1. **分解：** 递归地将数组分成两半，直到每个子数组只包含一个元素
+2. **合并：** 使用双指针将已排序的子数组合并回去
 
-### Implementation
+### 实现
 
 ```java
 public class Solution {
@@ -121,7 +121,7 @@ public class Solution {
         int pointer1 = start;
         int pointer2 = mid + 1;
 
-        // Merge two sorted halves
+        // 合并两个已排序的部分
         while (pointer1 <= mid && pointer2 <= end) {
             if (nums[pointer1] < nums[pointer2]) {
                 temp[index++] = nums[pointer1++];
@@ -130,17 +130,17 @@ public class Solution {
             }
         }
 
-        // Copy remaining elements from left half
+        // 复制左半部分剩余元素
         while (pointer1 <= mid) {
             temp[index++] = nums[pointer1++];
         }
 
-        // Copy remaining elements from right half
+        // 复制右半部分剩余元素
         while (pointer2 <= end) {
             temp[index++] = nums[pointer2++];
         }
 
-        // Copy merged result back to original array
+        // 将合并结果复制回原数组
         for (int i = start; i <= end; i++) {
             nums[i] = temp[i];
         }
@@ -148,42 +148,42 @@ public class Solution {
 }
 ```
 
-### Key Design Decision
+### 关键设计决定
 
-**Q: Why do we need the `temp` array?**
+**问：为什么我们需要 `temp` 数组？**
 
-**A:** The merge operation cannot be performed in-place efficiently. The temporary array is created once at the beginning (not in `mergeSort()`) to avoid repeated allocations during recursion, improving performance.
+**答：** 归并操作无法高效地原地进行。临时数组在开始时创建一次（而不是在 `mergeSort()` 中），以避免在递归过程中重复分配，提高性能。
 
-### Complexity Analysis
+### 复杂度分析
 
-**Time Complexity:** O(n log n)
+**时间复杂度：** O(n log n)
 
-- **Divide phase:** O(log n) levels in the recursion tree
-- **Merge phase:** O(n) work per level to merge all elements
-- **Total:** O(n) × O(log n) = O(n log n)
+- **分解阶段：** 递归树中有 O(log n) 层
+- **合并阶段：** 每层需要 O(n) 的工作来合并所有元素
+- **总计：** O(n) × O(log n) = O(n log n)
 
-**Space Complexity:** O(n)
+**空间复杂度：** O(n)
 
-- Temporary array: O(n)
-- Recursion call stack: O(log n)
-- **Total:** O(n)
+- 临时数组：O(n)
+- 递归调用栈：O(log n)
+- **总计：** O(n)
 
-**Stability:** Stable
+**稳定性：** 稳定
 
 ---
 
-## Quicksort
+## 快速排序
 
-![Quicksort Animation](https://upload.wikimedia.org/wikipedia/commons/6/6a/Sorting_quicksort_anim.gif)
+![快速排序动画](https://upload.wikimedia.org/wikipedia/commons/6/6a/Sorting_quicksort_anim.gif)
 
-### Algorithm Overview
+### 算法概述
 
-Quicksort follows these steps:
+快速排序遵循以下步骤：
 
-1. **Partition:** Choose a pivot element and rearrange the array so elements ≤ pivot are on the left, and elements ≥ pivot are on the right
-2. **Recursion:** Recursively apply quicksort to both partitions
+1. **分区：** 选择一个基准元素，重新排列数组使得 ≤ 基准的元素在左侧，≥ 基准的元素在右侧
+2. **递归：** 对两个分区递归应用快速排序
 
-### Implementation
+### 实现
 
 ```java
 public class Solution {
@@ -234,39 +234,39 @@ public class Solution {
 }
 ```
 
-### Critical Implementation Details
+### 关键实现细节
 
-**Q: Why use `left <= right` instead of `left < right` in the outer while loop?**
+**问：为什么在外层 while 循环中使用 `left <= right` 而不是 `left < right`？**
 
-**A:** Using `left < right` would leave overlapping ranges after partitioning. For example, with array `[1, 2]`, we'd end up calling `quickSort([1, 2])` again, causing infinite recursion. The `<=` ensures proper partition boundaries.
+**答：** 使用 `left < right` 会在分区后留下重叠范围。例如，对于数组 `[1, 2]`，我们会再次调用 `quickSort([1, 2])`，导致无限递归。`<=` 确保了正确的分区边界。
 
-**Q: Why use `nums[left] < pivot` instead of `nums[left] <= pivot`?**
+**问：为什么使用 `nums[left] < pivot` 而不是 `nums[left] <= pivot`？**
 
-**A:** Using `<=` causes problems with duplicate elements. Consider `[1, 1, 1, 1, 1, 1]` with pivot `1`. The left pointer would reach the end without proper partitioning:
+**答：** 使用 `<=` 会导致重复元素的问题。考虑 `[1, 1, 1, 1, 1, 1]` 且基准为 `1`。左指针会到达末尾而没有正确分区：
 
 ```
 [1 1 1 1 1 1]
          r l
 ```
 
-This results in `quickSort([start, right])` with nearly the full array, preventing problem size reduction and degrading performance.
+这会导致 `quickSort([start, right])` 使用几乎完整的数组，阻止问题规模减少并降低性能。
 
-### Complexity Analysis
+### 复杂度分析
 
-- **Best/Average Time Complexity:** O(n log n)
-- **Worst-Case Time Complexity:** O(n²) (when pivot consistently creates unbalanced partitions)
-- **Space Complexity:** O(log n) average, O(n) worst case (recursion stack depth)
-- **Stability:** Unstable
+- **最佳/平均时间复杂度：** O(n log n)
+- **最坏情况时间复杂度：** O(n²)（当基准始终创建不平衡分区时）
+- **空间复杂度：** 平均 O(log n)，最坏情况 O(n)（递归栈深度）
+- **稳定性：** 不稳定
 
 ---
 
-## Bucket Sort
+## 桶排序
 
-Bucket sort is a distribution-based algorithm that works well when the input is uniformly distributed. Here's an example using bucket sort to solve a frequency-based problem.
+桶排序是一种基于分布的算法，当输入均匀分布时效果很好。这里是使用桶排序解决基于频率问题的示例。
 
-### Example: Top K Frequent Elements
+### 示例：前 K 个高频元素
 
-[LeetCode 347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
+[LeetCode 347. 前 K 个高频元素](https://leetcode.com/problems/top-k-frequent-elements/)
 
 ```java
 class Solution {
@@ -276,13 +276,13 @@ class Solution {
             return result;
         }
 
-        // Count frequency of each element
+        // 统计每个元素的频率
         Map<Integer, Integer> frequencyMap = new HashMap<>();
         for (int num : nums) {
             frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
         }
 
-        // Create buckets indexed by frequency
+        // 创建按频率索引的桶
         List<Integer>[] buckets = new List[nums.length + 1];
         for (int key : frequencyMap.keySet()) {
             int frequency = frequencyMap.get(key);
@@ -292,7 +292,7 @@ class Solution {
             buckets[frequency].add(key);
         }
 
-        // Collect top k frequent elements (iterate from highest frequency)
+        // 收集前 k 个高频元素（从最高频率开始迭代）
         for (int i = buckets.length - 1; i >= 0 && k > 0; i--) {
             if (buckets[i] != null) {
                 result.addAll(buckets[i]);
@@ -305,21 +305,21 @@ class Solution {
 }
 ```
 
-### Complexity Analysis
+### 复杂度分析
 
-- **Time Complexity:** O(n)
-- **Space Complexity:** O(n)
-- **Stability:** Stable (depends on implementation)
+- **时间复杂度：** O(n)
+- **空间复杂度：** O(n)
+- **稳定性：** 稳定（取决于实现）
 
 ---
 
-## Summary
+## 总结
 
-| Algorithm      | Best/Average Time | Worst Time | Space    | Stable |
-| -------------- | ----------------- | ---------- | -------- | ------ |
-| Selection Sort | O(n²)             | O(n²)      | O(1)     | No     |
-| Merge Sort     | O(n log n)        | O(n log n) | O(n)     | Yes    |
-| Quicksort      | O(n log n)        | O(n²)      | O(log n) | No     |
-| Bucket Sort    | O(n + k)          | O(n²)      | O(n + k) | Yes    |
+| 算法     | 最佳/平均时间 | 最坏时间   | 空间     | 稳定 |
+| -------- | ------------- | ---------- | -------- | ---- |
+| 选择排序 | O(n²)         | O(n²)      | O(1)     | 否   |
+| 归并排序 | O(n log n)    | O(n log n) | O(n)     | 是   |
+| 快速排序 | O(n log n)    | O(n²)      | O(log n) | 否   |
+| 桶排序   | O(n + k)      | O(n²)      | O(n + k) | 是   |
 
-Choose the appropriate algorithm based on your specific requirements for time complexity, space constraints, and stability needs.
+根据您对时间复杂度、空间约束和稳定性需求的具体要求选择合适的算法。
