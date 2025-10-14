@@ -1,5 +1,6 @@
 import { MDX_COMPONENTS } from "@/components/mdx-components";
 import { TableOfContents } from "@/components/table-of-contents";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Badge } from "@/components/ui/badge";
 import { Post } from "@/lib/mdx";
 import { extractTocFromMarkdown, processTocItems } from "@/lib/toc";
@@ -24,9 +25,16 @@ export default function PostDetailPage({ post }: PostDetailPageProps) {
         {/* Main Content */}
         <article className="flex-1 min-w-0">
           <header className="mb-12">
-            <h1 className="text-4xl font-bold mb-6 text-gray-900 dark:text-gray-100">
+            <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
               {post.title}
             </h1>
+
+            {/* Language Switcher */}
+            <LanguageSwitcher
+              currentLanguage={post.language}
+              availableLanguages={post.translations || []}
+            />
+
             {/* <p className="text-gray-600">{post.date}</p> */}
           </header>
 
