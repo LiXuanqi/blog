@@ -3,7 +3,7 @@ import { getAllNotes } from "@/lib/mdx";
 import { SITE_CONFIG } from "@/lib/site-config";
 
 export default async function NotesPage() {
-  const notes = await getAllNotes();
+  const notes = await getAllNotes("en");
 
   return (
     <PostListPage

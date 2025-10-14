@@ -3,7 +3,7 @@ import { getAllPosts } from "@/lib/mdx";
 import { SITE_CONFIG } from "@/lib/site-config";
 
 export default async function BlogsPage() {
-  const posts = await getAllPosts();
+  const posts = await getAllPosts("en");
 
   return (
     <PostListPage
