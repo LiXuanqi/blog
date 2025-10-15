@@ -82,7 +82,7 @@ export default function PostDetailPage({ post }: PostDetailPageProps) {
                         transformers: [
                           {
                             name: "add-copy-button",
-                            pre(node) {
+                            pre(node: { properties: Record<string, unknown> }) {
                               // Add data attributes for copy functionality
                               node.properties["data-code-block"] = true;
                             },
