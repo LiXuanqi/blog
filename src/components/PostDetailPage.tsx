@@ -9,15 +9,24 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeShiki from "@shikijs/rehype";
 import rehypeKatex from "rehype-katex";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import "katex/dist/katex.min.css";
 
 interface PostDetailPageProps {
   post: Post;
+  type?: "blog" | "note";
 }
 
-export default function PostDetailPage({ post }: PostDetailPageProps) {
+export default function PostDetailPage({
+  post,
+  type = "blog",
+}: PostDetailPageProps) {
   // Extract TOC from markdown content
   const tocItems = processTocItems(extractTocFromMarkdown(post.content));
+
+  const backUrl = type === "note" ? "/notes" : "/blogs";
+  const backText = type === "note" ? "Back to Notes" : "Back to Blogs";
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-12">
@@ -25,6 +34,15 @@ export default function PostDetailPage({ post }: PostDetailPageProps) {
         {/* Main Content */}
         <article className="flex-1 min-w-0">
           <header className="mb-12">
+            {/* Back button */}
+            <Link
+              href={backUrl}
+              className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              {backText}
+            </Link>
+
             <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
               {post.title}
             </h1>

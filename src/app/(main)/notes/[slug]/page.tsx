@@ -16,7 +16,7 @@ export default async function NotePage({ params, searchParams }: PageProps) {
   if (!note) {
     notFound();
   }
-  return <PostDetailPage post={note} />;
+  return <PostDetailPage post={note} type="note" />;
 }
 
 // Generate static params for all notes

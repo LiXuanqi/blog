@@ -16,7 +16,7 @@ export default async function BlogPage({ params, searchParams }: PageProps) {
   if (!post) {
     notFound();
   }
-  return <PostDetailPage post={post} />;
+  return <PostDetailPage post={post} type="blog" />;
 }
 
 // Generate static params for all posts
