@@ -1,7 +1,7 @@
 import { MDX_COMPONENTS } from "@/components/mdx-components";
 import { TableOfContents } from "@/components/table-of-contents";
 import { Badge } from "@/components/ui/badge";
-import { type Link } from "@/lib/mdx";
+import { type Link as LinkType } from "@/lib/mdx";
 import { extractTocFromMarkdown, processTocItems } from "@/lib/toc";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
@@ -11,7 +11,7 @@ import Link from "next/link";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 
 interface LinkDetailPageProps {
-  link: Link;
+  link: LinkType;
 }
 
 export default function LinkDetailPage({ link }: LinkDetailPageProps) {
