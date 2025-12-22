@@ -40,6 +40,7 @@ export const SITE_CONFIG = {
     { text: "Notes", url: "/notes", icon: "notes" },
     { text: "Projects", url: "/projects", icon: "projects" },
     { text: "Bookmarks", url: "/bookmarks", icon: "bookmarks" },
+    { text: "Links", url: "/links", icon: "links" },
     { text: "Resume", url: "/resume", icon: "resume" },
   ],
 

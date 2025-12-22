@@ -83,3 +83,18 @@ export const ProjectsIcon: React.FC<IconProps> = ({
     <circle cx="11.5" cy="11.5" r="0.5" fill="#FFFFFF" />
   </svg>
 );
+
+export const LinksIcon: React.FC<IconProps> = ({
+  size = 16,
+  className = "",
+}) => (
+  <svg width={size} height={size} viewBox="0 0 16 16" className={className}>
+    <rect x="2" y="6" width="6" height="4" fill="#3B82F6" rx="1" />
+    <rect x="8" y="6" width="6" height="4" fill="#3B82F6" rx="1" />
+    <rect x="6" y="7" width="4" height="2" fill="#1D4ED8" rx="0.5" />
+    <rect x="3" y="7" width="2" height="1" fill="#FFFFFF" />
+    <rect x="11" y="7" width="2" height="1" fill="#FFFFFF" />
+    <rect x="3" y="8.5" width="2" height="1" fill="#FFFFFF" />
+    <rect x="11" y="8.5" width="2" height="1" fill="#FFFFFF" />
+  </svg>
+);

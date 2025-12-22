@@ -5,6 +5,7 @@ import { type GitHubRepoConfig } from "./github-api";
 
 const blogsDirectory = path.join(process.cwd(), "content/blogs");
 const notesDirectory = path.join(process.cwd(), "content/notes");
+const linksDirectory = path.join(process.cwd(), "content/links");
 
 export interface Post {
   slug: string; // Base slug without language suffix
@@ -21,6 +22,18 @@ export interface Post {
   source?: "local" | "github";
   repo?: string;
   path?: string;
+}
+
+export interface Link {
+  slug: string;
+  title: string;
+  date: string;
+  content: string;
+  image?: string;
+  url?: string;
+  category?: string;
+  description?: string;
+  visible?: boolean;
 }
 
 // GitHub repositories configuration - DISABLED
@@ -343,4 +356,74 @@ export function addGitHubRepo(config: GitHubRepoConfig): void {
 // Helper function to get current GitHub repositories
 export function getGitHubRepos(): readonly GitHubRepoConfig[] {
   return GITHUB_REPOS;
+}
+
+// Links-specific functions
+async function getLocalLinks(): Promise<Link[]> {
+  if (!fs.existsSync(linksDirectory)) {
+    return [];
+  }
+
+  const fileNames = fs.readdirSync(linksDirectory);
+  const allLinksData = fileNames
+    .filter((name) => name.endsWith(".mdx") || name.endsWith(".md"))
+    .map((fileName) => {
+      const slug = fileName.replace(/\.(mdx?|md)$/, "");
+      const fullPath = path.join(linksDirectory, fileName);
+      const fileContents = fs.readFileSync(fullPath, "utf8");
+      const { data, content } = matter(fileContents);
+
+      return {
+        slug,
+        content,
+        title: data.title,
+        date: data.date,
+        image: data.image,
+        url: data.url,
+        category: data.category,
+        description: data.description,
+        visible: data.visible,
+      };
+    });
+
+  return allLinksData
+    .filter((link) => link.visible !== false)
+    .sort((a, b) => (a.date < b.date ? 1 : -1));
+}
+
+export async function getAllLinks(): Promise<Link[]> {
+  return await getLocalLinks();
+}
+
+export async function getLinkBySlug(slug: string): Promise<Link | null> {
+  if (!fs.existsSync(linksDirectory)) {
+    return null;
+  }
+
+  const extensions = [".mdx", ".md"];
+
+  for (const ext of extensions) {
+    try {
+      const fileName = `${slug}${ext}`;
+      const fullPath = path.join(linksDirectory, fileName);
+      const fileContents = fs.readFileSync(fullPath, "utf8");
+      const { data, content } = matter(fileContents);
+
+      return {
+        slug,
+        content,
+        title: data.title,
+        date: data.date,
+        image: data.image,
+        url: data.url,
+        category: data.category,
+        description: data.description,
+        visible: data.visible,
+      };
+    } catch {
+      continue;
+    }
+  }
+
+  return null;
 }
