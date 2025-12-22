@@ -158,7 +158,7 @@ export function TableOfContents({
               style={{ marginLeft: `${(item.depth - 1) * 12}px` }}
             >
               {isActive && (
-                <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 bg-primary rounded-r" />
+                <span className="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-r" />
               )}
               {item.value}
             </a>
