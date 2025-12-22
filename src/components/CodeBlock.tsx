@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -13,6 +13,13 @@ interface CodeBlockProps {
 export function CodeBlock({ children, ...props }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
   const preRef = useRef<HTMLPreElement>(null);
+
+  // Check if this is a Shiki-processed code block
+  const isShikiBlock = React.Children.toArray(children).some((child) => {
+    return (
+      React.isValidElement(child) && child.props?.className?.includes("shiki")
+    );
+  });
 
   const handleCopy = async () => {
     if (preRef.current) {
@@ -50,7 +57,9 @@ export function CodeBlock({ children, ...props }: CodeBlockProps) {
       {/* Code block */}
       <pre
         ref={preRef}
-        className="overflow-x-auto rounded-lg text-sm leading-6 font-mono bg-transparent"
+        className={`overflow-x-auto rounded-lg text-sm leading-6 font-mono bg-transparent ${
+          isShikiBlock ? "" : "p-4 pr-14"
+        }`}
         {...props}
       >
         {children}
