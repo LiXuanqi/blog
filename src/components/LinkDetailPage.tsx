@@ -1,6 +1,5 @@
 import { MDX_COMPONENTS } from "@/components/mdx-components";
 import { TableOfContents } from "@/components/table-of-contents";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { type Link } from "@/lib/mdx";
 import { extractTocFromMarkdown, processTocItems } from "@/lib/toc";
@@ -46,39 +45,42 @@ export default function LinkDetailPage({ link }: LinkDetailPageProps) {
               </div>
             )}
 
-            <div className="flex items-start justify-between gap-4 mb-6">
-              <div className="flex-1">
-                <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
-                  {link.title}
-                </h1>
+            <div className="mb-6">
+              <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+                {link.title}
+              </h1>
 
-                {link.description && (
-                  <p className="text-lg text-muted-foreground mb-4">
-                    {link.description}
-                  </p>
+              {link.description && (
+                <p className="text-lg text-muted-foreground mb-4">
+                  {link.description}
+                </p>
+              )}
+
+              <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+                {link.category && (
+                  <Badge variant="secondary">{link.category}</Badge>
                 )}
-
-                <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                  {link.category && (
-                    <Badge variant="secondary">{link.category}</Badge>
-                  )}
-                  {link.date && <span>{link.date}</span>}
-                </div>
+                {link.date && <span>{link.date}</span>}
               </div>
 
-              {/* Visit link button */}
+              {/* Source banner */}
               {link.url && (
-                <Button asChild className="shrink-0">
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2"
-                  >
-                    Visit Link
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
-                </Button>
+                <div className="p-4 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg">
+                  <div className="flex items-center gap-2 text-sm">
+                    <ExternalLink className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                    <span className="text-blue-700 dark:text-blue-300">
+                      Source:
+                    </span>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                    >
+                      {link.url}
+                    </a>
+                  </div>
+                </div>
               )}
             </div>
           </header>
@@ -131,40 +133,6 @@ export default function LinkDetailPage({ link }: LinkDetailPageProps) {
         {/* Right Sidebar */}
         <aside className="hidden lg:block lg:w-64 xl:w-72 border-l border-gray-200 dark:border-gray-700 pl-8">
           <div className="sticky top-24 space-y-8">
-            {/* Link metadata */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4 text-foreground">
-                Link Details
-              </h3>
-              <div className="space-y-2 text-sm">
-                {link.category && (
-                  <div>
-                    <span className="text-muted-foreground">Category:</span>
-                    <span className="ml-2 font-medium">{link.category}</span>
-                  </div>
-                )}
-                {link.date && (
-                  <div>
-                    <span className="text-muted-foreground">Added:</span>
-                    <span className="ml-2 font-medium">{link.date}</span>
-                  </div>
-                )}
-                {link.url && (
-                  <div>
-                    <span className="text-muted-foreground">URL:</span>
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="ml-2 font-medium text-primary hover:underline break-all"
-                    >
-                      {new URL(link.url).hostname}
-                    </a>
-                  </div>
-                )}
-              </div>
-            </div>
-
             {/* Table of Contents */}
             <TableOfContents items={tocItems} variant="sidebar" />
           </div>
