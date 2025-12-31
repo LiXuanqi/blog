@@ -4,13 +4,16 @@ import { MarkdownConnector, RawMarkdownDocument } from "../core/types";
 
 type LocalFileSystemConnectorConfig = {
   contentDir: string;
+  sourceId: string;
 };
 
 export class LocalFileSystemConnector implements MarkdownConnector {
   private _contentDir: string;
+  private _sourceId: string;
 
-  constructor({ contentDir }: LocalFileSystemConnectorConfig) {
+  constructor({ contentDir, sourceId }: LocalFileSystemConnectorConfig) {
     this._contentDir = contentDir;
+    this._sourceId = sourceId;
   }
 
   public async getAll(): Promise<RawMarkdownDocument[]> {
@@ -30,6 +33,7 @@ export class LocalFileSystemConnector implements MarkdownConnector {
           slug,
           content: fileContents,
           source: "local" as const,
+          sourceId: this._sourceId,
         };
       });
 
@@ -48,6 +52,7 @@ export class LocalFileSystemConnector implements MarkdownConnector {
           slug,
           content: fileContents,
           source: "local" as const,
+          sourceId: this._sourceId,
         };
       }
     }

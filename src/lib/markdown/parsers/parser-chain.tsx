@@ -24,6 +24,7 @@ export class MarkdownParserChain {
     return {
       slug: context.slug,
       source: context.source,
+      sourceId: context.sourceId,
       content: context.rawContent,
       frontmatter: context.frontmatter || ({} as T),
     };

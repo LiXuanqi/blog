@@ -57,6 +57,7 @@ export class MarkdownProcessor {
     const context = {
       slug: raw.slug,
       source: raw.source,
+      sourceId: raw.sourceId,
       rawContent: raw.content,
       schema,
     };

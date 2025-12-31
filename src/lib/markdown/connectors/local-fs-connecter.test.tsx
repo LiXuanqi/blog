@@ -10,7 +10,10 @@ describe("LocalFileSystemConnector", () => {
 
   beforeEach(() => {
     tempDir = fs.mkdtempSync(path.join(tmpdir(), "markdown-test-"));
-    connector = new LocalFileSystemConnector({ contentDir: tempDir });
+    connector = new LocalFileSystemConnector({
+      contentDir: tempDir,
+      sourceId: "test-source",
+    });
   });
 
   afterEach(() => {
@@ -21,6 +24,7 @@ describe("LocalFileSystemConnector", () => {
     it("returns empty array when directory does not exist", async () => {
       const nonExistentConnector = new LocalFileSystemConnector({
         contentDir: path.join(tempDir, "nonexistent"),
+        sourceId: "test-source",
       });
       const result = await nonExistentConnector.getAll();
       expect(result).toEqual([]);
@@ -67,6 +71,7 @@ tags: [test, markdown]
         slug: "test-post",
         content: rawContent,
         source: "local",
+        sourceId: "test-source",
       });
     });
 
@@ -122,6 +127,7 @@ tags: [test, markdown]
       expect(result!.slug).toBe("test-post");
       expect(result!.content).toBe("---\ntitle: Test\n---\nContent");
       expect(result!.source).toBe("local");
+      expect(result!.sourceId).toBe("test-source");
     });
 
     it("finds .md file by slug", async () => {
@@ -131,6 +137,7 @@ tags: [test, markdown]
       expect(result!.slug).toBe("markdown");
       expect(result!.content).toBe("---\ntitle: MD File\n---\nMD Content");
       expect(result!.source).toBe("local");
+      expect(result!.sourceId).toBe("test-source");
     });
 
     it("prefers .mdx over .md when both exist", async () => {
@@ -154,6 +161,7 @@ tags: [test, markdown]
       expect(result).toHaveProperty("slug");
       expect(result).toHaveProperty("content");
       expect(result).toHaveProperty("source");
+      expect(result).toHaveProperty("sourceId");
     });
   });
 });

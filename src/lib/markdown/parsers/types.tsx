@@ -3,6 +3,7 @@ import { z } from "zod";
 export interface ParseContext<T = Record<string, unknown>> {
   slug: string;
   source: string;
+  sourceId: string;
   rawContent: string;
   frontmatter?: T;
   schema: z.ZodSchema;

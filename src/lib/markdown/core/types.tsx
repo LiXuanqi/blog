@@ -2,6 +2,7 @@ export interface RawMarkdownDocument {
   slug: string;
   content: string;
   source: string;
+  sourceId: string;
 }
 
 export interface MarkdownDocument<T = Record<string, unknown>> {
@@ -12,6 +13,7 @@ export interface MarkdownDocument<T = Record<string, unknown>> {
   readingTime?: number;
   lastModified?: Date;
   source: string;
+  sourceId: string;
 }
 
 export interface MarkdownConnector {
