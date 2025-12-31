@@ -1,7 +1,6 @@
 import { MarkdownProcessor } from "./core/processor";
-import { LocalFsConnector } from "./connectors/local-fs-connecter";
+import { LocalFileSystemConnector } from "./connectors/local-fs-connecter";
 import { contentStore } from "./core/content-store";
-import { MarkdownCollection } from "./core/markdown-collection";
 import { z } from "zod";
 import path from "path";
 
@@ -14,24 +13,6 @@ const BlogSchema = z.object({
   visible: z.boolean().optional(),
 });
 
-const NoteSchema = z.object({
-  title: z.string(),
-  date: z.string(),
-  description: z.string().optional(),
-  tags: z.array(z.string()).optional(),
-  visible: z.boolean().optional(),
-});
-
-const LinkSchema = z.object({
-  title: z.string(),
-  date: z.string(),
-  description: z.string().optional(),
-  image: z.string().optional(),
-  url: z.string().optional(),
-  category: z.string().optional(),
-  visible: z.boolean().optional(),
-});
-
 /**
  * Initialize the content store with processed markdown collections
  */
@@ -40,64 +21,37 @@ export async function initializeContentStore(): Promise<void> {
     return; // Already initialized
   }
 
-  // Create separate processors for each content type
-  const blogProcessor = new MarkdownProcessor({
+  // Create a single processor with multiple sources
+  const processor = new MarkdownProcessor({
     sources: [
       {
         id: "blogs",
-        connector: new LocalFsConnector(
-          path.join(process.cwd(), "content/blogs"),
-        ),
+        connector: new LocalFileSystemConnector({
+          contentDir: path.join(process.cwd(), "content/blogs"),
+          sourceId: "blogs",
+        }),
         schema: BlogSchema,
       },
-    ],
-  });
-
-  const noteProcessor = new MarkdownProcessor({
-    sources: [
-      {
-        id: "notes",
-        connector: new LocalFsConnector(
-          path.join(process.cwd(), "content/notes"),
-        ),
-        schema: NoteSchema,
-      },
-    ],
-  });
-
-  const linkProcessor = new MarkdownProcessor({
-    sources: [
-      {
-        id: "links",
-        connector: new LocalFsConnector(
-          path.join(process.cwd(), "content/links"),
-        ),
-        schema: LinkSchema,
-      },
+      // {
+      //   id: "notes",
+      //   connector: new LocalFileSystemConnector(path.join(process.cwd(), "content/notes")),
+      //   schema: NoteSchema,
+      // },
+      // {
+      //   id: "links",
+      //   connector: new LocalFileSystemConnector(path.join(process.cwd(), "content/links")),
+      //   schema: LinkSchema,
+      // },
     ],
   });
 
   try {
-    // Process each collection
-    const [blogCollection, noteCollection, linkCollection] = await Promise.all([
-      blogProcessor.process(),
-      noteProcessor.process(),
-      linkProcessor.process(),
-    ]);
-
-    // Register collections in the store
-    contentStore.register("blogs", blogCollection);
-    contentStore.register("notes", noteCollection);
-    contentStore.register("links", linkCollection);
+    // Process all sources - this will automatically register collections to the content store
+    await processor.process();
 
     contentStore.markInitialized();
   } catch (error) {
     console.error("Failed to initialize content store:", error);
-    // Register empty collections as fallback
-    contentStore.register("blogs", new MarkdownCollection([]));
-    contentStore.register("notes", new MarkdownCollection([]));
-    contentStore.register("links", new MarkdownCollection([]));
-    contentStore.markInitialized();
   }
 }
 

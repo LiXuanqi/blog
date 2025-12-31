@@ -7,6 +7,7 @@ import {
 import { MarkdownParserChain } from "../parsers/parser-chain";
 import { FrontMatterParser } from "../parsers/frontmatter-parser";
 import { MarkdownCollection } from "./markdown-collection";
+import { contentStore } from "./content-store";
 import { z } from "zod";
 
 export class MarkdownProcessor {
@@ -38,16 +39,21 @@ export class MarkdownProcessor {
     return allDocuments;
   }
 
-  async process(): Promise<MarkdownCollection> {
-    const processedDocs: MarkdownDocument[] = [];
+  async process(): Promise<void> {
     for (const source of this.sources.values()) {
       const rawDocs = await source.connector.getAll();
-      const docs = rawDocs.map((raw) =>
+      const processedDocs = rawDocs.map((raw) =>
         this.processDocument(raw, source.schema),
       );
-      processedDocs.push(...docs);
+
+      // Register each source as a separate collection in the content store
+      const collection = new MarkdownCollection(processedDocs);
+
+      contentStore.register({
+        name: source.id,
+        collection,
+      });
     }
-    return new MarkdownCollection(processedDocs);
   }
 
   private processDocument(

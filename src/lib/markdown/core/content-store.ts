@@ -1,16 +1,22 @@
 import { MarkdownCollection } from "./markdown-collection";
 
 /**
- * Global content store that holds processed markdown collections
+ * Global content store that holds processed markdown collections and generates GraphQL resolvers
  */
 class ContentStore {
   private collections = new Map<string, MarkdownCollection>();
   private initialized = false;
 
   /**
-   * Register a collection in the store
+   * Register a collection in the store with its resolvers
    */
-  register(name: string, collection: MarkdownCollection): void {
+  register({
+    name,
+    collection,
+  }: {
+    name: string;
+    collection: MarkdownCollection;
+  }): void {
     this.collections.set(name, collection);
   }
 
