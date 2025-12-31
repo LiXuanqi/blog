@@ -6,9 +6,13 @@ export class FrontMatterParser implements MarkdownParser {
     try {
       const { data } = matter(context.rawContent);
 
+      // Apply schema validation
+      const result = context.schema.safeParse(data);
+      const validatedData = result.success ? (result.data as T) : ({} as T);
+
       return {
         ...context,
-        frontmatter: data as T,
+        frontmatter: validatedData,
       };
     } catch {
       // If parsing fails, return context with empty frontmatter

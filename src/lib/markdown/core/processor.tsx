@@ -2,10 +2,12 @@ import {
   MarkdownProcessorConfig,
   MarkdownSource,
   RawMarkdownDocument,
+  MarkdownDocument,
 } from "./types";
 import { MarkdownParserChain } from "../parsers/parser-chain";
 import { FrontMatterParser } from "../parsers/frontmatter-parser";
 import { MarkdownCollection } from "./markdown-collection";
+import { z } from "zod";
 
 export class MarkdownProcessor {
   private sources: Map<string, MarkdownSource>;
@@ -36,9 +38,28 @@ export class MarkdownProcessor {
     return allDocuments;
   }
 
-  async process(sourceId?: string): Promise<MarkdownCollection> {
-    const rawDocs = await this.getRawAll(sourceId);
-    const processedDocs = rawDocs.map((raw) => this.parserChain.parse(raw));
+  async process(): Promise<MarkdownCollection> {
+    const processedDocs: MarkdownDocument[] = [];
+    for (const source of this.sources.values()) {
+      const rawDocs = await source.connector.getAll();
+      const docs = rawDocs.map((raw) =>
+        this.processDocument(raw, source.schema),
+      );
+      processedDocs.push(...docs);
+    }
     return new MarkdownCollection(processedDocs);
+  }
+
+  private processDocument(
+    raw: RawMarkdownDocument,
+    schema: z.ZodSchema,
+  ): MarkdownDocument {
+    const context = {
+      slug: raw.slug,
+      source: raw.source,
+      rawContent: raw.content,
+      schema,
+    };
+    return this.parserChain.parse(context);
   }
 }

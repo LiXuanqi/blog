@@ -19,9 +19,12 @@ export interface MarkdownConnector {
   getBySlug(slug: string): Promise<RawMarkdownDocument | null>;
 }
 
+import { z } from "zod";
+
 export interface MarkdownSource {
   id: string;
   connector: MarkdownConnector;
+  schema: z.ZodSchema;
 }
 
 export type MarkdownProcessorConfig = {
