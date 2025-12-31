@@ -38,7 +38,7 @@ describe("LocalFileSystemConnector", () => {
         "---\ntitle: Test\n---\nContent",
       );
       fs.writeFileSync(
-        path.join(tempDir, "test.md"),
+        path.join(tempDir, "other.md"),
         "---\ntitle: Test MD\n---\nContent",
       );
       fs.writeFileSync(path.join(tempDir, "ignore.txt"), "Should be ignored");
@@ -46,64 +46,55 @@ describe("LocalFileSystemConnector", () => {
       const result = await connector.getAll();
 
       expect(result).toHaveLength(2);
-      expect(
-        result.every((doc) => doc.slug === "test" || doc.slug === "test"),
-      ).toBe(true);
+      const slugs = result.map((doc) => doc.slug).sort();
+      expect(slugs).toEqual(["other", "test"]);
     });
 
-    it("parses frontmatter correctly", async () => {
-      const frontmatter = `---
+    it("returns raw content including frontmatter", async () => {
+      const rawContent = `---
 title: Test Post
 date: 2023-01-01
 tags: [test, markdown]
 ---
 # Test Content`;
 
-      fs.writeFileSync(path.join(tempDir, "test-post.mdx"), frontmatter);
+      fs.writeFileSync(path.join(tempDir, "test-post.mdx"), rawContent);
 
       const result = await connector.getAll();
 
       expect(result).toHaveLength(1);
       expect(result[0]).toMatchObject({
         slug: "test-post",
-        content: "# Test Content",
-        frontmatter: {
-          title: "Test Post",
-          date: new Date("2023-01-01"),
-          tags: ["test", "markdown"],
-        },
+        content: rawContent,
         source: "local",
       });
-      expect(result[0].lastModified).toBeInstanceOf(Date);
     });
 
-    it("sorts by date descending", async () => {
+    it("returns files without sorting", async () => {
       fs.writeFileSync(
-        path.join(tempDir, "old.mdx"),
+        path.join(tempDir, "alpha.mdx"),
         "---\ndate: 2023-01-01\n---\nOld",
       );
       fs.writeFileSync(
-        path.join(tempDir, "new.mdx"),
+        path.join(tempDir, "beta.mdx"),
         "---\ndate: 2023-12-31\n---\nNew",
       );
 
       const result = await connector.getAll();
 
       expect(result).toHaveLength(2);
-      expect(result[0].slug).toBe("new");
-      expect(result[1].slug).toBe("old");
+      const slugs = result.map((doc) => doc.slug).sort();
+      expect(slugs).toEqual(["alpha", "beta"]);
     });
 
-    it("falls back to lastModified when no date in frontmatter", async () => {
-      fs.writeFileSync(
-        path.join(tempDir, "no-date.mdx"),
-        "---\ntitle: No Date\n---\nContent",
-      );
+    it("returns content with no processing", async () => {
+      const rawContent = "---\ntitle: No Date\n---\nContent";
+      fs.writeFileSync(path.join(tempDir, "no-date.mdx"), rawContent);
 
       const result = await connector.getAll();
 
       expect(result).toHaveLength(1);
-      expect(result[0].lastModified).toBeInstanceOf(Date);
+      expect(result[0].content).toBe(rawContent);
     });
   });
 
@@ -129,8 +120,8 @@ tags: [test, markdown]
 
       expect(result).not.toBeNull();
       expect(result!.slug).toBe("test-post");
-      expect(result!.frontmatter.title).toBe("Test");
-      expect(result!.content).toBe("Content");
+      expect(result!.content).toBe("---\ntitle: Test\n---\nContent");
+      expect(result!.source).toBe("local");
     });
 
     it("finds .md file by slug", async () => {
@@ -138,8 +129,8 @@ tags: [test, markdown]
 
       expect(result).not.toBeNull();
       expect(result!.slug).toBe("markdown");
-      expect(result!.frontmatter.title).toBe("MD File");
-      expect(result!.content).toBe("MD Content");
+      expect(result!.content).toBe("---\ntitle: MD File\n---\nMD Content");
+      expect(result!.source).toBe("local");
     });
 
     it("prefers .mdx over .md when both exist", async () => {
@@ -154,13 +145,15 @@ tags: [test, markdown]
 
       const result = await connector.getBySlug("duplicate");
 
-      expect(result!.frontmatter.title).toBe("MDX Version");
+      expect(result!.content).toBe("---\ntitle: MDX Version\n---\nMDX");
     });
 
-    it("includes lastModified timestamp", async () => {
+    it("returns only raw fields", async () => {
       const result = await connector.getBySlug("test-post");
 
-      expect(result!.lastModified).toBeInstanceOf(Date);
+      expect(result).toHaveProperty("slug");
+      expect(result).toHaveProperty("content");
+      expect(result).toHaveProperty("source");
     });
   });
 });

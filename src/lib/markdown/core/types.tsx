@@ -1,3 +1,9 @@
+export interface RawMarkdownDocument {
+  slug: string;
+  content: string;
+  source: string;
+}
+
 export interface MarkdownDocument<T = Record<string, unknown>> {
   slug: string;
   content: string;
@@ -9,8 +15,8 @@ export interface MarkdownDocument<T = Record<string, unknown>> {
 }
 
 export interface MarkdownConnector {
-  getAll(): Promise<MarkdownDocument[]>;
-  getBySlug(slug: string): Promise<MarkdownDocument | null>;
+  getAll(): Promise<RawMarkdownDocument[]>;
+  getBySlug(slug: string): Promise<RawMarkdownDocument | null>;
 }
 
 export interface MarkdownSource {
