@@ -1,12 +1,31 @@
 import Hero from "@/components/hero";
 import { PostList } from "@/components/post-list";
 import SectionHeader from "@/components/section-header";
-import { getAllNotes, getAllPosts } from "@/lib/mdx";
+import { getAllNotes } from "@/lib/mdx";
 import { SITE_CONFIG } from "@/lib/site-config";
+import { getClient } from "@/lib/apollo-client";
+import { gql } from "@apollo/client";
 import Image from "next/image";
 
+const GET_ENGLISH_POSTS = gql`
+  query GetEnglishPosts {
+    allBlogs(language: "en") {
+      slug
+      title
+      date
+      description
+      tags
+      language
+    }
+  }
+`;
+
 export default async function Home() {
-  const articles = await getAllPosts("en");
+  const { data } = await getClient().query({
+    query: GET_ENGLISH_POSTS,
+  });
+
+  const articles = data.allBlogs;
   const notes = await getAllNotes("en");
   return (
     // TODO: same layout as blogs home page
