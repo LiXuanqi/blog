@@ -59,7 +59,7 @@ export class PipelineMarkdownProcessor {
         .build(),
     );
 
-    const result = await this.executor.execute(steps);
+    const result = await this.executor.execute({ steps });
     if (!result.success) {
       throw new Error(`Pipeline failed: ${result.error?.message}`);
     }

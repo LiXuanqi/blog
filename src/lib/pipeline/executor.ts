@@ -1,4 +1,4 @@
-import { PipelineStep, PipelineResult } from "./types";
+import { PipelineStep, PipelineResult, Pipeline } from "./types";
 import { PipelineContext } from "./context";
 
 /**
@@ -6,9 +6,10 @@ import { PipelineContext } from "./context";
  */
 export class PipelineExecutor {
   /**
-   * Execute a list of steps in sequence
+   * Execute a pipeline
    */
-  async execute(steps: PipelineStep[]): Promise<PipelineResult> {
+  async execute(pipeline: Pipeline): Promise<PipelineResult> {
+    const steps = pipeline.steps;
     const startTime = Date.now();
     const context = new PipelineContext();
     const executedSteps: string[] = [];

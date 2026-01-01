@@ -23,6 +23,13 @@ export interface PipelineResult {
 }
 
 /**
+ * Pipeline configuration
+ */
+export interface Pipeline {
+  steps: PipelineStep[];
+}
+
+/**
  * Step execution result
  */
 export interface StepResult<T = unknown> {
