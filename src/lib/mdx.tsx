@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { type GitHubRepoConfig } from "./github-api";
+import { contentStore } from "./markdown/core/content-store";
 
 const blogsDirectory = path.join(process.cwd(), "content/blogs");
 const notesDirectory = path.join(process.cwd(), "content/notes");
@@ -147,6 +148,7 @@ function filterVisiblePosts(posts: Post[]): Post[] {
 // }
 
 export async function getAllPosts(language?: string): Promise<Post[]> {
+  console.log(contentStore.get("allBlogs"));
   // DISABLED: GitHub integration - only using local posts
   const localPosts = await getLocalPosts(blogsDirectory);
 

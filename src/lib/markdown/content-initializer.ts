@@ -1,4 +1,4 @@
-import { MarkdownProcessor } from "./core/processor";
+import { PipelineMarkdownProcessor } from "./pipeline-processor";
 import { LocalFileSystemConnector } from "./connectors/local-fs-connecter";
 import { contentStore } from "./core/content-store";
 import { z } from "zod";
@@ -14,15 +14,15 @@ const BlogSchema = z.object({
 });
 
 /**
- * Initialize the content store with processed markdown collections
+ * Initialize the content store with processed markdown collections using pipeline
  */
 export async function initializeContentStore(): Promise<void> {
   if (contentStore.isInitialized()) {
     return; // Already initialized
   }
 
-  // Create a single processor with multiple sources
-  const processor = new MarkdownProcessor({
+  // Create a pipeline processor with multiple sources
+  const processor = new PipelineMarkdownProcessor({
     sources: [
       {
         id: "blogs",
@@ -34,19 +34,25 @@ export async function initializeContentStore(): Promise<void> {
       },
       // {
       //   id: "notes",
-      //   connector: new LocalFileSystemConnector(path.join(process.cwd(), "content/notes")),
+      //   connector: new LocalFileSystemConnector({
+      //     contentDir: path.join(process.cwd(), "content/notes"),
+      //     sourceId: "notes",
+      //   }),
       //   schema: NoteSchema,
       // },
       // {
       //   id: "links",
-      //   connector: new LocalFileSystemConnector(path.join(process.cwd(), "content/links")),
+      //   connector: new LocalFileSystemConnector({
+      //     contentDir: path.join(process.cwd(), "content/links"),
+      //     sourceId: "links",
+      //   }),
       //   schema: LinkSchema,
       // },
     ],
   });
 
   try {
-    // Process all sources - this will automatically register collections to the content store
+    // Process all sources using the pipeline - this will automatically register collections
     await processor.process();
 
     contentStore.markInitialized();

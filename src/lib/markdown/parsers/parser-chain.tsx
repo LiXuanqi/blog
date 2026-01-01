@@ -1,5 +1,5 @@
 import { RawMarkdownDocument, MarkdownDocument } from "../core/types";
-import { MarkdownParser, ParseContext } from "./types";
+import { MarkdownParser } from "./types";
 
 export class MarkdownParserChain {
   private parsers: MarkdownParser[] = [];
@@ -10,23 +10,18 @@ export class MarkdownParserChain {
   }
 
   parse<T>(rawDoc: RawMarkdownDocument): MarkdownDocument<T> {
-    let context: ParseContext<T> = {
-      slug: rawDoc.slug,
-      source: rawDoc.source,
-      rawContent: rawDoc.content,
-    };
+    // let context: ParseContext<T> = {
+    //   slug: rawDoc.slug,
+    //   source: rawDoc.source,
+    //   rawContent: rawDoc.content,
+    // };
+    let context = { ...rawDoc };
 
     // Run through parser chain
     for (const parser of this.parsers) {
-      context = parser.parse(context);
+      context = parser.parse(rawDoc);
     }
 
-    return {
-      slug: context.slug,
-      source: context.source,
-      sourceId: context.sourceId,
-      content: context.rawContent,
-      frontmatter: context.frontmatter || ({} as T),
-    };
+    return context;
   }
 }

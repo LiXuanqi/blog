@@ -1,29 +1,42 @@
-import { MarkdownCollection } from "./markdown-collection";
+import { MarkdownDocument, RawMarkdownDocument } from "./types";
 
 /**
- * Global content store that holds processed markdown collections and generates GraphQL resolvers
+ * Type registry for content store - add new types here
+ */
+interface ContentTypeRegistry {
+  rawBlogs: RawMarkdownDocument[];
+  allBlogs: MarkdownDocument[];
+  // Add more types as needed
+  // config: SiteConfig;
+  // metadata: Record<string, any>;
+}
+
+/**
+ * Type-safe global content store
  */
 class ContentStore {
-  private collections = new Map<string, MarkdownCollection>();
+  private collections = new Map<
+    keyof ContentTypeRegistry,
+    ContentTypeRegistry[keyof ContentTypeRegistry]
+  >();
   private initialized = false;
 
   /**
-   * Register a collection in the store with its resolvers
+   * Register data in the store with type safety
    */
-  register({
-    name,
-    collection,
-  }: {
-    name: string;
-    collection: MarkdownCollection;
-  }): void {
-    this.collections.set(name, collection);
+  register<K extends keyof ContentTypeRegistry>(
+    name: K,
+    data: ContentTypeRegistry[K],
+  ): void {
+    this.collections.set(name, data);
   }
 
   /**
-   * Get a collection from the store
+   * Get data from the store with type safety
    */
-  get(name: string): MarkdownCollection | null {
+  get<K extends keyof ContentTypeRegistry>(
+    name: K,
+  ): ContentTypeRegistry[K] | null {
     return this.collections.get(name) || null;
   }
 
