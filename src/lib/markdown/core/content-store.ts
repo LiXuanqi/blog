@@ -1,11 +1,12 @@
-import { MarkdownDocument, RawMarkdownDocument } from "./types";
+import { MarkdownCollection } from "./markdown-collection";
+import { ContentCollectionId } from "./types";
 
 /**
  * Type registry for content store - add new types here
  */
 interface ContentTypeRegistry {
-  rawBlogs: RawMarkdownDocument[];
-  allBlogs: MarkdownDocument[];
+  blogs: MarkdownCollection;
+  notes: MarkdownCollection;
   // Add more types as needed
   // config: SiteConfig;
   // metadata: Record<string, any>;
@@ -16,15 +17,15 @@ interface ContentTypeRegistry {
  */
 class ContentStore {
   private collections = new Map<
-    keyof ContentTypeRegistry,
-    ContentTypeRegistry[keyof ContentTypeRegistry]
+    ContentCollectionId,
+    ContentTypeRegistry[ContentCollectionId]
   >();
   private initialized = false;
 
   /**
    * Register data in the store with type safety
    */
-  register<K extends keyof ContentTypeRegistry>(
+  register<K extends ContentCollectionId>(
     name: K,
     data: ContentTypeRegistry[K],
   ): void {
@@ -34,9 +35,7 @@ class ContentStore {
   /**
    * Get data from the store with type safety
    */
-  get<K extends keyof ContentTypeRegistry>(
-    name: K,
-  ): ContentTypeRegistry[K] | null {
+  get<K extends ContentCollectionId>(name: K): ContentTypeRegistry[K] | null {
     return this.collections.get(name) || null;
   }
 
@@ -57,7 +56,7 @@ class ContentStore {
   /**
    * Get all registered collection names
    */
-  getCollectionNames(): string[] {
+  getCollectionNames(): ContentCollectionId[] {
     return Array.from(this.collections.keys());
   }
 

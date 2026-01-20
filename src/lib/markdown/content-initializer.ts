@@ -14,7 +14,7 @@ export async function initializeContentStoreAsync(): Promise<void> {
 
     contentStore.markInitialized();
 
-    console.log(contentStore.get("allBlogs"));
+    console.log(contentStore.get("blogs")?.getList());
   } catch (error) {
     console.error("Failed to initialize content store:", error);
   }

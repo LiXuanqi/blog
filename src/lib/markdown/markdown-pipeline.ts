@@ -7,6 +7,7 @@ import {
   makeMarkdownCollection,
   MarkdownCollection,
 } from "./core/markdown-collection";
+import { contentStore } from "./core/content-store";
 
 const BLOG_SCHEMA = z.object({
   title: z.string(),
@@ -31,10 +32,7 @@ export async function runMarkdownPipelineAsync(): Promise<void> {
   for (const source of SOURCES) {
     const markdownConnection =
       await _makeMarkdownCollectionFromSourceAsync(source);
-    // contentStore.register(source.id, markdownConnection);
-    console.log(markdownConnection.getList());
-
-    // console.log(contentStore.get(source.id).getList());
+    contentStore.register(source.id, markdownConnection);
   }
 }
 
