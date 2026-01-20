@@ -1,14 +1,12 @@
-import { PipelineExecutor, PipelineStep } from "@1_x7/pipeline";
-import {
-  MarkdownDocument,
-  MarkdownSource,
-  RawMarkdownDocument,
-} from "./core/types";
+import { MarkdownDocument, MarkdownSource } from "./core/types";
 import { FrontmatterExtractor } from "./frontmatter-extractor";
 import path from "path";
 import { LocalFileSystemConnector } from "./connectors/local-fs-connecter";
 import z from "zod";
-import { contentStore } from "./core/content-store";
+import {
+  makeMarkdownCollection,
+  MarkdownCollection,
+} from "./core/markdown-collection";
 
 const BLOG_SCHEMA = z.object({
   title: z.string(),
@@ -29,53 +27,32 @@ const SOURCES: MarkdownSource[] = [
   },
 ];
 
-type Ctx = {
-  rawFiles: RawMarkdownDocument[];
-  processedFiles: MarkdownDocument[];
-};
-
 export async function runMarkdownPipelineAsync(): Promise<void> {
-  const executor = new PipelineExecutor<Ctx>();
+  for (const source of SOURCES) {
+    const markdownConnection =
+      await _makeMarkdownCollectionFromSourceAsync(source);
+    // contentStore.register(source.id, markdownConnection);
+    console.log(markdownConnection.getList());
+
+    // console.log(contentStore.get(source.id).getList());
+  }
+}
+
+async function _makeMarkdownCollectionFromSourceAsync(
+  source: MarkdownSource,
+): Promise<MarkdownCollection> {
   const extractor = new FrontmatterExtractor();
 
-  const steps: PipelineStep<Ctx>[] = [];
+  const rawFiles = await source.connector.getAll();
 
-  for (const source of SOURCES) {
-    // Source step - doesn't read from context
-    steps.push({
-      id: "readFiles",
-      dependsOn: [],
-      execute: async () => {
-        const rawFiles = await source.connector.getAll();
-        return {
-          rawFiles,
-        };
-      },
-    });
-    steps.push({
-      id: "extractFrontmatter",
-      dependsOn: ["readFiles"],
-      execute: (context) => {
-        const rawFiles = context.get("rawFiles");
-        const processedFiles = rawFiles!.map((rawFile) => ({
-          ...rawFile,
-          frontmatter: extractor.extract(rawFile.content, source.schema),
-        }));
-        return {
-          processedFiles,
-        };
-      },
-    });
-    steps.push({
-      id: "setContentStore",
-      dependsOn: ["extractFrontmatter"],
-      execute: (context) => {
-        const processedFiles = context.get("processedFiles");
-        contentStore.register("allBlogs", processedFiles!);
-      },
+  const processedFiles: MarkdownDocument[] = [];
+
+  for (const rawFile of rawFiles) {
+    processedFiles.push({
+      ...rawFile,
+      frontmatter: extractor.extract(rawFile.content, source.schema),
     });
   }
 
-  const context = await executor.runAsync(steps);
-  console.log(context);
+  return makeMarkdownCollection(processedFiles);
 }
