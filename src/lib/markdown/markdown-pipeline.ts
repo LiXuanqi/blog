@@ -8,7 +8,7 @@ import {
   MarkdownCollection,
 } from "./core/markdown-collection";
 
-const BLOG_SCHEMA = z.object({
+const BLOG_FRONTMATTER_SCHEMA = z.object({
   title: z.string(),
   date: z.string(),
   description: z.string().optional(),
@@ -23,7 +23,7 @@ const SOURCES: MarkdownSource[] = [
       contentDir: path.join(process.cwd(), "content/blogs"),
       sourceId: "blogs",
     }),
-    schema: BLOG_SCHEMA,
+    frontmatterSchema: BLOG_FRONTMATTER_SCHEMA,
   },
 ];
 
@@ -53,7 +53,7 @@ async function _makeMarkdownCollectionFromSourceAsync<
   const rawFiles = await source.connector.getAll();
 
   const processedFiles = rawFiles.map((rawFile) =>
-    frontmatterExtractor.enrich(rawFile, source.schema),
+    frontmatterExtractor.enrich(rawFile, source.frontmatterSchema),
   );
 
   return makeMarkdownCollection(processedFiles);

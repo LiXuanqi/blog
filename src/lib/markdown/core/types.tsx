@@ -28,5 +28,5 @@ export type ContentCollectionId = "blogs" | "notes";
 export interface MarkdownSource<TSchema extends z.ZodTypeAny = z.ZodTypeAny> {
   id: ContentCollectionId;
   connector: MarkdownConnector;
-  schema: TSchema;
+  frontmatterSchema: TSchema;
 }
