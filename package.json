@@ -13,7 +13,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@1_x7/pipeline": "^0.1.1",
+    "@1_x7/pipeline": "^0.1.3",
     "@apollo/client": "^4.0.11",
     "@apollo/client-integration-nextjs": "^0.14.3",
     "@apollo/server": "^5.2.0",

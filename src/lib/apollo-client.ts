@@ -7,12 +7,9 @@ import {
 } from "@apollo/client-integration-nextjs";
 import { typeDefs } from "./graphql/schema";
 import { resolvers } from "./graphql/resolvers";
-import { initializeContentStore } from "./content-store/init";
-import { runPipeline } from "./markdown-pipeline/pipeline";
+import { initializeContentStoreAsync } from "./markdown/content-initializer";
 
-// Initialize content store before creating schema
-await initializeContentStore();
-runPipeline();
+await initializeContentStoreAsync();
 
 // Create the executable schema for SchemaLink
 const schema = makeExecutableSchema({

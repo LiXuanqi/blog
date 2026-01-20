@@ -28,7 +28,3 @@ export interface MarkdownSource {
   connector: MarkdownConnector;
   schema: z.ZodSchema;
 }
-
-export type MarkdownProcessorConfig = {
-  sources: MarkdownSource[];
-};
