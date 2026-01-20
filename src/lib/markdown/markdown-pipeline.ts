@@ -1,4 +1,4 @@
-import { MarkdownSource } from "./core/types";
+import { ContentCollectionId, MarkdownSource } from "./core/types";
 import { FrontmatterExtractor } from "./frontmatter-extractor";
 import path from "path";
 import { LocalFileSystemConnector } from "./connectors/local-fs-connecter";
@@ -7,7 +7,6 @@ import {
   makeMarkdownCollection,
   MarkdownCollection,
 } from "./core/markdown-collection";
-import { contentStore } from "./core/content-store";
 
 const BLOG_SCHEMA = z.object({
   title: z.string(),
@@ -28,12 +27,20 @@ const SOURCES: MarkdownSource[] = [
   },
 ];
 
-export async function runMarkdownPipelineAsync(): Promise<void> {
+export async function runMarkdownPipelineAsync(): Promise<
+  Array<{ id: ContentCollectionId; collection: MarkdownCollection }>
+> {
+  console.log("Starting _runMarkdownPipelineAsync");
+  const collections: Array<{
+    id: ContentCollectionId;
+    collection: MarkdownCollection;
+  }> = [];
   for (const source of SOURCES) {
     const markdownConnection =
       await _makeMarkdownCollectionFromSourceAsync(source);
-    contentStore.register(source.id, markdownConnection);
+    collections.push({ id: source.id, collection: markdownConnection });
   }
+  return collections;
 }
 
 async function _makeMarkdownCollectionFromSourceAsync<

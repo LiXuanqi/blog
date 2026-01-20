@@ -1,21 +1,16 @@
 import { MarkdownCollection } from "./markdown-collection";
+import { runMarkdownPipelineAsync } from "../markdown-pipeline";
 import { ContentCollectionId } from "./types";
 
 /**
  * Type registry for content store - add new types here
  */
-interface ContentTypeRegistry {
-  blogs: MarkdownCollection;
-  notes: MarkdownCollection;
-  // Add more types as needed
-  // config: SiteConfig;
-  // metadata: Record<string, any>;
-}
+type ContentTypeRegistry = Record<ContentCollectionId, MarkdownCollection>;
 
 /**
  * Type-safe global content store
  */
-class ContentStore {
+export class ContentStore {
   private collections = new Map<
     ContentCollectionId,
     ContentTypeRegistry[ContentCollectionId]
@@ -69,5 +64,27 @@ class ContentStore {
   }
 }
 
-// Export a singleton instance
-export const contentStore = new ContentStore();
+let contentStoreInstance: ContentStore | null = null;
+let contentStoreInitPromise: Promise<ContentStore> | null = null;
+
+export async function getContentStoreAsync(): Promise<ContentStore> {
+  if (contentStoreInstance?.isInitialized()) {
+    return contentStoreInstance;
+  }
+
+  const instance = contentStoreInstance ?? new ContentStore();
+  contentStoreInstance = instance;
+
+  if (!contentStoreInitPromise) {
+    contentStoreInitPromise = (async () => {
+      const collections = await runMarkdownPipelineAsync();
+      for (const { id, collection } of collections) {
+        instance.register(id, collection);
+      }
+      instance.markInitialized();
+      return instance;
+    })();
+  }
+
+  return contentStoreInitPromise;
+}

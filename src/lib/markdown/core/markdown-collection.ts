@@ -1,7 +1,7 @@
 import { MarkdownDocument } from "./types";
 
 export type MarkdownCollection<TFrontmatter = Record<string, unknown>> = {
-  getList(): Pick<MarkdownDocument<TFrontmatter>, "slug">[];
+  getList(): Pick<MarkdownDocument<TFrontmatter>, "slug" | "title" | "date">[];
 };
 
 export function makeMarkdownCollection<TFrontmatter = Record<string, unknown>>(
@@ -13,6 +13,8 @@ export function makeMarkdownCollection<TFrontmatter = Record<string, unknown>>(
       for (const file of markdownFiles) {
         ret.push({
           slug: file.slug,
+          title: file.frontmatter.title,
+          date: file.frontmatter.date,
         });
       }
       return ret;
