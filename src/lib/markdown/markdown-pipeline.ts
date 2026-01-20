@@ -1,4 +1,4 @@
-import { MarkdownDocument, MarkdownSource } from "./core/types";
+import { MarkdownSource } from "./core/types";
 import { FrontmatterExtractor } from "./frontmatter-extractor";
 import path from "path";
 import { LocalFileSystemConnector } from "./connectors/local-fs-connecter";
@@ -38,21 +38,18 @@ export async function runMarkdownPipelineAsync(): Promise<void> {
   }
 }
 
-async function _makeMarkdownCollectionFromSourceAsync(
-  source: MarkdownSource,
-): Promise<MarkdownCollection> {
-  const extractor = new FrontmatterExtractor();
+async function _makeMarkdownCollectionFromSourceAsync<
+  TSchema extends z.ZodTypeAny,
+>(
+  source: MarkdownSource<TSchema>,
+): Promise<MarkdownCollection<z.infer<TSchema>>> {
+  const frontmatterExtractor = new FrontmatterExtractor();
 
   const rawFiles = await source.connector.getAll();
 
-  const processedFiles: MarkdownDocument[] = [];
-
-  for (const rawFile of rawFiles) {
-    processedFiles.push({
-      ...rawFile,
-      frontmatter: extractor.extract(rawFile.content, source.schema),
-    });
-  }
+  const processedFiles = rawFiles.map((rawFile) =>
+    frontmatterExtractor.enrich(rawFile, source.schema),
+  );
 
   return makeMarkdownCollection(processedFiles);
 }

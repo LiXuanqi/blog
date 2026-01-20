@@ -23,8 +23,8 @@ export interface MarkdownConnector {
 
 import { z } from "zod";
 
-export interface MarkdownSource {
+export interface MarkdownSource<TSchema extends z.ZodTypeAny = z.ZodTypeAny> {
   id: string;
   connector: MarkdownConnector;
-  schema: z.ZodSchema;
+  schema: TSchema;
 }

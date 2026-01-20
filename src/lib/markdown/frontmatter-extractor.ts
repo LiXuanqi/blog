@@ -1,5 +1,6 @@
 import matter from "gray-matter";
 import { z } from "zod";
+import { MarkdownDocument, RawMarkdownDocument } from "./core/types";
 
 /**
  * Simple frontmatter extractor utility
@@ -8,13 +9,29 @@ export class FrontmatterExtractor {
   /**
    * Extract and validate frontmatter from markdown content
    */
-  extract<T>(rawContent: string, schema: z.ZodSchema<T>): T {
+  extract<TSchema extends z.ZodTypeAny>(
+    rawContent: string,
+    schema: TSchema,
+  ): z.infer<TSchema> {
     const { data } = matter(rawContent);
 
     // Convert Date objects to ISO strings for schema validation
     const normalizedData = this.normalizeDateFields(data);
 
     return schema.parse(normalizedData);
+  }
+
+  /**
+   * Enrich a raw markdown document with typed frontmatter.
+   */
+  enrich<TSchema extends z.ZodTypeAny>(
+    rawDocument: RawMarkdownDocument,
+    schema: TSchema,
+  ): MarkdownDocument<z.infer<TSchema>> {
+    return {
+      ...rawDocument,
+      frontmatter: this.extract(rawDocument.content, schema),
+    };
   }
 
   /**

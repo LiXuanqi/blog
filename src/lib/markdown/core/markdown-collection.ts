@@ -1,18 +1,18 @@
 import { MarkdownDocument } from "./types";
 
-export type MarkdownCollection = {
-  getList(): Pick<MarkdownDocument, "slug">[];
+export type MarkdownCollection<TFrontmatter = Record<string, unknown>> = {
+  getList(): Pick<MarkdownDocument<TFrontmatter>, "slug">[];
 };
 
-export function makeMarkdownCollection(
-  markdownFiles: MarkdownDocument[],
-): MarkdownCollection {
+export function makeMarkdownCollection<TFrontmatter = Record<string, unknown>>(
+  markdownFiles: MarkdownDocument<TFrontmatter>[],
+): MarkdownCollection<TFrontmatter> {
   return {
     getList: () => {
       const ret = [];
-      for (const files of markdownFiles) {
+      for (const file of markdownFiles) {
         ret.push({
-          slug: files.slug,
+          slug: file.slug,
         });
       }
       return ret;
