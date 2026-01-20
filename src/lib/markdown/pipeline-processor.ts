@@ -1,3 +1,4 @@
+import { runPipeline } from "../markdown-pipeline/pipeline";
 import { PipelineExecutor, createStep } from "../pipeline";
 import { MarkdownProcessorConfig } from "./core/types";
 import { FrontmatterExtractor } from "./frontmatter-extractor";
@@ -41,6 +42,8 @@ export class PipelineMarkdownProcessor {
           .build(),
       );
     }
+
+    runPipeline();
 
     // Debug step - print context data
     steps.push(

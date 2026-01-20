@@ -16,7 +16,7 @@ const BlogSchema = z.object({
 /**
  * Initialize the content store with processed markdown collections using pipeline
  */
-export async function initializeContentStore(): Promise<void> {
+export async function initializeContentStore1(): Promise<void> {
   if (contentStore.isInitialized()) {
     return; // Already initialized
   }
