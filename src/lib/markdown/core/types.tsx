@@ -23,7 +23,7 @@ export interface MarkdownConnector {
 
 import { z } from "zod";
 
-export type ContentCollectionId = "blogs";
+export type ContentCollectionId = "blogs" | "notes";
 
 export type FrontmatterSchema = z.ZodTypeAny;
 

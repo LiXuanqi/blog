@@ -1,4 +1,4 @@
-import { BlogFrontmatter } from "./frontmatter";
+import { BlogFrontmatter, NoteFrontmatter } from "./frontmatter";
 import { MarkdownCollection } from "./markdown-collection";
 
 /**
@@ -6,4 +6,5 @@ import { MarkdownCollection } from "./markdown-collection";
  */
 export type ContentTypeRegistry = {
   blogs: MarkdownCollection<BlogFrontmatter>;
+  notes: MarkdownCollection<NoteFrontmatter>;
 };

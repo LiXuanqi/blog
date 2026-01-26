@@ -6,10 +6,7 @@ import { ContentCollectionId } from "./types";
  * Type-safe global content store
  */
 export class ContentStore {
-  private collections = new Map<
-    ContentCollectionId,
-    ContentTypeRegistry[ContentCollectionId]
-  >();
+  private collections: Partial<ContentTypeRegistry> = {};
   private initialized = false;
 
   /**
@@ -19,14 +16,14 @@ export class ContentStore {
     name: K,
     data: ContentTypeRegistry[K],
   ): void {
-    this.collections.set(name, data);
+    this.collections[name] = data;
   }
 
   /**
    * Get data from the store with type safety
    */
   get<K extends ContentCollectionId>(name: K): ContentTypeRegistry[K] | null {
-    return this.collections.get(name) || null;
+    return this.collections[name] ?? null;
   }
 
   /**
@@ -47,14 +44,14 @@ export class ContentStore {
    * Get all registered collection names
    */
   getCollectionNames(): ContentCollectionId[] {
-    return Array.from(this.collections.keys());
+    return Object.keys(this.collections) as ContentCollectionId[];
   }
 
   /**
    * Clear all collections (useful for testing)
    */
   clear(): void {
-    this.collections.clear();
+    this.collections = {};
     this.initialized = false;
   }
 }

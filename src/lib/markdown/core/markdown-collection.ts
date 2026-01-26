@@ -3,9 +3,7 @@ import { MarkdownDocument } from "./types";
 
 export type MarkdownCollection<TFrontmatter extends BaseFrontmatter> = {
   getList(): { slug: string; title: string; date: string }[];
-  getItemBySlug(slug: string): {
-    frontmatter: TFrontmatter;
-  };
+  getItemBySlug(slug: string): MarkdownDocument<TFrontmatter> | null;
 };
 
 export function makeMarkdownCollection<TFrontmatter extends BaseFrontmatter>(
@@ -23,16 +21,7 @@ export function makeMarkdownCollection<TFrontmatter extends BaseFrontmatter>(
       }
       return ret;
     },
-    getItemBySlug: () => {
-      return {
-        frontmatter: {
-          title: "test",
-          date: "test",
-          description: "a",
-          tags: [],
-          visible: true,
-        },
-      };
-    },
+    getItemBySlug: (slug) =>
+      markdownFiles.find((file) => file.slug === slug) ?? null,
   };
 }
