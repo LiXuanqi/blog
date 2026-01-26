@@ -24,7 +24,6 @@ describe("#buildCollectionsFromSources", () => {
       },
     ];
     const collections = await buildCollectionsFromSourcesAsync(sources);
-    console.log(collections);
 
     expect(collections[0].collection.getList()).toContainEqual({
       slug: "hello-world",
