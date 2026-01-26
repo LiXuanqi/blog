@@ -25,18 +25,22 @@ const SOURCES: MarkdownSource<typeof BLOG_FRONTMATTER_SCHEMA>[] = [
   },
 ];
 
-export async function runMarkdownPipelineAsync(): Promise<
-  Array<{
-    id: ContentCollectionId;
-    collection: ContentTypeRegistry[ContentCollectionId];
-  }>
-> {
+type MarkdownCollections = Array<{
+  id: ContentCollectionId;
+  collection: ContentTypeRegistry[ContentCollectionId];
+}>;
+
+export async function runMarkdownPipelineAsync(): Promise<MarkdownCollections> {
   console.log("Starting _runMarkdownPipelineAsync");
-  const collections: Array<{
-    id: ContentCollectionId;
-    collection: ContentTypeRegistry[ContentCollectionId];
-  }> = [];
-  for (const source of SOURCES) {
+  return await buildCollectionsFromSourcesAsync(SOURCES);
+}
+
+export async function buildCollectionsFromSourcesAsync(
+  sources: MarkdownSource<typeof BLOG_FRONTMATTER_SCHEMA>[],
+): Promise<MarkdownCollections> {
+  const collections: MarkdownCollections = [];
+
+  for (const source of sources) {
     const markdownConnection =
       await _makeMarkdownCollectionFromSourceAsync(source);
     collections.push({ id: source.id, collection: markdownConnection });
