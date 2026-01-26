@@ -16,9 +16,10 @@ export function CodeBlock({ children, ...props }: CodeBlockProps) {
 
   // Check if this is a Shiki-processed code block
   const isShikiBlock = React.Children.toArray(children).some((child) => {
-    return (
-      React.isValidElement(child) && child.props?.className?.includes("shiki")
-    );
+    if (!React.isValidElement<{ className?: string }>(child)) {
+      return false;
+    }
+    return child.props.className?.includes("shiki");
   });
 
   const handleCopy = async () => {

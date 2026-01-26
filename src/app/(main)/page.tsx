@@ -8,7 +8,7 @@ import { getContentStoreAsync } from "@/lib/markdown/core/content-store";
 
 export default async function Home() {
   const contentStore = await getContentStoreAsync();
-  const articles = contentStore.get("blogs")?.getList();
+  const articles = contentStore.get("blogs")?.getList() ?? [];
   const notes = await getAllNotes("en");
   return (
     // TODO: same layout as blogs home page

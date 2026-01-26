@@ -1,22 +1,20 @@
-import { ContentCollectionId, MarkdownSource } from "./core/types";
+import { ContentTypeRegistry } from "./core/content-types";
+import { BaseFrontmatter, BLOG_FRONTMATTER_SCHEMA } from "./core/frontmatter";
+import {
+  ContentCollectionId,
+  FrontmatterSchema,
+  MarkdownDocument,
+  MarkdownSource,
+} from "./core/types";
 import { FrontmatterExtractor } from "./frontmatter-extractor";
 import path from "path";
 import { LocalFileSystemConnector } from "./connectors/local-fs-connecter";
-import z from "zod";
 import {
   makeMarkdownCollection,
   MarkdownCollection,
 } from "./core/markdown-collection";
 
-const BLOG_FRONTMATTER_SCHEMA = z.object({
-  title: z.string(),
-  date: z.string(),
-  description: z.string().optional(),
-  tags: z.array(z.string()).optional(),
-  visible: z.boolean().optional(),
-});
-
-const SOURCES: MarkdownSource[] = [
+const SOURCES: MarkdownSource<typeof BLOG_FRONTMATTER_SCHEMA>[] = [
   {
     id: "blogs",
     connector: new LocalFileSystemConnector({
@@ -28,12 +26,15 @@ const SOURCES: MarkdownSource[] = [
 ];
 
 export async function runMarkdownPipelineAsync(): Promise<
-  Array<{ id: ContentCollectionId; collection: MarkdownCollection }>
+  Array<{
+    id: ContentCollectionId;
+    collection: ContentTypeRegistry[ContentCollectionId];
+  }>
 > {
   console.log("Starting _runMarkdownPipelineAsync");
   const collections: Array<{
     id: ContentCollectionId;
-    collection: MarkdownCollection;
+    collection: ContentTypeRegistry[ContentCollectionId];
   }> = [];
   for (const source of SOURCES) {
     const markdownConnection =
@@ -44,17 +45,17 @@ export async function runMarkdownPipelineAsync(): Promise<
 }
 
 async function _makeMarkdownCollectionFromSourceAsync<
-  TSchema extends z.ZodTypeAny,
+  TSchema extends FrontmatterSchema,
 >(
   source: MarkdownSource<TSchema>,
-): Promise<MarkdownCollection<z.infer<TSchema>>> {
+): Promise<MarkdownCollection<BaseFrontmatter>> {
   const frontmatterExtractor = new FrontmatterExtractor();
 
   const rawFiles = await source.connector.getAll();
 
   const processedFiles = rawFiles.map((rawFile) =>
     frontmatterExtractor.enrich(rawFile, source.frontmatterSchema),
-  );
+  ) as MarkdownDocument<BaseFrontmatter>[];
 
   return makeMarkdownCollection(processedFiles);
 }

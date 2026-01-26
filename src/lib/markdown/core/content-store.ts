@@ -1,11 +1,6 @@
-import { MarkdownCollection } from "./markdown-collection";
+import { ContentTypeRegistry } from "./content-types";
 import { runMarkdownPipelineAsync } from "../markdown-pipeline";
 import { ContentCollectionId } from "./types";
-
-/**
- * Type registry for content store - add new types here
- */
-type ContentTypeRegistry = Record<ContentCollectionId, MarkdownCollection>;
 
 /**
  * Type-safe global content store

@@ -23,9 +23,13 @@ export interface MarkdownConnector {
 
 import { z } from "zod";
 
-export type ContentCollectionId = "blogs" | "notes";
+export type ContentCollectionId = "blogs";
 
-export interface MarkdownSource<TSchema extends z.ZodTypeAny = z.ZodTypeAny> {
+export type FrontmatterSchema = z.ZodTypeAny;
+
+export interface MarkdownSource<
+  TSchema extends FrontmatterSchema = FrontmatterSchema,
+> {
   id: ContentCollectionId;
   connector: MarkdownConnector;
   frontmatterSchema: TSchema;

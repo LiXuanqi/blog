@@ -9,7 +9,7 @@ export class FrontmatterExtractor {
   /**
    * Extract and validate frontmatter from markdown content
    */
-  extract<TSchema extends z.ZodTypeAny>(
+  extract<TSchema extends z.ZodType>(
     rawContent: string,
     schema: TSchema,
   ): z.infer<TSchema> {
@@ -24,7 +24,7 @@ export class FrontmatterExtractor {
   /**
    * Enrich a raw markdown document with typed frontmatter.
    */
-  enrich<TSchema extends z.ZodTypeAny>(
+  enrich<TSchema extends z.ZodType>(
     rawDocument: RawMarkdownDocument,
     schema: TSchema,
   ): MarkdownDocument<z.infer<TSchema>> {

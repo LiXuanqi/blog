@@ -1,10 +1,14 @@
+import { BaseFrontmatter } from "./frontmatter";
 import { MarkdownDocument } from "./types";
 
-export type MarkdownCollection<TFrontmatter = Record<string, unknown>> = {
-  getList(): Pick<MarkdownDocument<TFrontmatter>, "slug" | "title" | "date">[];
+export type MarkdownCollection<TFrontmatter extends BaseFrontmatter> = {
+  getList(): { slug: string; title: string; date: string }[];
+  getItemBySlug(slug: string): {
+    frontmatter: TFrontmatter;
+  };
 };
 
-export function makeMarkdownCollection<TFrontmatter = Record<string, unknown>>(
+export function makeMarkdownCollection<TFrontmatter extends BaseFrontmatter>(
   markdownFiles: MarkdownDocument<TFrontmatter>[],
 ): MarkdownCollection<TFrontmatter> {
   return {
@@ -18,6 +22,17 @@ export function makeMarkdownCollection<TFrontmatter = Record<string, unknown>>(
         });
       }
       return ret;
+    },
+    getItemBySlug: () => {
+      return {
+        frontmatter: {
+          title: "test",
+          date: "test",
+          description: "a",
+          tags: [],
+          visible: true,
+        },
+      };
     },
   };
 }
