@@ -25,10 +25,24 @@ describe("#buildCollectionsFromSources", () => {
     ];
     const collections = await buildCollectionsFromSourcesAsync(sources);
 
-    expect(collections[0].collection.getList()).toContainEqual({
-      slug: "hello-world",
-      title: "Hello world",
-      date: "2018-11-25",
-    });
+    const blogList = collections[0].collection.getList();
+
+    expect(blogList).toHaveLength(2);
+    expect(blogList).toEqual(
+      expect.arrayContaining([
+        {
+          slug: "hello-world",
+          title: "Hello world",
+          date: "2018-11-25",
+          language: "en",
+        },
+        {
+          slug: "hello-world.zh",
+          title: "你好，世界",
+          date: "2018-11-25",
+          language: "zh",
+        },
+      ]),
+    );
   });
 });

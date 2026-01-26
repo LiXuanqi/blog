@@ -13,6 +13,7 @@ import {
   makeMarkdownCollection,
   MarkdownCollection,
 } from "./core/markdown-collection";
+import { enrichLanguage } from "./language-decorator";
 
 const SOURCES: MarkdownSource<typeof BLOG_FRONTMATTER_SCHEMA>[] = [
   {
@@ -57,9 +58,11 @@ async function _makeMarkdownCollectionFromSourceAsync<
 
   const rawFiles = await source.connector.getAll();
 
-  const processedFiles = rawFiles.map((rawFile) =>
-    frontmatterExtractor.enrich(rawFile, source.frontmatterSchema),
-  ) as MarkdownDocument<BaseFrontmatter>[];
+  const processedFiles = rawFiles.map((rawFile) => {
+    const file = frontmatterExtractor.enrich(rawFile, source.frontmatterSchema);
+    enrichLanguage(file);
+    return file as MarkdownDocument<BaseFrontmatter>;
+  });
 
   return makeMarkdownCollection(processedFiles);
 }

@@ -5,6 +5,8 @@ export interface RawMarkdownDocument {
   sourceId: string;
 }
 
+export type LanguageKey = "en" | "zh";
+
 export interface MarkdownDocument<T = Record<string, unknown>> {
   slug: string;
   content: string;
@@ -14,6 +16,7 @@ export interface MarkdownDocument<T = Record<string, unknown>> {
   lastModified?: Date;
   source: string;
   sourceId: string;
+  language: LanguageKey;
 }
 
 export interface MarkdownConnector {
