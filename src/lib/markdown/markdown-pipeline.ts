@@ -6,14 +6,14 @@ import {
   MarkdownDocument,
   MarkdownSource,
 } from "./core/types";
-import { FrontmatterExtractor } from "./frontmatter-extractor";
 import path from "path";
 import { LocalFileSystemConnector } from "./connectors/local-fs-connecter";
 import {
   makeMarkdownCollection,
   MarkdownCollection,
 } from "./core/markdown-collection";
-import { enrichLanguage } from "./language-decorator";
+import { withLanguage } from "./decorator/language-decorator";
+import { withFrontmatter } from "./decorator/frontmatter-decorator";
 
 const SOURCES: MarkdownSource<typeof BLOG_FRONTMATTER_SCHEMA>[] = [
   {
@@ -54,14 +54,12 @@ async function _makeMarkdownCollectionFromSourceAsync<
 >(
   source: MarkdownSource<TSchema>,
 ): Promise<MarkdownCollection<BaseFrontmatter>> {
-  const frontmatterExtractor = new FrontmatterExtractor();
-
   const rawFiles = await source.connector.getAll();
 
   const processedFiles = rawFiles.map((rawFile) => {
-    const file = frontmatterExtractor.enrich(rawFile, source.frontmatterSchema);
-    enrichLanguage(file);
-    return file as MarkdownDocument<BaseFrontmatter>;
+    return withLanguage(
+      withFrontmatter(rawFile, source.frontmatterSchema),
+    ) as MarkdownDocument<BaseFrontmatter>;
   });
 
   return makeMarkdownCollection(processedFiles);
