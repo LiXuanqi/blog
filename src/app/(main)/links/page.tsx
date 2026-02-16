@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { getAllLinks, type Link as LinkType } from "@/lib/mdx";
+import { getContentStoreAsync } from "@/lib/markdown/core/content-store";
 import Hero from "@/components/hero";
 
 export const metadata: Metadata = {
@@ -9,7 +9,8 @@ export const metadata: Metadata = {
 };
 
 export default async function LinksPage() {
-  const links = await getAllLinks();
+  const contentStore = await getContentStoreAsync();
+  const links = contentStore.get("links")?.getList() ?? [];
 
   return (
     <div className="min-h-screen bg-background">
@@ -31,7 +32,11 @@ export default async function LinksPage() {
   );
 }
 
-function LinkItem({ link }: { link: LinkType }) {
+function LinkItem({
+  link,
+}: {
+  link: { slug: string; title: string; date: string };
+}) {
   return (
     <Link href={`/links/${link.slug}`} passHref>
       <div className="group block py-3 border-b border-gray-200 dark:border-gray-700 last:border-b-0 transition-all duration-200 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 md:hover:-ml-6 md:hover:-mr-6 md:hover:pl-6 md:hover:pr-6 md:hover:rounded-r-lg">

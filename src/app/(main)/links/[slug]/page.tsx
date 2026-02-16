@@ -1,4 +1,5 @@
-import { getAllLinks, getLinkBySlug } from "@/lib/mdx";
+import { getLinkBySlug } from "@/lib/mdx";
+import { getContentStoreAsync } from "@/lib/markdown/core/content-store";
 import { notFound } from "next/navigation";
 import LinkDetailPage from "@/components/LinkDetailPage";
 
@@ -19,7 +20,7 @@ export default async function LinkPage({ params }: PageProps) {
 
 // Generate static params for all links
 export async function generateStaticParams() {
-  const links = await getAllLinks();
+  const links = (await getContentStoreAsync()).get("links")?.getList() ?? [];
   return links.map((link) => ({
     slug: link.slug,
   }));

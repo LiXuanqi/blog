@@ -2,6 +2,7 @@ import { ContentTypeRegistry } from "./core/content-types";
 import {
   BaseFrontmatter,
   BLOG_FRONTMATTER_SCHEMA,
+  LINK_FRONTMATTER_SCHEMA,
   NOTE_FRONTMATTER_SCHEMA,
 } from "./core/frontmatter";
 import {
@@ -34,6 +35,14 @@ const SOURCES: MarkdownSource[] = [
       sourceId: "notes",
     }),
     frontmatterSchema: NOTE_FRONTMATTER_SCHEMA,
+  },
+  {
+    id: "links",
+    connector: new LocalFileSystemConnector({
+      contentDir: path.join(process.cwd(), "content/links"),
+      sourceId: "links",
+    }),
+    frontmatterSchema: LINK_FRONTMATTER_SCHEMA,
   },
 ];
 

@@ -21,3 +21,12 @@ export const NOTE_FRONTMATTER_SCHEMA = BASE_FRONTMATTER_SCHEMA.extend({
 });
 
 export type NoteFrontmatter = z.infer<typeof NOTE_FRONTMATTER_SCHEMA>;
+
+export const LINK_FRONTMATTER_SCHEMA = BASE_FRONTMATTER_SCHEMA.extend({
+  description: z.string().optional(),
+  image: z.string().optional(),
+  url: z.string().optional(),
+  category: z.string().optional(),
+});
+
+export type LinkFrontmatter = z.infer<typeof LINK_FRONTMATTER_SCHEMA>;

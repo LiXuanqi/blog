@@ -26,7 +26,7 @@ export interface MarkdownConnector {
 
 import { z } from "zod";
 
-export type ContentCollectionId = "blogs" | "notes";
+export type ContentCollectionId = "blogs" | "notes" | "links";
 
 export type FrontmatterSchema = z.ZodTypeAny;
 
