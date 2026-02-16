@@ -147,54 +147,6 @@ function filterVisiblePosts(posts: Post[]): Post[] {
 //   }
 // }
 
-export async function getAllPosts(language?: string): Promise<Post[]> {
-  // console.log(contentStore.get("allBlogs"));
-  // DISABLED: GitHub integration - only using local posts
-  const localPosts = await getLocalPosts(blogsDirectory);
-
-  // TO RE-ENABLE GITHUB: Uncomment the lines below and comment out the line above
-  // const [localPosts, githubPosts] = await Promise.all([
-  //   getLocalPosts(blogsDirectory),
-  //   fetchPostsFromGitHub(GITHUB_REPOS)
-  // ])
-  //
-  // const allPosts = [
-  //   ...localPosts,
-  //   ...githubPosts.map(convertGitHubPostToPost)
-  // ]
-  //
-  // return allPosts.sort((a, b) => (a.date < b.date ? 1 : -1))
-
-  // Filter out posts that are marked as not visible
-  const visiblePosts = filterVisiblePosts(localPosts);
-
-  // Group posts and add translation metadata
-  const groupedPosts = groupPostsBySlug(visiblePosts);
-
-  // Filter by language if specified
-  const filteredPosts = language
-    ? groupedPosts.filter((post) => post.language === language)
-    : groupedPosts;
-
-  return filteredPosts.sort((a, b) => (a.date < b.date ? 1 : -1));
-}
-
-export async function getAllNotes(language?: string): Promise<Post[]> {
-  const localNotes = await getLocalPosts(notesDirectory);
-  // Filter out notes that are marked as not visible
-  const visibleNotes = filterVisiblePosts(localNotes);
-
-  // Group notes and add translation metadata
-  const groupedNotes = groupPostsBySlug(visibleNotes);
-
-  // Filter by language if specified
-  const filteredNotes = language
-    ? groupedNotes.filter((note) => note.language === language)
-    : groupedNotes;
-
-  return filteredNotes.sort((a, b) => (a.date < b.date ? 1 : -1));
-}
-
 async function getLocalPostBySlug(
   slug: string,
   language: string = "en",

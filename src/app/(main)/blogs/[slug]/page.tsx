@@ -1,5 +1,6 @@
 import PostDetailPage from "@/components/PostDetailPage";
-import { getAllPosts, getPostBySlug } from "@/lib/mdx";
+import { getContentStoreAsync } from "@/lib/markdown/core/content-store";
+import { getPostBySlug } from "@/lib/mdx";
 import { notFound } from "next/navigation";
 
 interface PageProps {
@@ -21,8 +22,9 @@ export default async function BlogPage({ params, searchParams }: PageProps) {
 
 // Generate static params for all posts
 export async function generateStaticParams() {
-  const posts = await getAllPosts(); // Get all posts in all languages
-  return posts.map((post) => ({
-    slug: post.slug,
+  const contentStore = await getContentStoreAsync();
+  const blogs = contentStore.get("blogs")?.getList() ?? [];
+  return blogs.map((blog) => ({
+    slug: blog.slug,
   }));
 }
