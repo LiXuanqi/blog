@@ -9,7 +9,6 @@ A modern, responsive personal blog and resume website built with Next.js 15, Typ
 - **MDX Support** - Write content in Markdown with React components
 - **Mathematical Expressions** - LaTeX syntax support with KaTeX
 - **Syntax Highlighting** - Code blocks with light/dark themes using Shiki
-- **GitHub Integration** - Fetch content from external repositories using Octokit
 - **Separate Content Types** - Distinct routing for blogs (`/blogs`) and notes (`/notes`)
 - **Post Metadata** - Support for tags, dates, and excerpts
 - **Responsive Design** - Mobile-friendly layouts
@@ -40,7 +39,7 @@ A modern, responsive personal blog and resume website built with Next.js 15, Typ
 ### 🔧 Configuration
 
 - **Centralized Config** - Easy site customization via `src/lib/site-config.ts`
-- **Environment Support** - Local and GitHub content sources
+- **Markdown Pipeline** - Local content ingestion via content store
 - **Flexible Routing** - Route groups for different page types
 
 ## 🚀 Quick Start
@@ -48,7 +47,7 @@ A modern, responsive personal blog and resume website built with Next.js 15, Typ
 ### Prerequisites
 
 - Node.js 18+
-- npm or yarn
+- pnpm
 
 ### Installation
 
@@ -62,13 +61,13 @@ A modern, responsive personal blog and resume website built with Next.js 15, Typ
 2. **Install dependencies**
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 3. **Start development server**
 
    ```bash
-   npm run dev --turbopack
+   pnpm dev
    ```
 
 4. **Open in browser**
@@ -93,9 +92,8 @@ src/
 │   └── ...               # Custom components
 ├── lib/                  # Utility functions
 │   ├── site-config.ts    # Site configuration
-│   ├── mdx.tsx          # MDX processing
 │   ├── yaml.ts          # YAML loader
-│   └── github-api.tsx   # GitHub integration
+│   └── markdown/        # Markdown pipeline and content store
 └── content/              # Content files
     ├── blogs/           # Blog posts (.mdx)
     ├── notes/           # Notes (.mdx)
@@ -108,26 +106,26 @@ src/
 
 ```bash
 # Start development server with Turbopack
-npm run dev --turbopack
+pnpm dev
 
 # Start development server (standard)
-npm run dev
+pnpm dev
 
 # Build for production
-npm run build
+pnpm build
 
 # Start production server
-npm start
+pnpm start
 ```
 
 ### Code Quality
 
 ```bash
 # Run ESLint
-npm run lint
+pnpm lint
 
 # Run ESLint with auto-fix
-npm run lint --fix
+pnpm lint --fix
 
 # Format code with Prettier (via pre-commit hooks)
 git add . && git commit -m "message"
@@ -166,19 +164,13 @@ export const SITE_CONFIG = {
 };
 ```
 
-### GitHub Integration
+### Content Pipeline
 
-Add repositories to `src/lib/mdx.tsx`:
+Content is loaded from local markdown directories and ingested by the markdown pipeline:
 
-```typescript
-const GITHUB_REPOS: GitHubRepoConfig[] = [
-  {
-    owner: "your-username",
-    repo: "your-content-repo",
-    path: "articles",
-  },
-];
-```
+- `content/blogs/`
+- `content/notes/`
+- `content/links/`
 
 ### Resume Data
 
@@ -263,7 +255,7 @@ The project is optimized for deployment on platforms like Vercel, Netlify, or an
 ### Build Output
 
 ```bash
-npm run build
+pnpm build
 ```
 
 Generates a static site in the `.next` directory ready for deployment.

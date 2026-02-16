@@ -4,10 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
-- `npm run dev --turbopack`: Start development server with Turbopack (faster builds)
-- `npm run build`: Build for production
-- `npm run start`: Start production server
-- `npm run lint`: Run ESLint
+- `pnpm dev`: Start development server with Turbopack (faster builds)
+- `pnpm build`: Build for production
+- `pnpm start`: Start production server
+- `pnpm lint`: Run ESLint
 
 ## Architecture Overview
 
@@ -74,7 +74,7 @@ This is a Next.js blog built with the App Router and TypeScript. The site featur
 ### File Structure Notes
 
 - Path alias `@/*` maps to `src/*`
-- MDX utilities in `src/lib/mdx.tsx` (includes functions for blogs, notes, and links)
+- Markdown pipeline and content store in `src/lib/markdown/`
 - Reusable components in `src/components/`
 - shadcn/ui components in `src/components/ui/`
 - Content structure:
