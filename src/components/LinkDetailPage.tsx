@@ -1,7 +1,6 @@
 import { MDX_COMPONENTS } from "@/components/mdx-components";
 import { TableOfContents } from "@/components/table-of-contents";
 import { Badge } from "@/components/ui/badge";
-import { type Link as LinkType } from "@/lib/mdx";
 import { extractTocFromMarkdown, processTocItems } from "@/lib/toc";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
@@ -9,12 +8,16 @@ import rehypeShiki from "@shikijs/rehype";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ExternalLink } from "lucide-react";
+import { MarkdownDocument } from "@/lib/markdown/core/types";
+import { LinkFrontmatter } from "@/lib/markdown/core/frontmatter";
 
 interface LinkDetailPageProps {
-  link: LinkType;
+  link: MarkdownDocument<LinkFrontmatter>;
 }
 
 export default function LinkDetailPage({ link }: LinkDetailPageProps) {
+  const { frontmatter } = link;
+
   // Extract TOC from markdown content
   const tocItems = processTocItems(extractTocFromMarkdown(link.content));
 
@@ -34,11 +37,11 @@ export default function LinkDetailPage({ link }: LinkDetailPageProps) {
             </Link>
 
             {/* Link image */}
-            {link.image && (
+            {frontmatter.image && (
               <div className="relative w-full h-48 rounded-lg overflow-hidden bg-muted mb-6">
                 <Image
-                  src={link.image}
-                  alt={link.title}
+                  src={frontmatter.image}
+                  alt={frontmatter.title}
                   fill
                   className="object-cover"
                 />
@@ -47,24 +50,24 @@ export default function LinkDetailPage({ link }: LinkDetailPageProps) {
 
             <div className="mb-6">
               <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
-                {link.title}
+                {frontmatter.title}
               </h1>
 
-              {link.description && (
+              {frontmatter.description && (
                 <p className="text-lg text-muted-foreground mb-4">
-                  {link.description}
+                  {frontmatter.description}
                 </p>
               )}
 
               <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                {link.category && (
-                  <Badge variant="secondary">{link.category}</Badge>
+                {frontmatter.category && (
+                  <Badge variant="secondary">{frontmatter.category}</Badge>
                 )}
-                {link.date && <span>{link.date}</span>}
+                {frontmatter.date && <span>{frontmatter.date}</span>}
               </div>
 
               {/* Source banner */}
-              {link.url && (
+              {frontmatter.url && (
                 <div className="p-4 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg">
                   <div className="flex items-center gap-2 text-sm">
                     <ExternalLink className="w-4 h-4 text-blue-600 dark:text-blue-400" />
@@ -72,12 +75,12 @@ export default function LinkDetailPage({ link }: LinkDetailPageProps) {
                       Source:
                     </span>
                     <a
-                      href={link.url}
+                      href={frontmatter.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
                     >
-                      {link.url}
+                      {frontmatter.url}
                     </a>
                   </div>
                 </div>

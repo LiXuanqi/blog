@@ -1,4 +1,3 @@
-import { getLinkBySlug } from "@/lib/mdx";
 import { getContentStoreAsync } from "@/lib/markdown/core/content-store";
 import { notFound } from "next/navigation";
 import LinkDetailPage from "@/components/LinkDetailPage";
@@ -10,12 +9,15 @@ interface PageProps {
 export default async function LinkPage({ params }: PageProps) {
   const { slug } = await params;
 
-  const link = await getLinkBySlug(slug);
-  if (!link) {
+  const linkDocument = (await getContentStoreAsync())
+    .get("links")
+    ?.getItemBySlug(slug, "en");
+
+  if (!linkDocument) {
     notFound();
   }
 
-  return <LinkDetailPage link={link} />;
+  return <LinkDetailPage link={linkDocument} />;
 }
 
 // Generate static params for all links
