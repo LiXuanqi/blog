@@ -1,11 +1,18 @@
-import { Post } from "@/lib/mdx";
 import Link from "next/link";
+
+export type PostPreview = {
+  slug: string;
+  title: string;
+  date: string;
+  language?: string;
+};
+
 export function PostList({
   posts,
   limit,
   urlPrefix = "/blogs",
 }: {
-  posts: ReadonlyArray<Pick<Post, "slug" | "title" | "date">>;
+  posts: ReadonlyArray<PostPreview>;
   limit?: number;
   urlPrefix?: string;
 }) {

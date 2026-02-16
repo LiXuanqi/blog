@@ -1,9 +1,10 @@
 import PostListPage from "@/components/PostListPage";
-import { getAllPosts } from "@/lib/mdx";
+import { getContentStoreAsync } from "@/lib/markdown/core/content-store";
 import { SITE_CONFIG } from "@/lib/site-config";
 
 export default async function BlogsPage() {
-  const posts = await getAllPosts("en");
+  const contentStore = await getContentStoreAsync();
+  const posts = contentStore.get("blogs")?.getList("en") ?? [];
 
   return (
     <PostListPage

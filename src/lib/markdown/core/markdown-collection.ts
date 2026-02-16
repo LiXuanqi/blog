@@ -2,7 +2,7 @@ import { BaseFrontmatter } from "./frontmatter";
 import { LanguageKey, MarkdownDocument } from "./types";
 
 export type MarkdownCollection<TFrontmatter extends BaseFrontmatter> = {
-  getList(language: LanguageKey): {
+  getList(language?: LanguageKey): {
     slug: string;
     title: string;
     date: string;
@@ -18,7 +18,7 @@ export function makeMarkdownCollection<TFrontmatter extends BaseFrontmatter>(
     getList: (language) => {
       const ret = [];
       for (const file of markdownFiles) {
-        if (file.language !== language) {
+        if (language !== undefined && file.language !== language) {
           continue;
         }
         ret.push({
