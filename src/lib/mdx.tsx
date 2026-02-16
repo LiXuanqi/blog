@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { getContentStoreAsync } from "./markdown/core/content-store";
 // import { contentStore } from "./markdown/core/content-store";
 
 const blogsDirectory = path.join(process.cwd(), "content/blogs");
@@ -153,29 +152,6 @@ export async function getNoteBySlug(
   language: string = "en",
 ): Promise<Post | null> {
   return await getLocalPostBySlug(slug, language, notesDirectory);
-}
-
-// Helper function to get all available languages for a specific post
-export async function getAvailableLanguages(
-  slug: string,
-  directory: string = blogsDirectory,
-): Promise<string[]> {
-  const collectionId = directory === notesDirectory ? "notes" : "blogs";
-  const collection = (await getContentStoreAsync()).get(collectionId);
-  if (!collection) {
-    return [];
-  }
-
-  const document =
-    collection.getItemBySlug(slug, "en") ??
-    collection.getItemBySlug(slug, "zh");
-  if (!document) {
-    return [];
-  }
-
-  return [
-    ...new Set([document.language, ...(document.availableLanguages ?? [])]),
-  ];
 }
 
 export async function getLinkBySlug(slug: string): Promise<Link | null> {

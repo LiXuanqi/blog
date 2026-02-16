@@ -1,6 +1,5 @@
 import PostDetailPage from "@/components/PostDetailPage";
 import { getContentStoreAsync } from "@/lib/markdown/core/content-store";
-import { getNoteBySlug } from "@/lib/mdx";
 import { notFound } from "next/navigation";
 
 interface PageProps {
@@ -11,9 +10,10 @@ interface PageProps {
 export default async function NotePage({ params, searchParams }: PageProps) {
   const { slug } = await params;
   const { lang } = await searchParams;
-  const language = lang || "en"; // Default to English
+  const language = lang === "zh" ? "zh" : "en";
 
-  const note = await getNoteBySlug(slug, language);
+  const contentStore = await getContentStoreAsync();
+  const note = contentStore.get("notes")?.getItemBySlug(slug, language);
   if (!note) {
     notFound();
   }
