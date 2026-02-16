@@ -147,32 +147,6 @@ async function getLocalPostBySlug(
   return null;
 }
 
-export async function getPostBySlug(
-  slug: string,
-  language: string = "en",
-): Promise<Post | null> {
-  // Try blogs first
-  const blogPost = await getLocalPostBySlug(slug, language, blogsDirectory);
-  if (blogPost) {
-    return blogPost;
-  }
-
-  // Try notes
-  const notePost = await getLocalPostBySlug(slug, language, notesDirectory);
-  if (notePost) {
-    return notePost;
-  }
-
-  // DISABLED: GitHub repos lookup
-  // TO RE-ENABLE GITHUB: Uncomment the lines below
-  // const githubPost = await fetchPostBySlugFromGitHub(slug, GITHUB_REPOS)
-  // if (githubPost) {
-  //   return convertGitHubPostToPost(githubPost)
-  // }
-
-  return null;
-}
-
 export async function getNoteBySlug(
   slug: string,
   language: string = "en",
@@ -197,43 +171,6 @@ export async function getAvailableLanguages(
     .map(({ language }) => language);
 
   return [...new Set(languages)];
-}
-
-// Links-specific functions
-async function getLocalLinks(): Promise<Link[]> {
-  if (!fs.existsSync(linksDirectory)) {
-    return [];
-  }
-
-  const fileNames = fs.readdirSync(linksDirectory);
-  const allLinksData = fileNames
-    .filter((name) => name.endsWith(".mdx") || name.endsWith(".md"))
-    .map((fileName) => {
-      const slug = fileName.replace(/\.(mdx?|md)$/, "");
-      const fullPath = path.join(linksDirectory, fileName);
-      const fileContents = fs.readFileSync(fullPath, "utf8");
-      const { data, content } = matter(fileContents);
-
-      return {
-        slug,
-        content,
-        title: data.title,
-        date: data.date,
-        image: data.image,
-        url: data.url,
-        category: data.category,
-        description: data.description,
-        visible: data.visible,
-      };
-    });
-
-  return allLinksData
-    .filter((link) => link.visible !== false)
-    .sort((a, b) => (a.date < b.date ? 1 : -1));
-}
-
-export async function getAllLinks(): Promise<Link[]> {
-  return await getLocalLinks();
 }
 
 export async function getLinkBySlug(slug: string): Promise<Link | null> {

@@ -2,7 +2,6 @@ import { MDX_COMPONENTS } from "@/components/mdx-components";
 import { TableOfContents } from "@/components/table-of-contents";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Badge } from "@/components/ui/badge";
-import { Post } from "@/lib/mdx";
 import { extractTocFromMarkdown, processTocItems } from "@/lib/toc";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
@@ -12,9 +11,10 @@ import rehypeKatex from "rehype-katex";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import "katex/dist/katex.min.css";
+import { MarkdownDocument } from "@/lib/markdown/core/types";
 
 interface PostDetailPageProps {
-  post: Post;
+  post: MarkdownDocument;
   type?: "blog" | "note";
 }
 
@@ -22,6 +22,7 @@ export default function PostDetailPage({
   post,
   type = "blog",
 }: PostDetailPageProps) {
+  const { frontmatter } = post;
   // Extract TOC from markdown content
   const tocItems = processTocItems(extractTocFromMarkdown(post.content));
 
@@ -44,7 +45,7 @@ export default function PostDetailPage({
             </Link>
 
             <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
-              {post.title}
+              {frontmatter.title}
             </h1>
 
             {/* Language Switcher */}
@@ -119,13 +120,13 @@ export default function PostDetailPage({
         <aside className="hidden lg:block lg:w-64 xl:w-72 border-l border-gray-200 dark:border-gray-700 pl-8">
           <div className="sticky top-24 space-y-8">
             {/* Tags */}
-            {post.tags && post.tags.length > 0 && (
+            {frontmatter.tags && frontmatter.tags.length > 0 && (
               <div>
                 <h3 className="text-lg font-semibold mb-4 text-foreground">
                   Tags
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  {post.tags.map((tag) => (
+                  {frontmatter.tags.map((tag) => (
                     <Badge key={tag} variant="secondary">
                       #{tag}
                     </Badge>

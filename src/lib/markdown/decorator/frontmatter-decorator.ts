@@ -7,20 +7,26 @@ export function withFrontmatter<
 >(input: Input, schema: TSchema): Input & { frontmatter: z.infer<TSchema> } {
   return {
     ...input,
-    frontmatter: _extractFrontmatter(input.content, schema),
+    ..._extractFrontmatter(input.content, schema),
   };
 }
 
 function _extractFrontmatter<TSchema extends z.ZodType>(
-  content: string,
+  rawContent: string,
   schema: TSchema,
-): z.infer<TSchema> {
-  const { data } = matter(content);
+): {
+  content: string;
+  frontmatter: z.infer<TSchema>;
+} {
+  const { data, content } = matter(rawContent);
 
   // Convert Date objects to ISO strings for schema validation
   const normalizedData = _normalizeDateFields(data);
 
-  return schema.parse(normalizedData);
+  return {
+    content,
+    frontmatter: schema.parse(normalizedData),
+  };
 }
 
 /**
