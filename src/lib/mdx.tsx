@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { type GitHubRepoConfig } from "./github-api";
 // import { contentStore } from "./markdown/core/content-store";
 
 const blogsDirectory = path.join(process.cwd(), "content/blogs");
@@ -37,18 +36,6 @@ export interface Link {
   visible?: boolean;
 }
 
-// GitHub repositories configuration - DISABLED
-// To re-enable GitHub integration, uncomment the repos below and update the functions
-const GITHUB_REPOS: GitHubRepoConfig[] = [
-  // DISABLED: Add your repository configurations here
-  // Example:
-  // {
-  //   owner: 'LiXuanqi',
-  //   repo: 'posts',
-  //   path: 'articles'
-  // }
-];
-
 // Helper function to parse filename and extract slug and language
 function parseFilename(fileName: string): {
   baseSlug: string;
@@ -66,71 +53,6 @@ function parseFilename(fileName: string): {
 
   // Fallback: treat as English if no language suffix
   return { baseSlug: withoutExt, language: "en" };
-}
-
-async function getLocalPosts(
-  directory: string = blogsDirectory,
-): Promise<Post[]> {
-  if (!fs.existsSync(directory)) {
-    return [];
-  }
-
-  const fileNames = fs.readdirSync(directory);
-  const allPostsData = fileNames
-    .filter((name) => name.endsWith(".mdx") || name.endsWith(".md"))
-    .map((fileName) => {
-      const { baseSlug, language } = parseFilename(fileName);
-      const fullPath = path.join(directory, fileName);
-      const fileContents = fs.readFileSync(fullPath, "utf8");
-      const { data, content } = matter(fileContents);
-
-      return {
-        slug: baseSlug,
-        language,
-        content,
-        title: data.title,
-        date: data.date,
-        tags: Array.isArray(data.tags) ? data.tags : [],
-        description: data.description,
-        visible: data.visible,
-        source: "local" as const,
-      };
-    });
-
-  return allPostsData.sort((a, b) => (a.date < b.date ? 1 : -1));
-}
-
-// Helper function to group posts by slug and add translation metadata
-function groupPostsBySlug(posts: Post[]): Post[] {
-  const postGroups = new Map<string, Post[]>();
-
-  // Group posts by base slug
-  posts.forEach((post) => {
-    const existing = postGroups.get(post.slug) || [];
-    existing.push(post);
-    postGroups.set(post.slug, existing);
-  });
-
-  // Add translation metadata to each post
-  const result: Post[] = [];
-  postGroups.forEach((group) => {
-    const availableLanguages = group.map((p) => p.language);
-    group.forEach((post) => {
-      result.push({
-        ...post,
-        translations: availableLanguages.filter(
-          (lang) => lang !== post.language,
-        ),
-      });
-    });
-  });
-
-  return result;
-}
-
-// Helper function to filter visible posts
-function filterVisiblePosts(posts: Post[]): Post[] {
-  return posts.filter((post) => post.visible !== false);
 }
 
 // function convertGitHubPostToPost(githubPost: GitHubPost): Post {
@@ -275,41 +197,6 @@ export async function getAvailableLanguages(
     .map(({ language }) => language);
 
   return [...new Set(languages)];
-}
-
-// Helper function to get posts grouped by language
-export async function getPostsByLanguage(
-  directory: string = blogsDirectory,
-): Promise<Record<string, Post[]>> {
-  const allPosts = await getLocalPosts(directory);
-  const visiblePosts = filterVisiblePosts(allPosts);
-  const groupedPosts = groupPostsBySlug(visiblePosts);
-
-  const result: Record<string, Post[]> = {};
-
-  groupedPosts.forEach((post) => {
-    if (!result[post.language]) {
-      result[post.language] = [];
-    }
-    result[post.language].push(post);
-  });
-
-  // Sort posts in each language by date
-  Object.keys(result).forEach((lang) => {
-    result[lang].sort((a, b) => (a.date < b.date ? 1 : -1));
-  });
-
-  return result;
-}
-
-// Helper function to add a GitHub repository configuration
-export function addGitHubRepo(config: GitHubRepoConfig): void {
-  GITHUB_REPOS.push(config);
-}
-
-// Helper function to get current GitHub repositories
-export function getGitHubRepos(): readonly GitHubRepoConfig[] {
-  return GITHUB_REPOS;
 }
 
 // Links-specific functions
