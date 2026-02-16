@@ -18,7 +18,6 @@ export type BlogFrontmatter = z.infer<typeof BLOG_FRONTMATTER_SCHEMA>;
 export const NOTE_FRONTMATTER_SCHEMA = BASE_FRONTMATTER_SCHEMA.extend({
   description: z.string().optional(),
   tags: z.array(z.string()).optional(),
-  testField: z.string().optional(),
 });
 
 export type NoteFrontmatter = z.infer<typeof NOTE_FRONTMATTER_SCHEMA>;

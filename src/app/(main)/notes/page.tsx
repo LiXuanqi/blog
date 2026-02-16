@@ -1,9 +1,10 @@
 import PostListPage from "@/components/PostListPage";
-import { getAllNotes } from "@/lib/mdx";
 import { SITE_CONFIG } from "@/lib/site-config";
+import { getContentStoreAsync } from "@/lib/markdown/core/content-store";
 
 export default async function NotesPage() {
-  const notes = await getAllNotes("en");
+  const contentStore = await getContentStoreAsync();
+  const notes = contentStore.get("notes")?.getList("en") ?? [];
 
   return (
     <PostListPage

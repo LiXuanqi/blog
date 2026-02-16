@@ -1,8 +1,11 @@
 import { ContentTypeRegistry } from "./core/content-types";
-import { BaseFrontmatter, BLOG_FRONTMATTER_SCHEMA } from "./core/frontmatter";
+import {
+  BaseFrontmatter,
+  BLOG_FRONTMATTER_SCHEMA,
+  NOTE_FRONTMATTER_SCHEMA,
+} from "./core/frontmatter";
 import {
   ContentCollectionId,
-  FrontmatterSchema,
   MarkdownDocument,
   MarkdownSource,
 } from "./core/types";
@@ -15,7 +18,7 @@ import {
 import { withLanguage } from "./decorator/language-decorator";
 import { withFrontmatter } from "./decorator/frontmatter-decorator";
 
-const SOURCES: MarkdownSource<typeof BLOG_FRONTMATTER_SCHEMA>[] = [
+const SOURCES: MarkdownSource[] = [
   {
     id: "blogs",
     connector: new LocalFileSystemConnector({
@@ -23,6 +26,14 @@ const SOURCES: MarkdownSource<typeof BLOG_FRONTMATTER_SCHEMA>[] = [
       sourceId: "blogs",
     }),
     frontmatterSchema: BLOG_FRONTMATTER_SCHEMA,
+  },
+  {
+    id: "notes",
+    connector: new LocalFileSystemConnector({
+      contentDir: path.join(process.cwd(), "content/notes"),
+      sourceId: "notes",
+    }),
+    frontmatterSchema: NOTE_FRONTMATTER_SCHEMA,
   },
 ];
 
@@ -37,7 +48,7 @@ export async function runMarkdownPipelineAsync(): Promise<MarkdownCollections> {
 }
 
 export async function buildCollectionsFromSourcesAsync(
-  sources: MarkdownSource<typeof BLOG_FRONTMATTER_SCHEMA>[],
+  sources: MarkdownSource[],
 ): Promise<MarkdownCollections> {
   const collections: MarkdownCollections = [];
 
@@ -49,10 +60,8 @@ export async function buildCollectionsFromSourcesAsync(
   return collections;
 }
 
-async function _makeMarkdownCollectionFromSourceAsync<
-  TSchema extends FrontmatterSchema,
->(
-  source: MarkdownSource<TSchema>,
+async function _makeMarkdownCollectionFromSourceAsync(
+  source: MarkdownSource,
 ): Promise<MarkdownCollection<BaseFrontmatter>> {
   const rawFiles = await source.connector.getAll();
 
