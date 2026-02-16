@@ -12,7 +12,7 @@ export default async function BlogPage({ params }: PageProps) {
   // const { lang } = await searchParams;
 
   const contentStore = await getContentStoreAsync();
-  const post = contentStore.get("blogs")?.getItemBySlug(slug);
+  const post = contentStore.get("blogs")?.getItemBySlug(slug, "en");
   if (!post) {
     notFound();
   }

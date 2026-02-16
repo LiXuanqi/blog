@@ -8,12 +8,24 @@ export type MarkdownCollection<TFrontmatter extends BaseFrontmatter> = {
     date: string;
     language: LanguageKey;
   }[];
-  getItemBySlug(slug: string): MarkdownDocument<TFrontmatter> | null;
+  getItemBySlug(
+    slug: string,
+    lang?: LanguageKey,
+  ): MarkdownDocument<TFrontmatter> | null;
 };
 
 export function makeMarkdownCollection<TFrontmatter extends BaseFrontmatter>(
   markdownFiles: MarkdownDocument<TFrontmatter>[],
 ): MarkdownCollection<TFrontmatter> {
+  // TODO: Revisit slug normalization; ideally slugs are canonicalized during ingestion,
+  // so collection lookup can compare raw slug + language without runtime normalization.
+  const normalizeSlug = (slug: string, language: LanguageKey): string => {
+    if (language === "zh") {
+      return slug.endsWith(".zh") ? slug.slice(0, -3) : slug;
+    }
+    return slug.endsWith(".en") ? slug.slice(0, -3) : slug;
+  };
+
   return {
     getList: (language) => {
       const ret = [];
@@ -30,7 +42,15 @@ export function makeMarkdownCollection<TFrontmatter extends BaseFrontmatter>(
       }
       return ret;
     },
-    getItemBySlug: (slug) =>
-      markdownFiles.find((file) => file.slug === slug) ?? null,
+    getItemBySlug: (slug, lang = "en") => {
+      const normalizedTargetSlug = normalizeSlug(slug, lang);
+      return (
+        markdownFiles.find(
+          (file) =>
+            file.language === lang &&
+            normalizeSlug(file.slug, file.language) === normalizedTargetSlug,
+        ) ?? null
+      );
+    },
   };
 }
