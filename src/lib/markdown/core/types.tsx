@@ -17,6 +17,7 @@ export interface MarkdownDocument<T = Record<string, unknown>> {
   source: string;
   sourceId: string;
   language: LanguageKey;
+  availableLanguages?: LanguageKey[];
 }
 
 export interface MarkdownConnector {

@@ -26,6 +26,7 @@ describe("#buildCollectionsFromSources", () => {
     const collections = await buildCollectionsFromSourcesAsync(sources);
 
     const blogList = collections[0].collection.getList();
+    const zhBlog = collections[0].collection.getItemBySlug("hello-world", "zh");
 
     expect(blogList).toHaveLength(2);
     expect(blogList).toEqual(
@@ -44,5 +45,6 @@ describe("#buildCollectionsFromSources", () => {
         },
       ]),
     );
+    expect(zhBlog?.availableLanguages).toEqual(["en"]);
   });
 });

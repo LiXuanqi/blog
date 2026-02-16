@@ -18,6 +18,7 @@ import {
 } from "./core/markdown-collection";
 import { withLanguage } from "./decorator/language-decorator";
 import { withFrontmatter } from "./decorator/frontmatter-decorator";
+import { withAvailableLanguages } from "./decorator/available-languages-decorator";
 
 const SOURCES: MarkdownSource[] = [
   {
@@ -80,5 +81,5 @@ async function _makeMarkdownCollectionFromSourceAsync(
     ) as MarkdownDocument<BaseFrontmatter>;
   });
 
-  return makeMarkdownCollection(processedFiles);
+  return makeMarkdownCollection(withAvailableLanguages(processedFiles));
 }

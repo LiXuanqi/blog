@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { getContentStoreAsync } from "./markdown/core/content-store";
 // import { contentStore } from "./markdown/core/content-store";
 
 const blogsDirectory = path.join(process.cwd(), "content/blogs");
@@ -159,18 +160,22 @@ export async function getAvailableLanguages(
   slug: string,
   directory: string = blogsDirectory,
 ): Promise<string[]> {
-  if (!fs.existsSync(directory)) {
+  const collectionId = directory === notesDirectory ? "notes" : "blogs";
+  const collection = (await getContentStoreAsync()).get(collectionId);
+  if (!collection) {
     return [];
   }
 
-  const fileNames = fs.readdirSync(directory);
-  const languages = fileNames
-    .filter((name) => name.endsWith(".mdx") || name.endsWith(".md"))
-    .map(parseFilename)
-    .filter(({ baseSlug }) => baseSlug === slug)
-    .map(({ language }) => language);
+  const document =
+    collection.getItemBySlug(slug, "en") ??
+    collection.getItemBySlug(slug, "zh");
+  if (!document) {
+    return [];
+  }
 
-  return [...new Set(languages)];
+  return [
+    ...new Set([document.language, ...(document.availableLanguages ?? [])]),
+  ];
 }
 
 export async function getLinkBySlug(slug: string): Promise<Link | null> {

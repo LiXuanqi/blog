@@ -1,5 +1,6 @@
 import PostDetailPage from "@/components/PostDetailPage";
 import { getContentStoreAsync } from "@/lib/markdown/core/content-store";
+import { LanguageKey } from "@/lib/markdown/core/types";
 import { notFound } from "next/navigation";
 
 interface PageProps {
@@ -7,12 +8,15 @@ interface PageProps {
   searchParams: Promise<{ lang?: string }>;
 }
 
-export default async function BlogPage({ params }: PageProps) {
+export default async function BlogPage({ params, searchParams }: PageProps) {
   const { slug } = await params;
-  // const { lang } = await searchParams;
+  const { lang } = await searchParams;
 
   const contentStore = await getContentStoreAsync();
-  const post = contentStore.get("blogs")?.getItemBySlug(slug, "en");
+  // TODO: validate the lang is one of LanguageKey
+  const post = contentStore
+    .get("blogs")
+    ?.getItemBySlug(slug, lang as LanguageKey);
   if (!post) {
     notFound();
   }

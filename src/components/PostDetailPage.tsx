@@ -51,7 +51,7 @@ export default function PostDetailPage({
             {/* Language Switcher */}
             <LanguageSwitcher
               currentLanguage={post.language}
-              availableLanguages={post.translations || []}
+              availableLanguages={post.availableLanguages || []}
             />
 
             {/* <p className="text-gray-600">{post.date}</p> */}
