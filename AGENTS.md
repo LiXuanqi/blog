@@ -10,13 +10,14 @@
 
 ## Build, Test, and Development Commands
 
-- `npm run dev` (Turbopack): start the local dev server.
-- `npm run build`: compile a production build.
-- `npm start`: run the production server from `.next/`.
-- `npm run lint`: run ESLint with Next.js rules.
-- `npm run test`: run Vitest in watch mode.
-- `npm run test:run`: run Vitest once for CI-style checks.
-- `npm run test:ui`: open the Vitest UI runner.
+- Use `pnpm` as the package manager for this repository.
+- `pnpm dev` (Turbopack): start the local dev server.
+- `pnpm build`: compile a production build.
+- `pnpm start`: run the production server from `.next/`.
+- `pnpm lint`: run ESLint with Next.js rules.
+- `pnpm test`: run Vitest in watch mode.
+- `pnpm test:run`: run Vitest once for CI-style checks.
+- `pnpm test:ui`: open the Vitest UI runner.
 
 ## Coding Style & Naming Conventions
 
@@ -36,7 +37,7 @@
 - Commit messages follow Conventional Commits patterns seen in history:
   - Examples: `feat: add links index`, `fix(pipeline): handle empty frontmatter`, `refactor(markdown): simplify parser`.
 - PRs should include a short summary, relevant context (issue/feature), and screenshots for UI changes.
-- Run `npm run lint` and relevant tests before requesting review.
+- Run `pnpm lint` and relevant tests before requesting review.
 
 ## Configuration & Content Tips
 
