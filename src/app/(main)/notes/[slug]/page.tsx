@@ -1,5 +1,6 @@
 import PostDetailPage from "@/components/PostDetailPage";
-import { getAllNotes, getNoteBySlug } from "@/lib/mdx";
+import { getContentStoreAsync } from "@/lib/markdown/core/content-store";
+import { getNoteBySlug } from "@/lib/mdx";
 import { notFound } from "next/navigation";
 
 interface PageProps {
@@ -21,7 +22,8 @@ export default async function NotePage({ params, searchParams }: PageProps) {
 
 // Generate static params for all notes
 export async function generateStaticParams() {
-  const notes = await getAllNotes(); // Get all notes in all languages
+  const contentStore = await getContentStoreAsync();
+  const notes = contentStore.get("notes")?.getList() ?? [];
   return notes.map((note) => ({
     slug: note.slug,
   }));
