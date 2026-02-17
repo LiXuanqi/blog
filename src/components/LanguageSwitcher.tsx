@@ -1,7 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { isLocale } from "@/lib/i18n";
 
 interface LanguageSwitcherProps {
   currentLanguage: string;
@@ -24,7 +25,6 @@ export function LanguageSwitcher({
 }: LanguageSwitcherProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   // Don't render if no translations available
   if (!availableLanguages || availableLanguages.length === 0) {
@@ -35,16 +35,12 @@ export function LanguageSwitcher({
   const allLanguages = [currentLanguage, ...availableLanguages].sort();
 
   const handleLanguageChange = (language: string) => {
-    const params = new URLSearchParams(searchParams);
-
-    if (language === "en") {
-      params.delete("lang");
-    } else {
-      params.set("lang", language);
-    }
-
-    const queryString = params.toString();
-    const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
+    const segments = pathname.split("/").filter(Boolean);
+    const contentSegments =
+      segments.length > 0 && isLocale(segments[0])
+        ? segments.slice(1)
+        : segments;
+    const newUrl = `/${[language, ...contentSegments].join("/")}`;
     router.push(newUrl);
   };
 

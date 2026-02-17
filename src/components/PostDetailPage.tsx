@@ -16,17 +16,20 @@ import { MarkdownDocument } from "@/lib/markdown/core/types";
 interface PostDetailPageProps {
   post: MarkdownDocument;
   type?: "blog" | "note";
+  locale?: string;
 }
 
 export default function PostDetailPage({
   post,
   type = "blog",
+  locale,
 }: PostDetailPageProps) {
   const { frontmatter } = post;
   // Extract TOC from markdown content
   const tocItems = processTocItems(extractTocFromMarkdown(post.content));
 
-  const backUrl = type === "note" ? "/notes" : "/blogs";
+  const backBaseUrl = type === "note" ? "/notes" : "/blogs";
+  const backUrl = locale ? `/${locale}${backBaseUrl}` : backBaseUrl;
   const backText = type === "note" ? "Back to Notes" : "Back to Blogs";
 
   return (
