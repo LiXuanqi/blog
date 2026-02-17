@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { getContentStoreAsync } from "@/lib/markdown/core/content-store";
 import Hero from "@/components/hero";
+import { getGeneratedPostListAsync } from "@/lib/generated-content";
 
 export const metadata: Metadata = {
   title: "Links",
@@ -9,8 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function LinksPage() {
-  const contentStore = await getContentStoreAsync();
-  const links = contentStore.get("links")?.getList() ?? [];
+  const links = await getGeneratedPostListAsync("links", "en");
 
   return (
     <div className="min-h-screen bg-background">

@@ -1,6 +1,11 @@
-import { getContentStoreAsync } from "@/lib/markdown/core/content-store";
 import { notFound } from "next/navigation";
 import LinkDetailPage from "@/components/LinkDetailPage";
+import {
+  getGeneratedLinksStaticParamsAsync,
+  getGeneratedPostBySlugAsync,
+} from "@/lib/generated-content";
+import { LinkFrontmatter } from "@/lib/markdown/core/frontmatter";
+import { MarkdownDocument } from "@/lib/markdown/core/types";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -9,9 +14,11 @@ interface PageProps {
 export default async function LinkPage({ params }: PageProps) {
   const { slug } = await params;
 
-  const linkDocument = (await getContentStoreAsync())
-    .get("links")
-    ?.getItemBySlug(slug, "en");
+  const linkDocument = (await getGeneratedPostBySlugAsync(
+    "links",
+    "en",
+    slug,
+  )) as MarkdownDocument<LinkFrontmatter> | null;
 
   if (!linkDocument) {
     notFound();
@@ -22,8 +29,5 @@ export default async function LinkPage({ params }: PageProps) {
 
 // Generate static params for all links
 export async function generateStaticParams() {
-  const links = (await getContentStoreAsync()).get("links")?.getList() ?? [];
-  return links.map((link) => ({
-    slug: link.slug,
-  }));
+  return await getGeneratedLinksStaticParamsAsync();
 }

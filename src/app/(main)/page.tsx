@@ -3,12 +3,11 @@ import { PostList } from "@/components/post-list";
 import SectionHeader from "@/components/section-header";
 import { SITE_CONFIG } from "@/lib/site-config";
 import Image from "next/image";
-import { getContentStoreAsync } from "@/lib/markdown/core/content-store";
+import { getGeneratedPostListAsync } from "@/lib/generated-content";
 
 export default async function Home() {
-  const contentStore = await getContentStoreAsync();
-  const articles = contentStore.get("blogs")?.getList("en") ?? [];
-  const notes = contentStore.get("notes")?.getList("en") ?? [];
+  const articles = await getGeneratedPostListAsync("blogs", "en");
+  const notes = await getGeneratedPostListAsync("notes", "en");
   return (
     // TODO: same layout as blogs home page
     <div className="min-h-screen bg-background">

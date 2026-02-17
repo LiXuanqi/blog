@@ -1,6 +1,9 @@
 import PostDetailPage from "@/components/PostDetailPage";
-import { getContentStoreAsync } from "@/lib/markdown/core/content-store";
-import { LOCALES, isLocale, toCanonicalSlug } from "@/lib/i18n";
+import {
+  getGeneratedPostBySlugAsync,
+  getGeneratedStaticParamsAsync,
+} from "@/lib/generated-content";
+import { isLocale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 
 interface PageProps {
@@ -13,8 +16,7 @@ export default async function BlogPageByLanguage({ params }: PageProps) {
     notFound();
   }
 
-  const contentStore = await getContentStoreAsync();
-  const post = contentStore.get("blogs")?.getItemBySlug(slug, lang);
+  const post = await getGeneratedPostBySlugAsync("blogs", lang, slug);
   if (!post) {
     notFound();
   }
@@ -24,18 +26,5 @@ export default async function BlogPageByLanguage({ params }: PageProps) {
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const contentStore = await getContentStoreAsync();
-  const params = [];
-
-  for (const lang of LOCALES) {
-    const blogs = contentStore.get("blogs")?.getList(lang) ?? [];
-    params.push(
-      ...blogs.map((blog) => ({
-        lang,
-        slug: toCanonicalSlug(blog.slug, lang),
-      })),
-    );
-  }
-
-  return params;
+  return await getGeneratedStaticParamsAsync("blogs");
 }

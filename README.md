@@ -40,6 +40,7 @@ A modern, responsive personal blog and resume website built with Next.js 15, Typ
 
 - **Centralized Config** - Easy site customization via `src/lib/site-config.ts`
 - **Markdown Pipeline** - Local content ingestion via content store
+- **Build-Time Content Generator** - Pre-generates JSON content artifacts before dev/build
 - **Flexible Routing** - Route groups for different page types
 
 ## 🚀 Quick Start
@@ -98,6 +99,8 @@ src/
     ├── blogs/           # Blog posts (.mdx)
     ├── notes/           # Notes (.mdx)
     └── resume.yaml      # Resume data
+bin/
+└── content-generator/    # Build-time content generator CLI
 ```
 
 ## 🛠️ Common Commands
@@ -105,10 +108,10 @@ src/
 ### Development
 
 ```bash
-# Start development server with Turbopack
-pnpm dev
+# Run content generation manually
+pnpm generate:content
 
-# Start development server (standard)
+# Start development server with Turbopack
 pnpm dev
 
 # Build for production
@@ -117,6 +120,8 @@ pnpm build
 # Start production server
 pnpm start
 ```
+
+`pnpm dev` and `pnpm build` automatically run content generation first via `predev` and `prebuild`.
 
 ### Code Quality
 
@@ -171,6 +176,11 @@ Content is loaded from local markdown directories and ingested by the markdown p
 - `content/blogs/`
 - `content/notes/`
 - `content/links/`
+
+Generated artifacts are written to:
+
+- `src/generated/content/index.json`
+- `src/generated/content/{collection}/{lang}/{slug}.json`
 
 ### Resume Data
 

@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "generate:content": "tsx bin/content-generator/cli.ts",
+    "predev": "pnpm generate:content",
     "dev": "next dev --turbopack",
+    "prebuild": "pnpm generate:content",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -50,6 +53,7 @@
     "prettier": "^3.5.3",
     "shiki": "3.21.0",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "tw-animate-css": "^1.3.4",
     "typescript": "^5",
     "vitest": "^4.0.16"

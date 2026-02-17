@@ -5,12 +5,15 @@
 - `src/app/` holds the Next.js App Router routes, with route groups like `(main)` and `(resume)`.
 - `src/components/` contains shared UI and MDX components; `src/components/ui/` is the shadcn/ui layer.
 - `src/lib/` includes utilities and content loaders (MDX, YAML, GitHub integration).
+- `bin/content-generator/` contains the build-time markdown content generator CLI.
+- `src/generated/content/` stores generated JSON artifacts consumed by the app.
 - `content/` stores MDX and data files: `content/blogs/`, `content/notes/`, `content/links/`, `content/resume.yaml`.
 - Static assets live in `public/`.
 
 ## Build, Test, and Development Commands
 
 - Use `pnpm` as the package manager for this repository.
+- `pnpm generate:content`: run the build-time content generator manually.
 - `pnpm dev` (Turbopack): start the local dev server.
 - `pnpm build`: compile a production build.
 - `pnpm start`: run the production server from `.next/`.
@@ -18,6 +21,7 @@
 - `pnpm test`: run Vitest in watch mode.
 - `pnpm test:run`: run Vitest once for CI-style checks.
 - `pnpm test:ui`: open the Vitest UI runner.
+- `predev` and `prebuild` automatically run `pnpm generate:content` before `pnpm dev` and `pnpm build`.
 
 ## Coding Style & Naming Conventions
 

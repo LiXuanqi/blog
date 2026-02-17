@@ -1,6 +1,6 @@
 import PostListPage from "@/components/PostListPage";
 import { SITE_CONFIG } from "@/lib/site-config";
-import { getContentStoreAsync } from "@/lib/markdown/core/content-store";
+import { getGeneratedPostListAsync } from "@/lib/generated-content";
 import { LOCALES, isLocale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 
@@ -14,8 +14,7 @@ export default async function NotesPageByLanguage({ params }: PageProps) {
     notFound();
   }
 
-  const contentStore = await getContentStoreAsync();
-  const notes = contentStore.get("notes")?.getList(lang) ?? [];
+  const notes = await getGeneratedPostListAsync("notes", lang);
 
   return (
     <PostListPage

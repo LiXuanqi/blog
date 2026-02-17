@@ -53,7 +53,6 @@ type MarkdownCollections = Array<{
 }>;
 
 export async function runMarkdownPipelineAsync(): Promise<MarkdownCollections> {
-  console.log("Starting _runMarkdownPipelineAsync");
   return await buildCollectionsFromSourcesAsync(SOURCES);
 }
 
