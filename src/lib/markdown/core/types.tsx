@@ -6,6 +6,11 @@ export interface RawMarkdownDocument {
 }
 
 export type LanguageKey = "en" | "zh";
+export interface TocItem {
+  value: string;
+  depth: number;
+  url: string;
+}
 
 export interface MarkdownDocument<T = Record<string, unknown>> {
   slug: string;
@@ -18,6 +23,7 @@ export interface MarkdownDocument<T = Record<string, unknown>> {
   sourceId: string;
   language: LanguageKey;
   availableLanguages?: LanguageKey[];
+  tocItems?: TocItem[];
 }
 
 export interface MarkdownConnector {

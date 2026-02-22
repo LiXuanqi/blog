@@ -2,7 +2,6 @@ import { MDX_COMPONENTS } from "@/components/mdx-components";
 import { TableOfContents } from "@/components/table-of-contents";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Badge } from "@/components/ui/badge";
-import { extractTocFromMarkdown, processTocItems } from "@/lib/toc";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
@@ -25,8 +24,7 @@ export default function PostDetailPage({
   locale,
 }: PostDetailPageProps) {
   const { frontmatter } = post;
-  // Extract TOC from markdown content
-  const tocItems = processTocItems(extractTocFromMarkdown(post.content));
+  const tocItems = post.tocItems ?? [];
 
   const backBaseUrl = type === "note" ? "/notes" : "/blogs";
   const backUrl = locale ? `/${locale}${backBaseUrl}` : backBaseUrl;

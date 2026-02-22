@@ -1,7 +1,11 @@
 import fs from "fs/promises";
 import path from "path";
 import { BaseFrontmatter } from "@/lib/markdown/core/frontmatter";
-import { LanguageKey, MarkdownDocument } from "@/lib/markdown/core/types";
+import {
+  LanguageKey,
+  MarkdownDocument,
+  TocItem,
+} from "@/lib/markdown/core/types";
 
 type GeneratedCollectionId = "blogs" | "notes" | "links";
 
@@ -21,6 +25,7 @@ type GeneratedDocumentFile = {
   availableLanguages: LanguageKey[];
   frontmatter: BaseFrontmatter & Record<string, unknown>;
   content: string;
+  tocItems?: TocItem[];
 };
 
 type GeneratedIndex = {
@@ -67,6 +72,7 @@ export async function getGeneratedPostBySlugAsync(
     sourceId: doc.collection,
     language: doc.language,
     availableLanguages: doc.availableLanguages,
+    tocItems: doc.tocItems ?? [],
   };
 }
 

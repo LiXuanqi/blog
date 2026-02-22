@@ -20,6 +20,7 @@ import {
   toCanonicalSlug,
   withAvailableLanguages,
 } from "./available-languages-decorator.ts";
+import { extractTocFromMarkdown, processTocItems } from "./toc.ts";
 
 const SOURCES: MarkdownSource[] = [
   {
@@ -121,6 +122,7 @@ async function writeArtifactsAsync(
             availableLanguages: doc.availableLanguages ?? [],
             frontmatter: doc.frontmatter,
             content: doc.content,
+            tocItems: processTocItems(extractTocFromMarkdown(doc.content)),
           },
           null,
           2,
