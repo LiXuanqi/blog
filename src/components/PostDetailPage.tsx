@@ -11,9 +11,13 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import "katex/dist/katex.min.css";
 import { MarkdownDocument } from "@/lib/markdown/core/types";
+import {
+  BlogFrontmatter,
+  NoteFrontmatter,
+} from "@/lib/markdown/core/frontmatter";
 
 interface PostDetailPageProps {
-  post: MarkdownDocument;
+  post: MarkdownDocument<BlogFrontmatter | NoteFrontmatter>;
   type?: "blog" | "note";
   locale?: string;
 }

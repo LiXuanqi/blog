@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "generate:content": "tsx bin/content-generator/cli.ts",
+    "generate:content": "node --import tsx bin/content-generator/cli.ts",
     "predev": "pnpm generate:content",
     "dev": "next dev --turbopack",
     "prebuild": "pnpm generate:content",
