@@ -10,11 +10,8 @@ import rehypeKatex from "rehype-katex";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import "katex/dist/katex.min.css";
-import { MarkdownDocument } from "@/lib/markdown/core/types";
-import {
-  BlogFrontmatter,
-  NoteFrontmatter,
-} from "@/lib/markdown/core/frontmatter";
+import { MarkdownDocument } from "@/lib/content/types";
+import { BlogFrontmatter, NoteFrontmatter } from "@/lib/content/frontmatter";
 
 interface PostDetailPageProps {
   post: MarkdownDocument<BlogFrontmatter | NoteFrontmatter>;

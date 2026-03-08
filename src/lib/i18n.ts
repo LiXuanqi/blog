@@ -1,4 +1,4 @@
-import { LanguageKey } from "@/lib/markdown/core/types";
+import { LanguageKey } from "@/lib/content/types";
 
 export const LOCALES = ["en", "zh"] as const;
 export const DEFAULT_LOCALE: LanguageKey = "en";

@@ -1,11 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
-import { BaseFrontmatter } from "@/lib/markdown/core/frontmatter";
-import {
-  LanguageKey,
-  MarkdownDocument,
-  TocItem,
-} from "@/lib/markdown/core/types";
+import { BaseFrontmatter } from "@/lib/content/frontmatter";
+import { LanguageKey, MarkdownDocument, TocItem } from "@/lib/content/types";
 
 type GeneratedCollectionId = "blogs" | "notes" | "links";
 

@@ -6,6 +6,7 @@ export interface RawMarkdownDocument {
 }
 
 export type LanguageKey = "en" | "zh";
+
 export interface TocItem {
   value: string;
   depth: number;
@@ -24,23 +25,4 @@ export interface MarkdownDocument<T = Record<string, unknown>> {
   language: LanguageKey;
   availableLanguages?: LanguageKey[];
   tocItems?: TocItem[];
-}
-
-export interface MarkdownConnector {
-  getAll(): Promise<RawMarkdownDocument[]>;
-  getBySlug(slug: string): Promise<RawMarkdownDocument | null>;
-}
-
-import { z } from "zod";
-
-export type ContentCollectionId = "blogs" | "notes" | "links";
-
-export type FrontmatterSchema = z.ZodTypeAny;
-
-export interface MarkdownSource<
-  TSchema extends FrontmatterSchema = FrontmatterSchema,
-> {
-  id: ContentCollectionId;
-  connector: MarkdownConnector;
-  frontmatterSchema: TSchema;
 }

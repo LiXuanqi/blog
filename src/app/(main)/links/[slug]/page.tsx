@@ -4,8 +4,8 @@ import {
   getGeneratedLinksStaticParamsAsync,
   getGeneratedPostBySlugAsync,
 } from "@/lib/generated-content";
-import { LinkFrontmatter } from "@/lib/markdown/core/frontmatter";
-import { MarkdownDocument } from "@/lib/markdown/core/types";
+import { LinkFrontmatter } from "@/lib/content/frontmatter";
+import { MarkdownDocument } from "@/lib/content/types";
 
 interface PageProps {
   params: Promise<{ slug: string }>;

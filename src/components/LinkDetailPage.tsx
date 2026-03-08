@@ -7,8 +7,8 @@ import rehypeShiki from "@shikijs/rehype";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ExternalLink } from "lucide-react";
-import { MarkdownDocument } from "@/lib/markdown/core/types";
-import { LinkFrontmatter } from "@/lib/markdown/core/frontmatter";
+import { MarkdownDocument } from "@/lib/content/types";
+import { LinkFrontmatter } from "@/lib/content/frontmatter";
 
 interface LinkDetailPageProps {
   link: MarkdownDocument<LinkFrontmatter>;
