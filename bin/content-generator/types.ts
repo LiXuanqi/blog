@@ -2,6 +2,11 @@ import { z } from "zod";
 
 export type LanguageKey = "en" | "zh";
 export type ContentCollectionId = "blogs" | "notes" | "links";
+export interface TocItem {
+  value: string;
+  depth: number;
+  url: string;
+}
 
 export interface RawMarkdownDocument {
   slug: string;
@@ -18,6 +23,7 @@ export interface MarkdownDocument<T = Record<string, unknown>> {
   sourceId: string;
   language: LanguageKey;
   availableLanguages?: LanguageKey[];
+  tocItems?: TocItem[];
 }
 
 export interface MarkdownConnector {
@@ -32,6 +38,52 @@ export interface MarkdownSource<
   id: ContentCollectionId;
   connector: MarkdownConnector;
   frontmatterSchema: TSchema;
+}
+
+export interface PipelineDocument {
+  slug: string;
+  content: string;
+  source: string;
+  sourceId: string;
+  frontmatter?: Record<string, unknown>;
+  language?: LanguageKey;
+  availableLanguages?: LanguageKey[];
+  tocItems?: TocItem[];
+}
+
+export interface DocumentPlugin {
+  name: string;
+  apply(
+    document: PipelineDocument,
+  ): Promise<PipelineDocument> | PipelineDocument;
+}
+
+export interface CollectionPlugin {
+  name: string;
+  apply(
+    documents: PipelineDocument[],
+  ): Promise<PipelineDocument[]> | PipelineDocument[];
+}
+
+export interface CollectionEmitter {
+  name: string;
+  emit(
+    collection: GeneratedCollection,
+    outputDir: string,
+  ): Promise<IndexListItem[]> | IndexListItem[];
+}
+
+export interface CollectionConfig {
+  id: ContentCollectionId;
+  loader: MarkdownConnector;
+  documentPlugins: DocumentPlugin[];
+  collectionPlugins: CollectionPlugin[];
+  emitter: CollectionEmitter;
+}
+
+export interface GeneratedCollection {
+  id: ContentCollectionId;
+  documents: MarkdownDocument<Record<string, unknown>>[];
 }
 
 export type IndexListItem = {

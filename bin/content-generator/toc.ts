@@ -1,8 +1,4 @@
-export interface TocItem {
-  value: string;
-  depth: number;
-  url: string;
-}
+import type { TocItem } from "./types.ts";
 
 export function extractTocFromMarkdown(content: string): TocItem[] {
   const headingRegex = /^(#{1,6})\s+(.+)$/gm;

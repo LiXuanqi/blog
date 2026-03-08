@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import type { MarkdownConnector, RawMarkdownDocument } from "./types.ts";
+import type { MarkdownConnector, RawMarkdownDocument } from "../types.ts";
 
 type LocalFileSystemConnectorConfig = {
   contentDir: string;

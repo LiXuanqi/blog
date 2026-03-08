@@ -1,83 +1,48 @@
 import fs from "fs/promises";
-import path from "path";
-import {
-  BaseFrontmatter,
-  BLOG_FRONTMATTER_SCHEMA,
-  LINK_FRONTMATTER_SCHEMA,
-  NOTE_FRONTMATTER_SCHEMA,
-} from "./frontmatter.ts";
-import { LocalFileSystemConnector } from "./local-fs-connector.ts";
-import {
+import { COLLECTION_CONFIGS, OUTPUT_DIR, TEMP_OUTPUT_DIR } from "./config.ts";
+import type {
+  CollectionConfig,
   ContentCollectionId,
+  GeneratedCollection,
   IndexJson,
   LanguageKey,
   MarkdownDocument,
-  MarkdownSource,
+  PipelineDocument,
 } from "./types.ts";
-import { withLanguage } from "./language-decorator.ts";
-import { withFrontmatter } from "./frontmatter-decorator.ts";
-import {
-  toCanonicalSlug,
-  withAvailableLanguages,
-} from "./available-languages-decorator.ts";
-import { extractTocFromMarkdown, processTocItems } from "./toc.ts";
-
-const SOURCES: MarkdownSource[] = [
-  {
-    id: "blogs",
-    connector: new LocalFileSystemConnector({
-      contentDir: path.join(process.cwd(), "content/blogs"),
-      sourceId: "blogs",
-    }),
-    frontmatterSchema: BLOG_FRONTMATTER_SCHEMA,
-  },
-  {
-    id: "notes",
-    connector: new LocalFileSystemConnector({
-      contentDir: path.join(process.cwd(), "content/notes"),
-      sourceId: "notes",
-    }),
-    frontmatterSchema: NOTE_FRONTMATTER_SCHEMA,
-  },
-  {
-    id: "links",
-    connector: new LocalFileSystemConnector({
-      contentDir: path.join(process.cwd(), "content/links"),
-      sourceId: "links",
-    }),
-    frontmatterSchema: LINK_FRONTMATTER_SCHEMA,
-  },
-];
-
-const OUTPUT_DIR = path.join(process.cwd(), "src/generated/content");
-const TEMP_OUTPUT_DIR = path.join(process.cwd(), "src/generated/.content-tmp");
-
-type GeneratedCollection = {
-  id: ContentCollectionId;
-  documents: MarkdownDocument<BaseFrontmatter>[];
-};
 
 export async function runContentGeneratorAsync(): Promise<void> {
   console.log("[content-generator] starting");
-  const collections = await buildDocumentsFromSourcesAsync(SOURCES);
+  const collections = await buildCollectionsAsync(COLLECTION_CONFIGS);
   await writeArtifactsAsync(collections);
   console.log("[content-generator] done");
 }
 
-async function buildDocumentsFromSourcesAsync(
-  sources: MarkdownSource[],
+async function buildCollectionsAsync(
+  collectionConfigs: CollectionConfig[],
 ): Promise<GeneratedCollection[]> {
   const collections: GeneratedCollection[] = [];
 
-  for (const source of sources) {
-    const rawFiles = await source.connector.getAll();
-    const processedFiles = rawFiles.map((rawFile) =>
-      withLanguage(withFrontmatter(rawFile, source.frontmatterSchema)),
-    ) as MarkdownDocument<BaseFrontmatter>[];
+  for (const config of collectionConfigs) {
+    const rawDocuments = await config.loader.getAll();
+    let documents: PipelineDocument[] = rawDocuments.map((document) => ({
+      ...document,
+    }));
+
+    for (const plugin of config.documentPlugins) {
+      documents = await Promise.all(
+        documents.map((document) => plugin.apply(document)),
+      );
+    }
+
+    for (const plugin of config.collectionPlugins) {
+      documents = await plugin.apply(documents);
+    }
 
     collections.push({
-      id: source.id,
-      documents: withAvailableLanguages(processedFiles),
+      id: config.id,
+      documents: documents.map((document) =>
+        toGeneratedDocument(config.id, document),
+      ),
     });
   }
 
@@ -100,55 +65,50 @@ async function writeArtifactsAsync(
     },
   };
 
-  for (const collection of collections) {
-    for (const doc of collection.documents) {
-      const canonicalSlug = toCanonicalSlug(doc.slug, doc.language);
-      const outputFilePath = path.join(
-        TEMP_OUTPUT_DIR,
-        collection.id,
-        doc.language,
-        `${canonicalSlug}.json`,
-      );
+  for (const config of COLLECTION_CONFIGS) {
+    const collection = collections.find((item) => item.id === config.id);
+    if (!collection) {
+      continue;
+    }
 
-      await fs.mkdir(path.dirname(outputFilePath), { recursive: true });
-      await fs.writeFile(
-        outputFilePath,
-        JSON.stringify(
-          {
-            version: 1,
-            collection: collection.id,
-            slug: canonicalSlug,
-            language: doc.language,
-            availableLanguages: doc.availableLanguages ?? [],
-            frontmatter: doc.frontmatter,
-            content: doc.content,
-            tocItems: processTocItems(extractTocFromMarkdown(doc.content)),
-          },
-          null,
-          2,
-        ),
-        "utf8",
-      );
-
-      index.collections[collection.id][doc.language].push({
-        slug: canonicalSlug,
-        title: doc.frontmatter.title,
-        date: doc.frontmatter.date,
-        language: doc.language,
-        availableLanguages: doc.availableLanguages ?? [],
-      });
+    const indexItems = await config.emitter.emit(collection, TEMP_OUTPUT_DIR);
+    for (const item of indexItems) {
+      index.collections[collection.id][item.language].push(item);
     }
   }
 
   sortIndex(index);
   await fs.writeFile(
-    path.join(TEMP_OUTPUT_DIR, "index.json"),
+    `${TEMP_OUTPUT_DIR}/index.json`,
     JSON.stringify(index, null, 2),
     "utf8",
   );
 
   await fs.rm(OUTPUT_DIR, { recursive: true, force: true });
   await fs.rename(TEMP_OUTPUT_DIR, OUTPUT_DIR);
+}
+
+function toGeneratedDocument(
+  collectionId: ContentCollectionId,
+  document: PipelineDocument,
+): MarkdownDocument<Record<string, unknown>> {
+  if (!document.frontmatter) {
+    throw new Error(`Missing frontmatter for ${collectionId}/${document.slug}`);
+  }
+  if (!document.language) {
+    throw new Error(`Missing language for ${collectionId}/${document.slug}`);
+  }
+
+  return {
+    slug: document.slug,
+    content: document.content,
+    frontmatter: document.frontmatter,
+    source: document.source,
+    sourceId: document.sourceId,
+    language: document.language,
+    availableLanguages: document.availableLanguages ?? [],
+    tocItems: document.tocItems ?? [],
+  };
 }
 
 function sortIndex(index: IndexJson): void {
