@@ -35,6 +35,7 @@ type GeneratedIndex = {
 
 const GENERATED_DIR = path.join(process.cwd(), "src/generated/content");
 const GENERATED_INDEX_PATH = path.join(GENERATED_DIR, "index.json");
+const SHOULD_CACHE = process.env.NODE_ENV === "production";
 
 let indexPromise: Promise<GeneratedIndex> | null = null;
 const documentPromiseCache = new Map<
@@ -98,6 +99,13 @@ export async function getGeneratedLinksStaticParamsAsync(): Promise<
 }
 
 async function getGeneratedIndexAsync(): Promise<GeneratedIndex> {
+  if (!SHOULD_CACHE) {
+    return await readJsonFileAsync<GeneratedIndex>(
+      GENERATED_INDEX_PATH,
+      "generated content index",
+    );
+  }
+
   if (!indexPromise) {
     indexPromise = readJsonFileAsync<GeneratedIndex>(
       GENERATED_INDEX_PATH,
@@ -112,6 +120,23 @@ async function getGeneratedDocumentAsync(
   lang: LanguageKey,
   slug: string,
 ): Promise<GeneratedDocumentFile | null> {
+  if (!SHOULD_CACHE) {
+    const filePath = path.join(GENERATED_DIR, collection, lang, `${slug}.json`);
+    return await readJsonFileAsync<GeneratedDocumentFile>(filePath).catch(
+      (error: unknown) => {
+        if (
+          typeof error === "object" &&
+          error !== null &&
+          "code" in error &&
+          error.code === "ENOENT"
+        ) {
+          return null;
+        }
+        throw error;
+      },
+    );
+  }
+
   const cacheKey = `${collection}:${lang}:${slug}`;
   const existing = documentPromiseCache.get(cacheKey);
   if (existing) {

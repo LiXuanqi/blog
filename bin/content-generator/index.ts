@@ -18,6 +18,10 @@ export async function runContentGeneratorAsync(): Promise<void> {
   console.log(`[content-generator] done (${mode})`);
 }
 
+export function getContentGenerationMode(): "development" | "production" {
+  return process.env.NODE_ENV === "production" ? "production" : "development";
+}
+
 async function buildCollectionsAsync(
   collectionConfigs: CollectionConfig[],
 ): Promise<GeneratedCollection[]> {
@@ -128,8 +132,4 @@ function sortIndex(index: IndexJson): void {
       });
     }
   }
-}
-
-function getContentGenerationMode(): "development" | "production" {
-  return process.env.NODE_ENV === "production" ? "production" : "development";
 }

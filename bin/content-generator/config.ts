@@ -22,6 +22,11 @@ export const TEMP_OUTPUT_DIR = path.join(
   process.cwd(),
   "src/generated/.content-tmp",
 );
+export const CONTENT_WATCH_PATHS = [
+  path.join(process.cwd(), "content/blogs"),
+  path.join(process.cwd(), "content/notes"),
+  path.join(process.cwd(), "content/links"),
+];
 
 const jsonEmitter = new JsonCollectionEmitter();
 
