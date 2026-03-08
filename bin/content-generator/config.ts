@@ -5,7 +5,10 @@ import {
   NOTE_FRONTMATTER_SCHEMA,
 } from "./frontmatter.ts";
 import { LocalFileSystemConnector } from "./loaders/local-fs-loader.ts";
-import { availableLanguagesPlugin } from "./collection-plugins.ts";
+import {
+  availableLanguagesPlugin,
+  visibleContentPlugin,
+} from "./collection-plugins.ts";
 import {
   frontmatterPlugin,
   languagePlugin,
@@ -34,7 +37,7 @@ export const COLLECTION_CONFIGS: CollectionConfig[] = [
       languagePlugin(),
       tocPlugin(),
     ],
-    collectionPlugins: [availableLanguagesPlugin()],
+    collectionPlugins: [visibleContentPlugin(), availableLanguagesPlugin()],
     emitter: jsonEmitter,
   },
   {
@@ -48,7 +51,7 @@ export const COLLECTION_CONFIGS: CollectionConfig[] = [
       languagePlugin(),
       tocPlugin(),
     ],
-    collectionPlugins: [availableLanguagesPlugin()],
+    collectionPlugins: [visibleContentPlugin(), availableLanguagesPlugin()],
     emitter: jsonEmitter,
   },
   {
@@ -62,7 +65,7 @@ export const COLLECTION_CONFIGS: CollectionConfig[] = [
       languagePlugin(),
       tocPlugin(),
     ],
-    collectionPlugins: [availableLanguagesPlugin()],
+    collectionPlugins: [visibleContentPlugin(), availableLanguagesPlugin()],
     emitter: jsonEmitter,
   },
 ];

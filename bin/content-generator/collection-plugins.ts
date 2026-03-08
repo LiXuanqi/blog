@@ -9,3 +9,20 @@ export function availableLanguagesPlugin(): CollectionPlugin {
     },
   };
 }
+
+export function visibleContentPlugin(
+  nodeEnv = process.env.NODE_ENV,
+): CollectionPlugin {
+  return {
+    name: "visible-content",
+    apply(documents: PipelineDocument[]): PipelineDocument[] {
+      if (nodeEnv !== "production") {
+        return documents;
+      }
+
+      return documents.filter(
+        (document) => document.frontmatter?.visible === true,
+      );
+    },
+  };
+}

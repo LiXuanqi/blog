@@ -11,10 +11,11 @@ import type {
 } from "./types.ts";
 
 export async function runContentGeneratorAsync(): Promise<void> {
-  console.log("[content-generator] starting");
+  const mode = getContentGenerationMode();
+  console.log(`[content-generator] starting (${mode})`);
   const collections = await buildCollectionsAsync(COLLECTION_CONFIGS);
   await writeArtifactsAsync(collections);
-  console.log("[content-generator] done");
+  console.log(`[content-generator] done (${mode})`);
 }
 
 async function buildCollectionsAsync(
@@ -127,4 +128,8 @@ function sortIndex(index: IndexJson): void {
       });
     }
   }
+}
+
+function getContentGenerationMode(): "development" | "production" {
+  return process.env.NODE_ENV === "production" ? "production" : "development";
 }

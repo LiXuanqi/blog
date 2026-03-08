@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "generate:content": "node --import tsx bin/content-generator/cli.ts",
-    "predev": "pnpm generate:content",
+    "predev": "NODE_ENV=development pnpm generate:content",
     "dev": "next dev --turbopack",
-    "prebuild": "pnpm generate:content",
+    "prebuild": "NODE_ENV=production pnpm generate:content",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

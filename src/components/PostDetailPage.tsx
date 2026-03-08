@@ -29,6 +29,8 @@ export default function PostDetailPage({
 }: PostDetailPageProps) {
   const { frontmatter } = post;
   const tocItems = post.tocItems ?? [];
+  const showDraftBanner =
+    process.env.NODE_ENV !== "production" && frontmatter.visible === false;
 
   const backBaseUrl = type === "note" ? "/notes" : "/blogs";
   const backUrl = locale ? `/${locale}${backBaseUrl}` : backBaseUrl;
@@ -52,6 +54,12 @@ export default function PostDetailPage({
             <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
               {frontmatter.title}
             </h1>
+
+            {showDraftBanner && (
+              <div className="mb-4">
+                <Badge variant="destructive">Draft - not published</Badge>
+              </div>
+            )}
 
             {/* Language Switcher */}
             <LanguageSwitcher
