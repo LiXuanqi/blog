@@ -3,7 +3,7 @@ title: Kafka
 date: 2025-11-02
 description: ""
 tags: ["System design"]
-visible: true
+visible: false
 ---
 
 When distrubute our queue, how do we ensure that the events are still processed in order?
