@@ -88,19 +88,19 @@ const ResumeItem = ({ title, location, time, desc }: ResumeItemProps) => {
 export default function ResumePage() {
   const resume = loadResumeData();
   return (
-    <div className="bg-white min-h-screen print:min-h-0">
+    <div className="min-h-screen bg-white text-black print:min-h-0">
       {/* Back button - hidden when printing */}
       <div className="print:hidden fixed top-4 left-4 z-10">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 transition-colors"
+          className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-black shadow-sm transition-colors hover:bg-gray-50"
         >
           <ArrowLeft size={16} />
           <span className="text-sm font-medium">Back to Home</span>
         </Link>
       </div>
 
-      <div className="max-w-[8.5in] mx-auto p-6 print:p-4 bg-white">
+      <div className="mx-auto max-w-[8.5in] bg-white p-6 text-black print:p-4">
         <div>
           <h1 className="text-2xl print:text-xl font-semibold text-center mb-3 print:mb-2">
             {resume.name}
