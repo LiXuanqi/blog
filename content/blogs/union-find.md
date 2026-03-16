@@ -45,6 +45,7 @@ class UnionFind:
 
 ## Optimization
 
+The Basic version has the problem - Trees can become very tall (like a linked list).
 The Union-Find data structure employs two key optimization techniques: path compression and union by rank.
 
 ### Path Compression
@@ -60,17 +61,27 @@ def find_with_path_compression(self, x):
 
 Find the root of current node and update the parent of all nodes in the path to the root.
 
-### Union by Rank
+### Union by Rank/Size
 
-Union by rank ensures that the smaller subset is always merged into the larger subset, preventing the tree from becoming too imbalanced and maintaining efficient performance.
+Optimization: attach the smaller tree under the larger one.
 
-TODO: union by size
-TODO: code for union by rank
+Two variants:
+
+- Union by size → attach smaller set to larger set
+- Union by rank → attach shallower tree under deeper tree
 
 ## Algorithm Complexity
 
-TODO: time complexity
-Space: O(n)
+Time complexity:
+
+| Implementation          | find        | union       | m operations         |
+| ----------------------- | ----------- | ----------- | -------------------- |
+| Naive                   | O(n)        | O(n)        | O(mn)                |
+| Union by Rank           | O(log n)    | O(log n)    | O(m log n)           |
+| Path Compression only   | ~O(log n)   | ~O(log n)   | ~O(m log n)          |
+| Rank + Path Compression | **O(α(n))** | **O(α(n))** | **O(m α(n)) ≈ O(m)** |
+
+Space complexity: O(n)
 
 ## Related questions
 
