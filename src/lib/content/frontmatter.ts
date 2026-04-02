@@ -10,6 +10,7 @@ export type BaseFrontmatter = z.infer<typeof BASE_FRONTMATTER_SCHEMA>;
 
 export const BLOG_FRONTMATTER_SCHEMA = BASE_FRONTMATTER_SCHEMA.extend({
   description: z.string().optional(),
+  image: z.string().optional(),
   tags: z.array(z.string()).optional(),
 });
 

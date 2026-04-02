@@ -2,6 +2,7 @@
 title: 4 Basic Sorting Algorithms
 date: 2018-11-25
 description: "An introduction to fundamental sorting algorithms with implementations and complexity analysis"
+image: "/blog-covers/4-basic-sort-algorithms-cover.svg"
 tags: ["Algorithm", "Sorting", "Data Structures"]
 visible: true
 ---

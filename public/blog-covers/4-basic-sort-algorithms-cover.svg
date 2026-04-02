@@ -1,0 +1,129 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="96" y1="72" x2="1512" y2="844" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1324"/>
+      <stop offset="0.48" stop-color="#13213F"/>
+      <stop offset="1" stop-color="#1D2B55"/>
+    </linearGradient>
+    <linearGradient id="panelGlow" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#FFFFFF" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.04"/>
+    </linearGradient>
+    <linearGradient id="barA" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#64E6D0"/>
+      <stop offset="1" stop-color="#29B6F6"/>
+    </linearGradient>
+    <linearGradient id="barB" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#FFD66B"/>
+      <stop offset="1" stop-color="#FF8A65"/>
+    </linearGradient>
+    <filter id="blurGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="48"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" rx="36" fill="url(#bg)"/>
+  <g opacity="0.36">
+    <circle cx="1310" cy="172" r="164" fill="#5EEAD4" filter="url(#blurGlow)"/>
+    <circle cx="270" cy="754" r="210" fill="#8B5CF6" filter="url(#blurGlow)"/>
+  </g>
+
+  <g opacity="0.12" stroke="#E2E8F0">
+    <path d="M84 112H1516"/>
+    <path d="M84 202H1516"/>
+    <path d="M84 292H1516"/>
+    <path d="M84 382H1516"/>
+    <path d="M84 472H1516"/>
+    <path d="M84 562H1516"/>
+    <path d="M84 652H1516"/>
+    <path d="M84 742H1516"/>
+    <path d="M200 72V828"/>
+    <path d="M440 72V828"/>
+    <path d="M680 72V828"/>
+    <path d="M920 72V828"/>
+    <path d="M1160 72V828"/>
+    <path d="M1400 72V828"/>
+  </g>
+
+  <text x="110" y="165" fill="#F8FAFC" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="62" font-weight="700">4 Basic Sorting Algorithms</text>
+  <text x="112" y="214" fill="#B7C4E0" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="24" font-weight="500">Selection, Merge, Quick, and Bucket visualized as ordered motion</text>
+
+  <g>
+    <rect x="108" y="286" width="320" height="452" rx="28" fill="url(#panelGlow)" stroke="#FFFFFF" stroke-opacity="0.18"/>
+    <text x="136" y="338" fill="#F8FAFC" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" font-weight="700">Selection Sort</text>
+    <text x="136" y="372" fill="#9FB0D1" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18">Find minimum, place it first</text>
+    <rect x="144" y="652" width="28" height="44" rx="10" fill="url(#barA)"/>
+    <rect x="184" y="598" width="28" height="98" rx="10" fill="url(#barA)"/>
+    <rect x="224" y="540" width="28" height="156" rx="10" fill="url(#barA)"/>
+    <rect x="264" y="454" width="28" height="242" rx="10" fill="url(#barA)"/>
+    <rect x="304" y="496" width="28" height="200" rx="10" fill="url(#barB)"/>
+    <circle cx="158" cy="636" r="26" stroke="#FFD66B" stroke-width="4"/>
+    <path d="M160 420V470" stroke="#FFD66B" stroke-width="5" stroke-linecap="round"/>
+    <path d="M146 456L160 470L174 456" stroke="#FFD66B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <g>
+    <rect x="448" y="286" width="320" height="452" rx="28" fill="url(#panelGlow)" stroke="#FFFFFF" stroke-opacity="0.18"/>
+    <text x="476" y="338" fill="#F8FAFC" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" font-weight="700">Merge Sort</text>
+    <text x="476" y="372" fill="#9FB0D1" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18">Split, recurse, merge in order</text>
+    <rect x="500" y="454" width="28" height="102" rx="10" fill="url(#barB)"/>
+    <rect x="540" y="404" width="28" height="152" rx="10" fill="url(#barA)"/>
+    <rect x="580" y="492" width="28" height="64" rx="10" fill="url(#barB)"/>
+    <rect x="620" y="390" width="28" height="166" rx="10" fill="url(#barA)"/>
+    <rect x="500" y="612" width="28" height="84" rx="10" fill="url(#barA)"/>
+    <rect x="540" y="566" width="28" height="130" rx="10" fill="url(#barB)"/>
+    <rect x="580" y="634" width="28" height="62" rx="10" fill="url(#barA)"/>
+    <rect x="620" y="532" width="28" height="164" rx="10" fill="url(#barB)"/>
+    <path d="M566 438C592 472 592 504 566 536" stroke="#E2E8F0" stroke-width="4" stroke-linecap="round"/>
+    <path d="M566 596C592 562 592 530 566 498" stroke="#E2E8F0" stroke-width="4" stroke-linecap="round"/>
+    <rect x="680" y="404" width="28" height="58" rx="10" fill="url(#barA)"/>
+    <rect x="680" y="474" width="28" height="88" rx="10" fill="url(#barB)"/>
+    <rect x="680" y="574" width="28" height="122" rx="10" fill="url(#barA)"/>
+    <rect x="720" y="380" width="28" height="82" rx="10" fill="url(#barB)"/>
+    <rect x="720" y="474" width="28" height="114" rx="10" fill="url(#barA)"/>
+    <rect x="720" y="600" width="28" height="96" rx="10" fill="url(#barB)"/>
+  </g>
+
+  <g>
+    <rect x="788" y="286" width="320" height="452" rx="28" fill="url(#panelGlow)" stroke="#FFFFFF" stroke-opacity="0.18"/>
+    <text x="816" y="338" fill="#F8FAFC" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" font-weight="700">Quicksort</text>
+    <text x="816" y="372" fill="#9FB0D1" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18">Partition around a pivot</text>
+    <rect x="838" y="548" width="28" height="148" rx="10" fill="url(#barB)"/>
+    <rect x="878" y="604" width="28" height="92" rx="10" fill="url(#barA)"/>
+    <rect x="918" y="516" width="28" height="180" rx="10" fill="url(#barA)"/>
+    <rect x="958" y="430" width="28" height="266" rx="10" fill="#F8FAFC"/>
+    <rect x="998" y="568" width="28" height="128" rx="10" fill="url(#barA)"/>
+    <rect x="1038" y="470" width="28" height="226" rx="10" fill="url(#barB)"/>
+    <path d="M902 430H1018" stroke="#F8FAFC" stroke-width="3" stroke-dasharray="8 10"/>
+    <path d="M882 458C862 470 846 488 838 514" stroke="#FFD66B" stroke-width="4" stroke-linecap="round"/>
+    <path d="M1038 438C1058 452 1074 474 1080 502" stroke="#64E6D0" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <g>
+    <rect x="1128" y="286" width="364" height="452" rx="28" fill="url(#panelGlow)" stroke="#FFFFFF" stroke-opacity="0.18"/>
+    <text x="1156" y="338" fill="#F8FAFC" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" font-weight="700">Bucket Sort</text>
+    <text x="1156" y="372" fill="#9FB0D1" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18">Distribute into ranges, then collect</text>
+    <circle cx="1198" cy="448" r="14" fill="#64E6D0"/>
+    <circle cx="1246" cy="422" r="14" fill="#FFD66B"/>
+    <circle cx="1294" cy="456" r="14" fill="#38BDF8"/>
+    <circle cx="1342" cy="430" r="14" fill="#FB7185"/>
+    <circle cx="1390" cy="468" r="14" fill="#C084FC"/>
+    <path d="M1198 474V520" stroke="#64E6D0" stroke-width="4" stroke-linecap="round"/>
+    <path d="M1246 448V540" stroke="#FFD66B" stroke-width="4" stroke-linecap="round"/>
+    <path d="M1294 482V560" stroke="#38BDF8" stroke-width="4" stroke-linecap="round"/>
+    <path d="M1342 456V540" stroke="#FB7185" stroke-width="4" stroke-linecap="round"/>
+    <path d="M1390 494V520" stroke="#C084FC" stroke-width="4" stroke-linecap="round"/>
+    <rect x="1168" y="560" width="54" height="108" rx="14" fill="#152443" stroke="#2DD4BF" stroke-width="3"/>
+    <rect x="1238" y="560" width="54" height="108" rx="14" fill="#152443" stroke="#F59E0B" stroke-width="3"/>
+    <rect x="1308" y="560" width="54" height="108" rx="14" fill="#152443" stroke="#38BDF8" stroke-width="3"/>
+    <rect x="1378" y="560" width="54" height="108" rx="14" fill="#152443" stroke="#F472B6" stroke-width="3"/>
+    <circle cx="1195" cy="602" r="10" fill="#64E6D0"/>
+    <circle cx="1195" cy="634" r="10" fill="#2DD4BF"/>
+    <circle cx="1265" cy="590" r="10" fill="#FFD66B"/>
+    <circle cx="1265" cy="622" r="10" fill="#FB923C"/>
+    <circle cx="1335" cy="602" r="10" fill="#38BDF8"/>
+    <circle cx="1335" cy="634" r="10" fill="#60A5FA"/>
+    <circle cx="1405" cy="590" r="10" fill="#FB7185"/>
+    <circle cx="1405" cy="622" r="10" fill="#C084FC"/>
+  </g>
+</svg>

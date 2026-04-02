@@ -2,6 +2,7 @@
 title: 4种基础排序算法
 date: 2018-11-25
 description: "介绍基础排序算法的实现和复杂度分析"
+image: "/blog-covers/4-basic-sort-algorithms-cover.svg"
 tags: ["算法", "排序", "数据结构"]
 visible: true
 ---

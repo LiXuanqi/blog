@@ -20,6 +20,7 @@ describe("content frontmatter schemas", () => {
       date: "2026-03-07",
       visible: true,
       description: "Example",
+      image: "/blog-covers/example-cover.svg",
       tags: ["one", "two"],
     });
 
@@ -28,6 +29,7 @@ describe("content frontmatter schemas", () => {
       date: "2026-03-07",
       visible: true,
       description: "Example",
+      image: "/blog-covers/example-cover.svg",
       tags: ["one", "two"],
     });
   });

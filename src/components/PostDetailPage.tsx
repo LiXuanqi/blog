@@ -7,6 +7,7 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeShiki from "@shikijs/rehype";
 import rehypeKatex from "rehype-katex";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { MarkdownDocument } from "@/lib/content/types";
@@ -31,6 +32,10 @@ export default function PostDetailPage({
   const backBaseUrl = type === "note" ? "/notes" : "/blogs";
   const backUrl = locale ? `/${locale}${backBaseUrl}` : backBaseUrl;
   const backText = type === "note" ? "Back to Notes" : "Back to Blogs";
+  const coverImage =
+    "image" in frontmatter && typeof frontmatter.image === "string"
+      ? frontmatter.image
+      : undefined;
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-12">
@@ -46,6 +51,18 @@ export default function PostDetailPage({
               <ArrowLeft className="w-4 h-4" />
               {backText}
             </Link>
+
+            {coverImage && (
+              <div className="relative mb-8 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-border bg-muted shadow-sm">
+                <Image
+                  src={coverImage}
+                  alt={frontmatter.title}
+                  fill
+                  priority
+                  className="object-cover"
+                />
+              </div>
+            )}
 
             <h1 className="mb-4 text-4xl font-bold text-foreground">
               {frontmatter.title}
