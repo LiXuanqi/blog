@@ -1,36 +1,18 @@
-import Hero from "@/components/hero";
 import { PostList } from "@/components/post-list";
 import SectionHeader from "@/components/section-header";
 import { SITE_CONFIG } from "@/lib/site-config";
-import Image from "next/image";
 import { getGeneratedPostListAsync } from "@/lib/generated-content";
+import HomeHero from "@/components/home-hero";
 
 export default async function Home() {
   const articles = await getGeneratedPostListAsync("blogs", "en");
   const notes = await getGeneratedPostListAsync("notes", "en");
   return (
-    // TODO: same layout as blogs home page
     <div className="min-h-screen bg-background">
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        {/* About me section */}
-        <div className="flex gap-6">
-          <div className="w-2/3">
-            <Hero
-              title={`Hey, I'm ${SITE_CONFIG.name}!`}
-              content={SITE_CONFIG.description}
-            />
-          </div>
-          <div className="w-1/3">
-            <Image
-              src={SITE_CONFIG.assets.profileImage}
-              width={500}
-              height={500}
-              alt={`Picture of ${SITE_CONFIG.name}`}
-            />
-          </div>
-        </div>
+      <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+        <HomeHero />
 
-        <div className="mt-16 space-y-16">
+        <div className="mx-auto mt-16 max-w-4xl space-y-16">
           <Section>
             <SectionHeader
               title={SITE_CONFIG.sections.notes.title}

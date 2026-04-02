@@ -1,0 +1,117 @@
+.shell {
+  background:
+    radial-gradient(
+      circle at top left,
+      color-mix(in srgb, var(--link) 16%, transparent),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 82% 18%,
+      color-mix(in srgb, var(--title-accent) 20%, transparent),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--background) 92%, var(--foreground) 8%),
+      color-mix(in srgb, var(--muted) 68%, var(--background) 32%)
+    );
+  box-shadow: 0 24px 80px color-mix(in srgb, var(--foreground) 8%, transparent);
+}
+
+.glow {
+  background:
+    radial-gradient(
+      circle at 12% 18%,
+      color-mix(in srgb, var(--link) 20%, transparent),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 76% 22%,
+      color-mix(in srgb, var(--title-accent) 18%, transparent),
+      transparent 28%
+    );
+  animation: hero-glow 14s ease-in-out infinite alternate;
+}
+
+.divider {
+  border-left: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+}
+
+.portrait {
+  animation: hero-float 7s ease-in-out infinite;
+  transition:
+    transform 300ms ease,
+    box-shadow 300ms ease;
+}
+
+.portrait:hover {
+  transform: translateY(-6px) rotate(-1deg);
+}
+
+.frame {
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--background) 70%, var(--foreground) 30%),
+    color-mix(in srgb, var(--background) 90%, var(--foreground) 10%)
+  );
+  box-shadow: 0 26px 60px color-mix(in srgb, var(--foreground) 20%, transparent);
+}
+
+.imageOverlay {
+  background:
+    radial-gradient(
+      circle at top,
+      color-mix(in srgb, var(--background) 34%, transparent),
+      transparent 48%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 44%,
+      color-mix(in srgb, var(--foreground) 24%, transparent) 100%
+    );
+}
+
+.orbit {
+  animation: hero-orbit 9s ease-in-out infinite;
+}
+
+.orbitRing {
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+}
+
+@keyframes hero-glow {
+  0% {
+    opacity: 0.8;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1.06) translate3d(10px, -8px, 0);
+  }
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes hero-orbit {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.45;
+  }
+
+  50% {
+    transform: translate3d(12px, -14px, 0) scale(1.08);
+    opacity: 0.9;
+  }
+}
