@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ModeToggle } from "@/components/ui/mode-toggle";
+import { ThemeSelector } from "@/components/ui/theme-selector";
 import { SITE_CONFIG } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 import {
@@ -28,7 +28,7 @@ export default function NavHeader() {
         </Link>
         <div className="flex items-center space-x-6">
           <NavTabs />
-          <ModeToggle />
+          <ThemeSelector />
         </div>
       </nav>
     </header>
