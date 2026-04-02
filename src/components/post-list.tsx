@@ -22,18 +22,18 @@ export function PostList({
       <div className="border-l-2 border-border-muted pl-6 space-y-0">
         {displayPosts.map((post) => (
           <Link key={post.slug} href={`${urlPrefix}/${post.slug}`} passHref>
-            <div className="group block py-3 border-b border-gray-200 dark:border-gray-700 last:border-b-0 transition-all duration-200 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 md:hover:-ml-6 md:hover:-mr-6 md:hover:pl-6 md:hover:pr-6 md:hover:rounded-r-lg">
+            <div className="group block border-b border-border py-3 transition-all duration-200 last:border-b-0 hover:bg-link/5 md:hover:-ml-6 md:hover:-mr-6 md:hover:rounded-r-lg md:hover:pl-6 md:hover:pr-6">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
                 <div className="flex-1">
-                  <h3 className="text-gray-900 dark:text-gray-100 font-semibold text-lg leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
+                  <h3 className="text-lg font-semibold leading-tight text-foreground transition-colors duration-200 group-hover:text-link">
                     {post.title}
                   </h3>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 md:w-40 md:justify-end">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground md:w-40 md:justify-end">
                   <time
                     dateTime={post.date}
                     className={
-                      "group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-200"
+                      "transition-colors duration-200 group-hover:text-foreground"
                     }
                   >
                     {_formatDate(post.date)}

@@ -1,18 +1,16 @@
 export default function Hero({
-    title,
-    content
+  title,
+  content,
 }: {
-    title: string;
-    content: string;
+  title: string;
+  content: string;
 }) {
-    return (
-        <div className="mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-                <span className="border-b-4 border-pink-400 pb-1">{title}</span>
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl">
-                {content}
-            </p>
-        </div>
-    );
+  return (
+    <div className="mb-12">
+      <h1 className="mb-4 text-4xl font-bold text-foreground md:text-5xl">
+        <span className="border-b-4 border-title-accent pb-1">{title}</span>
+      </h1>
+      <p className="max-w-2xl text-lg text-muted-foreground">{content}</p>
+    </div>
+  );
 }

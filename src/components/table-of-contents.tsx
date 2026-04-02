@@ -121,7 +121,7 @@ export function TableOfContents({
                   onClick={(e) => handleClick(e, item.url)}
                   className={`block text-sm transition-colors cursor-pointer py-1 ${
                     isActive
-                      ? "text-primary font-medium"
+                      ? "text-link font-medium"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                   style={{ paddingLeft: `${(item.depth - 1) * 12}px` }}
@@ -152,13 +152,13 @@ export function TableOfContents({
               onClick={(e) => handleClick(e, item.url)}
               className={`block text-sm transition-colors cursor-pointer relative py-1 px-2 rounded ${
                 isActive
-                  ? "text-primary font-medium bg-primary/10"
+                  ? "bg-link/10 text-link font-medium"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
               }`}
               style={{ marginLeft: `${(item.depth - 1) * 12}px` }}
             >
               {isActive && (
-                <span className="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-r" />
+                <span className="absolute left-0 top-0 bottom-0 w-1 rounded-r bg-link" />
               )}
               {item.value}
             </a>

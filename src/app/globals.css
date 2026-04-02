@@ -27,6 +27,7 @@
   --color-border: var(--border);
   --color-border-muted: var(--border-muted);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -39,6 +40,26 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-title-accent: var(--title-accent);
+  --color-link-hover: var(--link-hover);
+  --color-link: var(--link);
+  --color-success: var(--success);
+  --color-highlight: var(--highlight);
+  --color-info-foreground: var(--info-foreground);
+  --color-info-border: var(--info-border);
+  --color-info: var(--info);
+  --color-code-button-foreground: var(--code-button-foreground);
+  --color-code-button-hover: var(--code-button-hover);
+  --color-code-button: var(--code-button);
+  --color-code-border: var(--code-border);
+  --color-code-inline-foreground: var(--code-inline-foreground);
+  --color-code-inline: var(--code-inline);
+  --color-code-block-foreground: var(--code-block-foreground);
+  --color-code-block: var(--code-block);
+  --color-hero-panel-hover: var(--hero-panel-hover);
+  --color-hero-panel: var(--hero-panel);
+  --color-hero-muted: var(--hero-muted);
+  --color-hero-foreground: var(--hero-foreground);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -49,75 +70,154 @@
 
 :root {
   --radius: 0.5rem;
-  --background: #ffffff;
-  --foreground: #1f2937;
-  --card: #ffffff;
-  --card-foreground: #1f2937;
-  --popover: #ffffff;
-  --popover-foreground: #1f2937;
-  --primary: #1f2937;
-  --primary-foreground: #ffffff;
-  --secondary: #f9fafb;
-  --secondary-foreground: #1f2937;
-  --muted: #f3f4f6;
-  --muted-foreground: #6b7280;
-  --accent: #f3f4f6;
-  --accent-foreground: #1f2937;
-  --destructive: #ef4444;
-  --border: #e5e7eb;
-  --border-muted: #f3f4f6;
-  --input: #e5e7eb;
-  --ring: #9ca3af;
+
+  /* Base plates */
+  --plate-canvas: #ffffff;
+  --plate-surface: #f9fafb;
+  --plate-surface-muted: #f3f4f6;
+  --plate-surface-emphasis: #e5e7eb;
+  --plate-copy: #1f2937;
+  --plate-copy-muted: #6b7280;
+  --plate-copy-subtle: #9ca3af;
+
+  /* Brand plates */
+  --plate-brand-strong: #1d4ed8;
+  --plate-brand: #2563eb;
+  --plate-brand-bright: #60a5fa;
+  --plate-brand-soft: #eff6ff;
+  --plate-brand-soft-border: #bfdbfe;
+  --plate-brand-foreground: #ffffff;
+
+  /* Status plates */
+  --plate-danger: #ef4444;
+  --plate-danger-foreground: #ffffff;
+  --plate-success: #16a34a;
+  --plate-highlight: #f59e0b;
+  --plate-mint: #5eddac;
+  --plate-pink: #f472b6;
+  --plate-hero-mid: #9333ea;
+  --plate-hero-end: #4338ca;
+
+  /* Code plates */
+  --plate-code-surface: #f9fafb;
+  --plate-code-surface-muted: #f3f4f6;
+  --plate-code-copy: #374151;
+
+  --background: var(--plate-canvas);
+  --foreground: var(--plate-copy);
+  --card: var(--plate-canvas);
+  --card-foreground: var(--plate-copy);
+  --popover: var(--plate-canvas);
+  --popover-foreground: var(--plate-copy);
+  --primary: var(--plate-copy);
+  --primary-foreground: var(--plate-canvas);
+  --secondary: var(--plate-surface);
+  --secondary-foreground: var(--plate-copy);
+  --muted: var(--plate-surface-muted);
+  --muted-foreground: var(--plate-copy-muted);
+  --accent: var(--plate-surface-muted);
+  --accent-foreground: var(--plate-copy);
+  --destructive: var(--plate-danger);
+  --destructive-foreground: var(--plate-danger-foreground);
+  --border: var(--plate-surface-emphasis);
+  --border-muted: var(--plate-surface-muted);
+  --input: var(--plate-surface-emphasis);
+  --ring: var(--plate-copy-subtle);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  /* Sidebar */
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-  /* Post Section */
-  --post-section-primary-border: #5eddac;
+
+  --sidebar: var(--plate-surface);
+  --sidebar-foreground: var(--plate-copy);
+  --sidebar-primary: var(--plate-copy);
+  --sidebar-primary-foreground: var(--plate-canvas);
+  --sidebar-accent: var(--plate-surface-muted);
+  --sidebar-accent-foreground: var(--plate-copy);
+  --sidebar-border: var(--plate-surface-emphasis);
+  --sidebar-ring: var(--plate-copy-subtle);
+
+  --title-accent: var(--plate-pink);
+  --link: var(--plate-brand);
+  --link-hover: var(--plate-brand-strong);
+  --success: var(--plate-success);
+  --highlight: var(--plate-highlight);
+  --info: var(--plate-brand-soft);
+  --info-border: var(--plate-brand-soft-border);
+  --info-foreground: var(--plate-brand-strong);
+  --code-block: var(--plate-code-surface);
+  --code-block-foreground: var(--plate-code-copy);
+  --code-inline: var(--plate-code-surface-muted);
+  --code-inline-foreground: var(--plate-copy);
+  --code-border: var(--plate-surface-emphasis);
+  --code-button: var(--plate-canvas);
+  --code-button-hover: var(--plate-surface);
+  --code-button-foreground: var(--plate-copy-muted);
+  --hero-start: var(--plate-brand);
+  --hero-mid: var(--plate-hero-mid);
+  --hero-end: var(--plate-hero-end);
+  --hero-foreground: var(--plate-brand-foreground);
+  --hero-muted: rgb(255 255 255 / 0.8);
+  --hero-panel: rgb(255 255 255 / 0.12);
+  --hero-panel-hover: rgb(255 255 255 / 0.18);
+  --post-section-primary-border: var(--plate-mint);
+
+  --nav-icon-paper: var(--plate-brand-foreground);
+  --nav-icon-blog: #4f46e5;
+  --nav-icon-notes: #10b981;
+  --nav-icon-notes-spine: #065f46;
+  --nav-icon-resume-stroke: var(--plate-copy-muted);
+  --nav-icon-resume-dot: var(--plate-danger);
+  --nav-icon-projects-1: #8b5cf6;
+  --nav-icon-projects-2: #06b6d4;
+  --nav-icon-projects-3: #f59e0b;
+  --nav-icon-projects-4: #ef4444;
+  --nav-icon-links: #3b82f6;
+  --nav-icon-links-center: #1d4ed8;
 }
 
 .dark {
-  --background: #0f172a;
-  --foreground: #f1f5f9;
-  --card: #1e293b;
-  --card-foreground: #f1f5f9;
-  --popover: #1e293b;
-  --popover-foreground: #f1f5f9;
-  --primary: #f1f5f9;
-  --primary-foreground: #0f172a;
-  --secondary: #334155;
-  --secondary-foreground: #f1f5f9;
-  --muted: #334155;
-  --muted-foreground: #94a3b8;
-  --accent: #334155;
-  --accent-foreground: #f1f5f9;
-  --destructive: #ef4444;
-  --border: #475569;
-  --input: #475569;
-  --ring: #64748b;
+  --plate-canvas: #0f172a;
+  --plate-surface: #1e293b;
+  --plate-surface-muted: #334155;
+  --plate-surface-emphasis: #475569;
+  --plate-copy: #f1f5f9;
+  --plate-copy-muted: #94a3b8;
+  --plate-copy-subtle: #64748b;
+  --plate-brand-strong: #93c5fd;
+  --plate-brand: #60a5fa;
+  --plate-brand-bright: #38bdf8;
+  --plate-brand-soft: #172554;
+  --plate-brand-soft-border: #1d4ed8;
+  --plate-brand-foreground: #eff6ff;
+  --plate-danger: #f87171;
+  --plate-danger-foreground: #0f172a;
+  --plate-success: #4ade80;
+  --plate-highlight: #fbbf24;
+  --plate-mint: #86efac;
+  --plate-pink: #f9a8d4;
+  --plate-hero-mid: #7c3aed;
+  --plate-hero-end: #3730a3;
+  --plate-code-surface: #111827;
+  --plate-code-surface-muted: #1f2937;
+  --plate-code-copy: #e5e7eb;
+
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+
+  --nav-icon-blog: #818cf8;
+  --nav-icon-notes: #34d399;
+  --nav-icon-notes-spine: #10b981;
+  --nav-icon-projects-1: #a78bfa;
+  --nav-icon-projects-2: #22d3ee;
+  --nav-icon-projects-3: #fbbf24;
+  --nav-icon-projects-4: #fb7185;
+  --nav-icon-links: #60a5fa;
+  --nav-icon-links-center: #2563eb;
 }
 
 @layer base {
@@ -146,23 +246,13 @@
 
   /* Fallback styling for plain code blocks without language (not processed by Shiki) */
   pre:not(.shiki) {
-    @apply bg-muted/50 text-foreground;
-  }
-
-  /* Ensure light mode code blocks have correct background */
-  .light pre:not(.shiki) {
-    background-color: #f9fafb !important;
-    color: #374151 !important;
-  }
-
-  .dark pre:not(.shiki) {
-    background-color: #111827 !important;
-    color: #e5e7eb !important;
+    background-color: var(--code-block) !important;
+    color: var(--code-block-foreground) !important;
   }
 
   /* Style for inline code (not inside pre blocks) */
   :not(pre) > code {
-    @apply bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-2 py-1 rounded text-sm font-mono font-medium border border-gray-200 dark:border-gray-700;
+    @apply bg-code-inline text-code-inline-foreground px-2 py-1 rounded text-sm font-mono font-medium border border-code-border;
   }
 
   /* Ensure code inside pre blocks is not affected */
@@ -207,15 +297,15 @@
   }
 
   pre::-webkit-scrollbar-track {
-    @apply bg-gray-100 dark:bg-gray-800 rounded;
+    @apply bg-muted rounded;
   }
 
   pre::-webkit-scrollbar-thumb {
-    @apply bg-gray-300 dark:bg-gray-600 rounded;
+    @apply bg-border rounded;
   }
 
   pre::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-400 dark:bg-gray-500;
+    @apply bg-muted-foreground/50;
   }
 
   /* Table styling similar to OpenAI docs */
@@ -224,11 +314,11 @@
   }
 
   table th {
-    @apply border-b border-gray-200 dark:border-gray-700 px-4 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-gray-800/50;
+    @apply border-b border-border px-4 py-3 text-left text-sm font-semibold text-foreground bg-muted/60;
   }
 
   table td {
-    @apply border-b border-gray-200 dark:border-gray-700 px-4 py-3 text-sm text-gray-700 dark:text-gray-300;
+    @apply border-b border-border px-4 py-3 text-sm text-muted-foreground;
   }
 
   table tr:last-child td {
@@ -238,6 +328,16 @@
   /* Better spacing for prose content */
   .prose {
     @apply max-w-none;
+  }
+
+  .resume-hero {
+    background-image: linear-gradient(
+      135deg,
+      var(--hero-start),
+      var(--hero-mid),
+      var(--hero-end)
+    );
+    color: var(--hero-foreground);
   }
 
   /* OpenAI-style alert/note boxes */

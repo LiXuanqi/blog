@@ -39,19 +39,19 @@ export function CodeBlock({ children, ...props }: CodeBlockProps) {
   };
 
   return (
-    <div className="relative group my-8 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+    <div className="group relative my-8 overflow-hidden rounded-lg border border-code-border bg-code-block">
       {/* Copy button */}
       <Button
         size="sm"
         variant="ghost"
-        className="absolute top-4 right-4 h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-white/80 dark:bg-gray-800/80 hover:bg-white dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600 shadow-sm z-10"
+        className="absolute top-4 right-4 z-10 h-8 w-8 border border-code-border bg-code-button/80 p-0 text-code-button-foreground opacity-0 shadow-sm transition-opacity duration-200 hover:bg-code-button-hover group-hover:opacity-100"
         onClick={handleCopy}
         aria-label="Copy code"
       >
         {copied ? (
-          <Check className="h-3.5 w-3.5 text-green-600" />
+          <Check className="h-3.5 w-3.5 text-success" />
         ) : (
-          <Copy className="h-3.5 w-3.5 text-gray-600 dark:text-gray-400" />
+          <Copy className="h-3.5 w-3.5" />
         )}
       </Button>
 

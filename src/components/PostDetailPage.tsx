@@ -47,7 +47,7 @@ export default function PostDetailPage({
               {backText}
             </Link>
 
-            <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+            <h1 className="mb-4 text-4xl font-bold text-foreground">
               {frontmatter.title}
             </h1>
 
@@ -62,8 +62,6 @@ export default function PostDetailPage({
               currentLanguage={post.language}
               availableLanguages={post.availableLanguages || []}
             />
-
-            {/* <p className="text-gray-600">{post.date}</p> */}
           </header>
 
           {/* Mobile TOC */}
@@ -126,7 +124,7 @@ export default function PostDetailPage({
         </article>
 
         {/* Right Sidebar */}
-        <aside className="hidden lg:block lg:w-64 xl:w-72 border-l border-gray-200 dark:border-gray-700 pl-8">
+        <aside className="hidden border-l border-border pl-8 lg:block lg:w-64 xl:w-72">
           <div className="sticky top-24 space-y-8">
             {/* Tags */}
             {frontmatter.tags && frontmatter.tags.length > 0 && (

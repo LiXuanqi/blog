@@ -49,7 +49,7 @@ export default function LinkDetailPage({ link }: LinkDetailPageProps) {
             )}
 
             <div className="mb-6">
-              <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+              <h1 className="mb-4 text-4xl font-bold text-foreground">
                 {frontmatter.title}
               </h1>
 
@@ -74,17 +74,15 @@ export default function LinkDetailPage({ link }: LinkDetailPageProps) {
 
               {/* Source banner */}
               {frontmatter.url && (
-                <div className="p-4 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg">
+                <div className="rounded-lg border border-info-border bg-info p-4">
                   <div className="flex items-center gap-2 text-sm">
-                    <ExternalLink className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                    <span className="text-blue-700 dark:text-blue-300">
-                      Source:
-                    </span>
+                    <ExternalLink className="h-4 w-4 text-info-foreground" />
+                    <span className="text-info-foreground">Source:</span>
                     <a
                       href={frontmatter.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                      className="font-medium text-link hover:text-link-hover hover:underline"
                     >
                       {frontmatter.url}
                     </a>
@@ -140,7 +138,7 @@ export default function LinkDetailPage({ link }: LinkDetailPageProps) {
         </article>
 
         {/* Right Sidebar */}
-        <aside className="hidden lg:block lg:w-64 xl:w-72 border-l border-gray-200 dark:border-gray-700 pl-8">
+        <aside className="hidden border-l border-border pl-8 lg:block lg:w-64 xl:w-72">
           <div className="sticky top-24 space-y-8">
             {/* Table of Contents */}
             <TableOfContents items={tocItems} variant="sidebar" />

@@ -54,40 +54,38 @@ function LinkItem({
       href={href}
       target={isDirectLink ? "_blank" : undefined}
       rel={isDirectLink ? "noopener noreferrer" : undefined}
-      className="group block py-3 border-b border-gray-200 dark:border-gray-700 last:border-b-0 transition-all duration-200 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 md:hover:-ml-6 md:hover:-mr-6 md:hover:pl-6 md:hover:pr-6 md:hover:rounded-r-lg"
+      className="group block border-b border-border py-3 transition-all duration-200 last:border-b-0 hover:bg-link/5 md:hover:-ml-6 md:hover:-mr-6 md:hover:rounded-r-lg md:hover:pl-6 md:hover:pr-6"
     >
       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2">
         <div className="flex-1 space-y-1">
           <div className="flex items-center gap-2">
-            <h3 className="text-gray-900 dark:text-gray-100 font-semibold text-lg leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
+            <h3 className="text-lg font-semibold leading-tight text-foreground transition-colors duration-200 group-hover:text-link">
               {link.title}
             </h3>
             {isDirectLink && (
-              <ExternalLink className="h-4 w-4 text-gray-400 transition-colors duration-200 group-hover:text-blue-500 dark:group-hover:text-blue-400" />
+              <ExternalLink className="h-4 w-4 text-muted-foreground transition-colors duration-200 group-hover:text-link" />
             )}
           </div>
           {link.description && (
-            <p className="text-sm text-gray-600 dark:text-gray-300">
-              {link.description}
-            </p>
+            <p className="text-sm text-muted-foreground">{link.description}</p>
           )}
           {link.category && (
-            <p className="text-xs uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400">
+            <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
               {link.category}
             </p>
           )}
         </div>
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 md:w-40 md:justify-end">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground md:w-40 md:justify-end">
           {link.date && (
             <time
               dateTime={link.date}
-              className="group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-200"
+              className="transition-colors duration-200 group-hover:text-foreground"
             >
               {formatDate(link.date)}
             </time>
           )}
           {!link.date && isDirectLink && (
-            <span className="group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-200">
+            <span className="transition-colors duration-200 group-hover:text-foreground">
               External
             </span>
           )}

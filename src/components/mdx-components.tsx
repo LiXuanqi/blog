@@ -27,7 +27,7 @@ export const MDX_COMPONENTS = {
     return (
       <h1
         id={id}
-        className="scroll-m-20 text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 mb-6 mt-0"
+        className="scroll-m-20 mb-6 mt-0 text-4xl font-bold tracking-tight text-foreground"
         {...props}
       >
         {children}
@@ -39,7 +39,7 @@ export const MDX_COMPONENTS = {
     return (
       <h2
         id={id}
-        className="scroll-m-20 text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 first:mt-0 mt-12 mb-6"
+        className="scroll-m-20 mb-6 mt-12 text-2xl font-semibold tracking-tight text-foreground first:mt-0"
         {...props}
       >
         {children}
@@ -51,7 +51,7 @@ export const MDX_COMPONENTS = {
     return (
       <h3
         id={id}
-        className="scroll-m-20 text-xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 mt-10 mb-4"
+        className="scroll-m-20 mb-4 mt-10 text-xl font-semibold tracking-tight text-foreground"
         {...props}
       >
         {children}
@@ -63,7 +63,7 @@ export const MDX_COMPONENTS = {
     return (
       <h4
         id={id}
-        className="scroll-m-20 text-lg font-semibold tracking-tight text-gray-900 dark:text-gray-100 mt-6 mb-3"
+        className="scroll-m-20 mb-3 mt-6 text-lg font-semibold tracking-tight text-foreground"
         {...props}
       >
         {children}
@@ -72,7 +72,7 @@ export const MDX_COMPONENTS = {
   },
   p: ({ children, ...props }: MDXComponentProps) => (
     <p
-      className="leading-7 text-gray-700 dark:text-gray-300 [&:not(:first-child)]:mt-6 mb-6"
+      className="mb-6 leading-7 text-muted-foreground [&:not(:first-child)]:mt-6"
       {...props}
     >
       {children}
@@ -80,7 +80,7 @@ export const MDX_COMPONENTS = {
   ),
   blockquote: ({ children, ...props }: MDXComponentProps) => (
     <blockquote
-      className="my-6 border-l-4 border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800/50 pl-6 pr-4 py-4 text-gray-700 dark:text-gray-300 rounded-r-lg"
+      className="my-6 rounded-r-lg border-l-4 border-info-border bg-info px-4 py-4 pl-6 text-muted-foreground"
       {...props}
     >
       {children}
@@ -94,20 +94,20 @@ export const MDX_COMPONENTS = {
   ),
 
   ul: ({ children, ...props }: MDXComponentProps) => (
-    <ul className="my-6 space-y-3 text-gray-700 dark:text-gray-300" {...props}>
+    <ul className="my-6 space-y-3 text-muted-foreground" {...props}>
       {children}
     </ul>
   ),
 
   ol: ({ children, ...props }: MDXComponentProps) => (
-    <ol className="my-6 space-y-3 text-gray-700 dark:text-gray-300" {...props}>
+    <ol className="my-6 space-y-3 text-muted-foreground" {...props}>
       {children}
     </ol>
   ),
 
   li: ({ children, ...props }: MDXComponentProps) => (
     <li
-      className="leading-7 relative pl-6 before:content-['•'] before:absolute before:left-0 before:text-gray-400 dark:before:text-gray-500 before:font-bold"
+      className="relative pl-6 leading-7 before:absolute before:left-0 before:font-bold before:text-primary/60 before:content-['•']"
       {...props}
     >
       {children}
@@ -115,16 +115,13 @@ export const MDX_COMPONENTS = {
   ),
 
   strong: ({ children, ...props }: MDXComponentProps) => (
-    <strong
-      className="font-semibold text-gray-900 dark:text-gray-100"
-      {...props}
-    >
+    <strong className="font-semibold text-foreground" {...props}>
       {children}
     </strong>
   ),
 
   em: ({ children, ...props }: MDXComponentProps) => (
-    <em className="italic text-gray-600 dark:text-gray-400" {...props}>
+    <em className="italic text-muted-foreground" {...props}>
       {children}
     </em>
   ),
@@ -132,7 +129,7 @@ export const MDX_COMPONENTS = {
   a: ({ children, href, ...props }: MDXComponentProps & { href?: string }) => (
     <a
       href={href}
-      className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors no-underline hover:underline"
+      className="text-link transition-colors no-underline hover:text-link-hover hover:underline"
       {...props}
     >
       {children}

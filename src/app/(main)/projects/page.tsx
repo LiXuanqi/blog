@@ -32,11 +32,11 @@ async function getProjects(): Promise<Project[]> {
 
 const ProjectCard = ({ project }: { project: Project }) => {
   return (
-    <Card className="group hover:border-primary/50 transition-colors">
+    <Card className="group transition-colors hover:border-link/50">
       <CardHeader>
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <CardTitle className="group-hover:text-primary transition-colors">
+            <CardTitle className="transition-colors group-hover:text-link">
               {project.title}
             </CardTitle>
             <p className="text-muted-foreground mt-2 line-clamp-2">
@@ -121,7 +121,7 @@ export default async function ProjectsPage() {
         {featuredProjects.length > 0 && (
           <section className="mb-16">
             <h2 className="text-2xl font-semibold text-foreground mb-8 flex items-center gap-2">
-              <Star size={24} className="text-yellow-500" />
+              <Star size={24} className="text-highlight" />
               Featured Projects
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
