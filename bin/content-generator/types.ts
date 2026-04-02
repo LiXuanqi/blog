@@ -92,6 +92,10 @@ export type IndexListItem = {
   date: string;
   language: LanguageKey;
   availableLanguages: LanguageKey[];
+  description?: string;
+  category?: string;
+  url?: string;
+  directLink?: boolean;
 };
 
 export type IndexJson = {

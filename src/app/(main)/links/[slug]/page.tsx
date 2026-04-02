@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import LinkDetailPage from "@/components/LinkDetailPage";
 import {
   getGeneratedLinksStaticParamsAsync,
@@ -22,6 +22,10 @@ export default async function LinkPage({ params }: PageProps) {
 
   if (!linkDocument) {
     notFound();
+  }
+
+  if (linkDocument.frontmatter.directLink && linkDocument.frontmatter.url) {
+    redirect(linkDocument.frontmatter.url);
   }
 
   return <LinkDetailPage link={linkDocument} />;

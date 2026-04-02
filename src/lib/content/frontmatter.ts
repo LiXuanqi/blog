@@ -23,10 +23,15 @@ export const NOTE_FRONTMATTER_SCHEMA = BASE_FRONTMATTER_SCHEMA.extend({
 export type NoteFrontmatter = z.infer<typeof NOTE_FRONTMATTER_SCHEMA>;
 
 export const LINK_FRONTMATTER_SCHEMA = BASE_FRONTMATTER_SCHEMA.extend({
+  date: z.string().optional(),
   description: z.string().optional(),
   image: z.string().optional(),
   url: z.string().optional(),
   category: z.string().optional(),
+  directLink: z.boolean().default(false),
+}).refine((data) => !data.directLink || Boolean(data.url), {
+  message: "Links with directLink=true must define a url",
+  path: ["url"],
 });
 
 export type LinkFrontmatter = z.infer<typeof LINK_FRONTMATTER_SCHEMA>;

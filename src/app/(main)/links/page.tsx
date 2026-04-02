@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 import Hero from "@/components/hero";
 import { getGeneratedPostListAsync } from "@/lib/generated-content";
 
@@ -34,27 +35,62 @@ export default async function LinksPage() {
 function LinkItem({
   link,
 }: {
-  link: { slug: string; title: string; date: string };
+  link: {
+    slug: string;
+    title: string;
+    date: string;
+    description?: string;
+    category?: string;
+    url?: string;
+    directLink?: boolean;
+  };
 }) {
+  const directUrl = link.directLink ? link.url : undefined;
+  const isDirectLink = Boolean(directUrl);
+  const href = directUrl ?? `/links/${link.slug}`;
+
   return (
-    <Link href={`/links/${link.slug}`} passHref>
-      <div className="group block py-3 border-b border-gray-200 dark:border-gray-700 last:border-b-0 transition-all duration-200 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 md:hover:-ml-6 md:hover:-mr-6 md:hover:pl-6 md:hover:pr-6 md:hover:rounded-r-lg">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-          <div className="flex-1">
+    <Link
+      href={href}
+      target={isDirectLink ? "_blank" : undefined}
+      rel={isDirectLink ? "noopener noreferrer" : undefined}
+      className="group block py-3 border-b border-gray-200 dark:border-gray-700 last:border-b-0 transition-all duration-200 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 md:hover:-ml-6 md:hover:-mr-6 md:hover:pl-6 md:hover:pr-6 md:hover:rounded-r-lg"
+    >
+      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2">
+        <div className="flex-1 space-y-1">
+          <div className="flex items-center gap-2">
             <h3 className="text-gray-900 dark:text-gray-100 font-semibold text-lg leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
               {link.title}
             </h3>
-          </div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 md:w-40 md:justify-end">
-            {link.date && (
-              <time
-                dateTime={link.date}
-                className="group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-200"
-              >
-                {formatDate(link.date)}
-              </time>
+            {isDirectLink && (
+              <ExternalLink className="h-4 w-4 text-gray-400 transition-colors duration-200 group-hover:text-blue-500 dark:group-hover:text-blue-400" />
             )}
           </div>
+          {link.description && (
+            <p className="text-sm text-gray-600 dark:text-gray-300">
+              {link.description}
+            </p>
+          )}
+          {link.category && (
+            <p className="text-xs uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400">
+              {link.category}
+            </p>
+          )}
+        </div>
+        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 md:w-40 md:justify-end">
+          {link.date && (
+            <time
+              dateTime={link.date}
+              className="group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-200"
+            >
+              {formatDate(link.date)}
+            </time>
+          )}
+          {!link.date && isDirectLink && (
+            <span className="group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-200">
+              External
+            </span>
+          )}
         </div>
       </div>
     </Link>

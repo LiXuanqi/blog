@@ -1,20 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { SITE_CONFIG } from "@/lib/site-config";
+import { cn } from "@/lib/utils";
 import {
   BlogIcon,
   NotesIcon,
   ResumeIcon,
-  BookmarksIcon,
   ProjectsIcon,
   LinksIcon,
 } from "@/components/icons/nav-icons";
@@ -45,18 +37,16 @@ export default function NavHeader() {
 
 function NavTabs() {
   return (
-    <NavigationMenu>
-      <NavigationMenuList>
-        {SITE_CONFIG.navigation.map((item) => (
-          <NavItem
-            key={item.url}
-            text={item.text}
-            url={item.url}
-            icon={item.icon}
-          />
-        ))}
-      </NavigationMenuList>
-    </NavigationMenu>
+    <div className="flex items-center gap-1">
+      {SITE_CONFIG.navigation.map((item) => (
+        <NavItem
+          key={item.url}
+          text={item.text}
+          url={item.url}
+          icon={item.icon}
+        />
+      ))}
+    </div>
   );
 }
 
@@ -77,8 +67,6 @@ function NavItem({
         return <ProjectsIcon size={16} />;
       case "notes":
         return <NotesIcon size={16} />;
-      case "bookmarks":
-        return <BookmarksIcon size={16} />;
       case "resume":
         return <ResumeIcon size={16} />;
       case "links":
@@ -89,15 +77,16 @@ function NavItem({
   };
 
   return (
-    <NavigationMenuItem>
-      <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-        <Link href={url}>
-          <div className="flex items-center gap-2">
-            {icon && <span className="flex items-center">{getIcon(icon)}</span>}
-            <span className="leading-none">{text}</span>
-          </div>
-        </Link>
-      </NavigationMenuLink>
-    </NavigationMenuItem>
+    <Link
+      href={url}
+      className={cn(
+        "inline-flex h-9 w-max items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium outline-none transition-colors",
+        "text-foreground/80 hover:bg-accent hover:text-accent-foreground",
+        "focus-visible:ring-ring/50 focus-visible:ring-[3px] focus-visible:outline-1",
+      )}
+    >
+      {icon && <span className="flex items-center">{getIcon(icon)}</span>}
+      <span className="leading-none">{text}</span>
+    </Link>
   );
 }

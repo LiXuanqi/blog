@@ -123,10 +123,15 @@ function sortIndex(index: IndexJson): void {
   for (const collection of collections) {
     for (const language of languages) {
       index.collections[collection][language].sort((a, b) => {
-        const dateDiff =
-          new Date(b.date).getTime() - new Date(a.date).getTime();
-        if (dateDiff !== 0) {
-          return dateDiff;
+        const aDate = a.date
+          ? new Date(a.date).getTime()
+          : Number.NEGATIVE_INFINITY;
+        const bDate = b.date
+          ? new Date(b.date).getTime()
+          : Number.NEGATIVE_INFINITY;
+
+        if (aDate !== bDate) {
+          return bDate - aDate;
         }
         return a.slug.localeCompare(b.slug);
       });

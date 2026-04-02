@@ -11,6 +11,10 @@ type GeneratedListItem = {
   date: string;
   language: LanguageKey;
   availableLanguages: LanguageKey[];
+  description?: string;
+  category?: string;
+  url?: string;
+  directLink?: boolean;
 };
 
 type GeneratedDocumentFile = {
@@ -95,7 +99,9 @@ export async function getGeneratedLinksStaticParamsAsync(): Promise<
   Array<{ slug: string }>
 > {
   const links = await getGeneratedPostListAsync("links", "en");
-  return links.map((link) => ({ slug: link.slug }));
+  return links
+    .filter((link) => !link.directLink)
+    .map((link) => ({ slug: link.slug }));
 }
 
 async function getGeneratedIndexAsync(): Promise<GeneratedIndex> {
