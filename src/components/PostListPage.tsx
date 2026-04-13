@@ -1,5 +1,5 @@
 import Hero from "@/components/hero";
-import { BlogManifestPostList } from "@/components/BlogManifestPostList";
+import { ManifestEntryList } from "@/components/ManifestEntryList";
 import type { PostPreview } from "@/components/post-preview";
 
 interface PostListPageProps {
@@ -22,7 +22,7 @@ export default function PostListPage({
         <Hero title={title} content={description} />
 
         {/* Main content */}
-        <BlogManifestPostList posts={posts} urlPrefix={urlPrefix} />
+        <ManifestEntryList posts={posts} urlPrefix={urlPrefix} />
       </div>
     </div>
   );
