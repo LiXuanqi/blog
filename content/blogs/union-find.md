@@ -2,6 +2,7 @@
 title: Union Find
 date: 2023-12-02
 description: "Union-Find is a data structure for managing disjoint subsets with two operations: find(x) returns which set an element belongs to, and union(x, y) merges two sets. Key optimizations include path compression (flattening trees during lookups) and union by rank (attaching smaller trees to larger ones), achieving nearly O(1) amortized time complexity per operation."
+image: "/blog-covers/union-find-cover.png"
 tags: ["Algorithm"]
 visible: true
 ---

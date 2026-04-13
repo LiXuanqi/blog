@@ -58,6 +58,15 @@ export class JsonCollectionEmitter implements CollectionEmitter {
           typeof document.frontmatter.description === "string"
             ? document.frontmatter.description
             : undefined,
+        image:
+          typeof document.frontmatter.image === "string"
+            ? document.frontmatter.image
+            : undefined,
+        tags: Array.isArray(document.frontmatter.tags)
+          ? document.frontmatter.tags.filter(
+              (tag): tag is string => typeof tag === "string",
+            )
+          : undefined,
         category:
           typeof document.frontmatter.category === "string"
             ? document.frontmatter.category

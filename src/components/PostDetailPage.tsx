@@ -53,13 +53,13 @@ export default function PostDetailPage({
             </Link>
 
             {coverImage && (
-              <div className="relative mb-8 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-border bg-muted shadow-sm">
+              <div className="relative mb-8 aspect-[3/2] w-full overflow-hidden rounded-2xl border border-border bg-transparent shadow-sm">
                 <Image
                   src={coverImage}
                   alt={frontmatter.title}
                   fill
                   priority
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
             )}
