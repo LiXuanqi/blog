@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SITE_CONFIG } from "@/lib/site-config";
-import type { PostPreview } from "@/components/post-list";
+import type { PostPreview } from "@/components/post-preview";
 import { PostCard } from "@/components/ui/post-card";
 import type { Post } from "@/components/ui/types";
 

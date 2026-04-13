@@ -22,7 +22,6 @@ export default async function BlogsPageByLanguage({ params }: PageProps) {
       description={SITE_CONFIG.blog.description}
       posts={posts}
       urlPrefix={`/${lang}/blogs`}
-      variant="manifest"
     />
   );
 }

@@ -1,4 +1,4 @@
-import { PostList } from "@/components/post-list";
+import { BlogManifestPostList } from "@/components/BlogManifestPostList";
 import SectionHeader from "@/components/section-header";
 import { SITE_CONFIG } from "@/lib/site-config";
 import { getGeneratedPostListAsync } from "@/lib/generated-content";
@@ -19,7 +19,10 @@ export default async function Home() {
               subtitle={SITE_CONFIG.sections.notes.subtitle}
               ctaUrl="/notes"
             />
-            <PostList posts={notes} limit={3} urlPrefix="/notes" />
+            <BlogManifestPostList
+              posts={notes.slice(0, 3)}
+              urlPrefix="/notes"
+            />
           </Section>
 
           <Section>
@@ -28,7 +31,10 @@ export default async function Home() {
               subtitle={SITE_CONFIG.sections.articles.subtitle}
               ctaUrl="/blogs"
             />
-            <PostList posts={articles} limit={3} />
+            <BlogManifestPostList
+              posts={articles.slice(0, 3)}
+              urlPrefix="/blogs"
+            />
           </Section>
         </div>
       </div>

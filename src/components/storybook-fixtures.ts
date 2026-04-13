@@ -1,4 +1,4 @@
-import type { PostPreview } from "@/components/post-list";
+import type { PostPreview } from "@/components/post-preview";
 import type { TocItem } from "@/lib/toc";
 
 export const storybookPosts: ReadonlyArray<PostPreview> = [
@@ -27,12 +27,6 @@ export const storybookPosts: ReadonlyArray<PostPreview> = [
     language: "zh",
   },
 ];
-
-export const singleStorybookPost: ReadonlyArray<PostPreview> = [
-  storybookPosts[0],
-];
-
-export const emptyStorybookPosts: ReadonlyArray<PostPreview> = [];
 
 export const storybookTocItems: TocItem[] = [
   {
