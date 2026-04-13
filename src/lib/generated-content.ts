@@ -12,6 +12,8 @@ type GeneratedListItem = {
   language: LanguageKey;
   availableLanguages: LanguageKey[];
   description?: string;
+  image?: string;
+  tags?: string[];
   category?: string;
   url?: string;
   directLink?: boolean;

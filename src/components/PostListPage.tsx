@@ -1,4 +1,5 @@
 import Hero from "@/components/hero";
+import { BlogManifestPostList } from "@/components/BlogManifestPostList";
 import { PostSection } from "@/components/PostSection";
 import type { PostPreview } from "@/components/post-list";
 
@@ -7,6 +8,7 @@ interface PostListPageProps {
   description: string;
   posts: ReadonlyArray<PostPreview>;
   urlPrefix?: string;
+  variant?: "grouped" | "manifest";
 }
 
 export default function PostListPage({
@@ -14,9 +16,8 @@ export default function PostListPage({
   description,
   posts,
   urlPrefix,
+  variant = "grouped",
 }: PostListPageProps) {
-  const { postsByYear, sortedYears } = groupPostsByYear(posts);
-
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto px-6 py-12">
@@ -24,16 +25,36 @@ export default function PostListPage({
         <Hero title={title} content={description} />
 
         {/* Main content */}
-        {sortedYears.map((year) => (
-          <PostSection
-            key={year}
-            sectionTitle={year}
-            posts={postsByYear[year]}
-            urlPrefix={urlPrefix}
-          />
-        ))}
+        {variant === "manifest" ? (
+          <BlogManifestPostList posts={posts} urlPrefix={urlPrefix} />
+        ) : (
+          <GroupedPostSections posts={posts} urlPrefix={urlPrefix} />
+        )}
       </div>
     </div>
+  );
+}
+
+function GroupedPostSections({
+  posts,
+  urlPrefix,
+}: {
+  posts: ReadonlyArray<PostPreview>;
+  urlPrefix?: string;
+}) {
+  const { postsByYear, sortedYears } = groupPostsByYear(posts);
+
+  return (
+    <>
+      {sortedYears.map((year) => (
+        <PostSection
+          key={year}
+          sectionTitle={year}
+          posts={postsByYear[year]}
+          urlPrefix={urlPrefix}
+        />
+      ))}
+    </>
   );
 }
 
