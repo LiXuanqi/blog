@@ -15,18 +15,6 @@ export default async function Home() {
         <div className="mx-auto mt-16 max-w-4xl space-y-16">
           <Section>
             <SectionHeader
-              title={SITE_CONFIG.sections.notes.title}
-              subtitle={SITE_CONFIG.sections.notes.subtitle}
-              ctaUrl="/notes"
-            />
-            <BlogManifestPostList
-              posts={notes.slice(0, 3)}
-              urlPrefix="/notes"
-            />
-          </Section>
-
-          <Section>
-            <SectionHeader
               title={SITE_CONFIG.sections.articles.title}
               subtitle={SITE_CONFIG.sections.articles.subtitle}
               ctaUrl="/blogs"
@@ -34,6 +22,18 @@ export default async function Home() {
             <BlogManifestPostList
               posts={articles.slice(0, 3)}
               urlPrefix="/blogs"
+            />
+          </Section>
+
+          <Section>
+            <SectionHeader
+              title={SITE_CONFIG.sections.notes.title}
+              subtitle={SITE_CONFIG.sections.notes.subtitle}
+              ctaUrl="/notes"
+            />
+            <BlogManifestPostList
+              posts={notes.slice(0, 3)}
+              urlPrefix="/notes"
             />
           </Section>
         </div>
