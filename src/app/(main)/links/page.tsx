@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Hero from "@/components/hero";
-import { ManifestEntryList } from "@/components/ManifestEntryList";
+import { LinkEntryList } from "@/components/LinkEntryList";
 import { getGeneratedPostListAsync } from "@/lib/generated-content";
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export default async function LinksPage() {
           content="A curated collection of useful links and resources"
         />
 
-        <ManifestEntryList
+        <LinkEntryList
           posts={links}
           urlPrefix="/links"
           defaultCategory="Link"

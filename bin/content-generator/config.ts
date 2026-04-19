@@ -14,7 +14,6 @@ import {
   tocPlugin,
 } from "./document-plugins.ts";
 import { JsonCollectionEmitter } from "./emitters/json-emitter.ts";
-import { linkPreviewImagePlugin } from "./link-preview-image-plugin.ts";
 import type { CollectionConfig } from "./types.ts";
 
 export const OUTPUT_DIR = path.join(process.cwd(), "src/generated/content");
@@ -52,7 +51,6 @@ export const COLLECTION_CONFIGS: CollectionConfig[] = [
     }),
     documentPlugins: [
       frontmatterPlugin(LINK_FRONTMATTER_SCHEMA),
-      linkPreviewImagePlugin(),
       languagePlugin(),
       tocPlugin(),
     ],
