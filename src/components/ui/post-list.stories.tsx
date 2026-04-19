@@ -7,7 +7,7 @@ import type { Post } from "@/components/ui/types";
 const posts: Post[] = demoPosts.map((post, index) => ({
   ...post,
   tags: post.tags ? [...post.tags] : undefined,
-  url: post.url ?? `/blogs/demo-${index}`,
+  url: post.url ?? `/posts/demo-${index}`,
 }));
 
 const meta = {

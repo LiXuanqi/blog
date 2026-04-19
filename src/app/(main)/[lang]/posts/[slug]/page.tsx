@@ -10,13 +10,13 @@ interface PageProps {
   params: Promise<{ lang: string; slug: string }>;
 }
 
-export default async function BlogPageByLanguage({ params }: PageProps) {
+export default async function PostPageByLanguage({ params }: PageProps) {
   const { slug, lang } = await params;
   if (!isLocale(lang)) {
     notFound();
   }
 
-  const post = await getGeneratedPostBySlugAsync("blogs", lang, slug);
+  const post = await getGeneratedPostBySlugAsync("posts", lang, slug);
   if (!post) {
     notFound();
   }
@@ -26,5 +26,5 @@ export default async function BlogPageByLanguage({ params }: PageProps) {
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return await getGeneratedStaticParamsAsync("blogs");
+  return await getGeneratedStaticParamsAsync("posts");
 }

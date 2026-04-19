@@ -8,20 +8,20 @@ interface PageProps {
   params: Promise<{ lang: string }>;
 }
 
-export default async function BlogsPageByLanguage({ params }: PageProps) {
+export default async function PostsPageByLanguage({ params }: PageProps) {
   const { lang } = await params;
   if (!isLocale(lang)) {
     notFound();
   }
 
-  const posts = await getGeneratedPostListAsync("blogs", lang);
+  const posts = await getGeneratedPostListAsync("posts", lang);
 
   return (
     <PostListPage
       title={SITE_CONFIG.blog.title}
       description={SITE_CONFIG.blog.description}
       posts={posts}
-      urlPrefix={`/${lang}/blogs`}
+      urlPrefix={`/${lang}/posts`}
     />
   );
 }

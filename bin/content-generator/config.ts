@@ -22,7 +22,7 @@ export const TEMP_OUTPUT_DIR = path.join(
   "src/generated/.content-tmp",
 );
 export const CONTENT_WATCH_PATHS = [
-  path.join(process.cwd(), "content/blogs"),
+  path.join(process.cwd(), "content/posts"),
   path.join(process.cwd(), "content/links"),
 ];
 
@@ -30,10 +30,10 @@ const jsonEmitter = new JsonCollectionEmitter();
 
 export const COLLECTION_CONFIGS: CollectionConfig[] = [
   {
-    id: "blogs",
+    id: "posts",
     loader: new LocalFileSystemConnector({
-      contentDir: path.join(process.cwd(), "content/blogs"),
-      sourceId: "blogs",
+      contentDir: path.join(process.cwd(), "content/posts"),
+      sourceId: "posts",
     }),
     documentPlugins: [
       frontmatterPlugin(BLOG_FRONTMATTER_SCHEMA),

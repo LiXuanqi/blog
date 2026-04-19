@@ -11,7 +11,7 @@ export const SITE_CONFIG = {
 
   // Page Descriptions
   blog: {
-    title: "Blog",
+    title: "Posts",
     description:
       "Thoughts on web development, programming, and technology. I write about what I learn and build",
   },
@@ -19,14 +19,14 @@ export const SITE_CONFIG = {
   // Homepage Sections
   sections: {
     blog: {
-      title: "Blog",
+      title: "Posts",
       subtitle: "Essays, references, and working notes",
     },
   },
 
   // Navigation
   navigation: [
-    { text: "Blog", url: "/blogs", icon: "blog" },
+    { text: "Posts", url: "/posts", icon: "blog" },
     { text: "Projects", url: "/projects", icon: "projects" },
     { text: "Links", url: "/links", icon: "links" },
     { text: "Resume", url: "/resume", icon: "resume" },

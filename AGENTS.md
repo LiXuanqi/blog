@@ -7,7 +7,7 @@
 - `src/lib/` includes utilities and content loaders (MDX, YAML, GitHub integration).
 - `bin/content-generator/` contains the build-time markdown content generator CLI.
 - `src/generated/content/` stores generated JSON artifacts consumed by the app.
-- `content/` stores MDX and data files: `content/blogs/`, `content/links/`, `content/resume.yaml`.
+- `content/` stores MDX and data files: `content/posts/`, `content/links/`, `content/resume.yaml`.
 - Static assets live in `public/`.
 
 ## Build, Test, and Development Commands
@@ -30,7 +30,7 @@
 - Prefer shadcn/ui components; check `src/components/ui/` before creating custom components.
 - For component styling, prefer the shared semantic color palette and theme tokens defined in `src/app/globals.css` instead of hard-coded hex values or Tailwind palette classes like `text-blue-600` / `bg-gray-100`.
 - Treat hard-coded colors as exceptions for standalone artwork or fixed assets such as illustrative SVGs, logos, and print-only layouts.
-- Content naming: use kebab-case filenames like `content/blogs/my-post.mdx`.
+- Content naming: use kebab-case filenames like `content/posts/my-post.mdx`.
 
 ## Testing Guidelines
 

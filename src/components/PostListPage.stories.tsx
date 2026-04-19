@@ -10,11 +10,11 @@ const meta = {
     layout: "fullscreen",
   },
   args: {
-    title: "Blog",
+    title: "Posts",
     description:
       "Thoughts on web development, programming, and tooling from recent projects.",
     posts: storybookPosts,
-    urlPrefix: "/blogs",
+    urlPrefix: "/posts",
   },
 } satisfies Meta<typeof PostListPage>;
 

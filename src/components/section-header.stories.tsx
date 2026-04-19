@@ -6,9 +6,9 @@ const meta = {
   component: SectionHeader,
   tags: ["autodocs"],
   args: {
-    title: "Articles",
+    title: "Posts",
     subtitle: "Guides, references",
-    ctaUrl: "/blogs",
+    ctaUrl: "/posts",
   },
 } satisfies Meta<typeof SectionHeader>;
 

@@ -17,7 +17,7 @@ interface ManifestEntryListProps {
 
 export function ManifestEntryList({
   posts,
-  urlPrefix = "/blogs",
+  urlPrefix = "/posts",
   defaultCategory = "Article",
 }: ManifestEntryListProps) {
   const manifestPosts = toManifestPosts(posts, urlPrefix, defaultCategory);

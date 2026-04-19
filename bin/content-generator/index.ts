@@ -64,7 +64,7 @@ async function writeArtifactsAsync(
     version: 1,
     generatedAt: new Date().toISOString(),
     collections: {
-      blogs: { en: [], zh: [] },
+      posts: { en: [], zh: [] },
       links: { en: [], zh: [] },
     },
   };
@@ -116,7 +116,7 @@ function toGeneratedDocument(
 }
 
 function sortIndex(index: IndexJson): void {
-  const collections: ContentCollectionId[] = ["blogs", "links"];
+  const collections: ContentCollectionId[] = ["posts", "links"];
   const languages: LanguageKey[] = ["en", "zh"];
 
   for (const collection of collections) {

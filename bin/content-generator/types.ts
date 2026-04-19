@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export type LanguageKey = "en" | "zh";
-export type ContentCollectionId = "blogs" | "links";
+export type ContentCollectionId = "posts" | "links";
 export interface TocItem {
   value: string;
   depth: number;

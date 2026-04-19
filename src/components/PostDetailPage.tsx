@@ -24,9 +24,9 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
   const showDraftBanner =
     process.env.NODE_ENV !== "production" && frontmatter.visible === false;
 
-  const backBaseUrl = "/blogs";
+  const backBaseUrl = "/posts";
   const backUrl = locale ? `/${locale}${backBaseUrl}` : backBaseUrl;
-  const backText = "Back to Blogs";
+  const backText = "Back to Posts";
   const coverImage = frontmatter.image;
 
   return (

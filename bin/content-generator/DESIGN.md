@@ -13,7 +13,7 @@ This doc focuses only on:
 
 ## Source folders
 
-- `content/blogs/`
+- `content/posts/`
 - `content/links/`
 
 Supported file extensions:
@@ -65,7 +65,7 @@ Each raw file is normalized to:
 
 ```ts
 type RawInputDoc = {
-  collection: "blogs" | "links";
+  collection: "posts" | "links";
   slug: string; // e.g. "4-basic-sort-algorithms.zh"
   canonicalSlug: string; // e.g. "4-basic-sort-algorithms"
   language: "en" | "zh";
@@ -85,7 +85,7 @@ type RawInputDoc = {
 
 1. `src/generated/content/index.json`
 2. Per-document JSON:
-   - `src/generated/content/blogs/{lang}/{canonicalSlug}.json`
+   - `src/generated/content/posts/{lang}/{canonicalSlug}.json`
    - `src/generated/content/links/{lang}/{canonicalSlug}.json` (optional in phase 1 if links are migrated)
 
 ## `index.json` structure
@@ -97,7 +97,7 @@ Purpose: list pages + static params generation.
   "version": 1,
   "generatedAt": "2026-02-17T00:00:00.000Z",
   "collections": {
-    "blogs": {
+    "posts": {
       "en": [
         {
           "slug": "4-basic-sort-algorithms",
@@ -132,7 +132,7 @@ Purpose: detail page rendering.
 ```json
 {
   "version": 1,
-  "collection": "blogs",
+  "collection": "posts",
   "slug": "4-basic-sort-algorithms",
   "language": "zh",
   "availableLanguages": ["en"],
