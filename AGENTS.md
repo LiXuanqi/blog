@@ -7,7 +7,7 @@
 - `src/lib/` includes utilities and content loaders (MDX, YAML, GitHub integration).
 - `bin/content-generator/` contains the build-time markdown content generator CLI.
 - `src/generated/content/` stores generated JSON artifacts consumed by the app.
-- `content/` stores MDX and data files: `content/blogs/`, `content/notes/`, `content/links/`, `content/resume.yaml`.
+- `content/` stores MDX and data files: `content/blogs/`, `content/links/`, `content/resume.yaml`.
 - Static assets live in `public/`.
 
 ## Build, Test, and Development Commands
@@ -48,5 +48,5 @@
 ## Configuration & Content Tips
 
 - Site settings live in `src/lib/site-config.ts`.
-- MDX frontmatter for blogs/notes: `title`, `date`, `excerpt` (optional).
+- MDX frontmatter for blog posts: `title`, `date`, `description` (optional), `image` (optional), `tags` (optional).
 - Links frontmatter includes `title`, `date`, `description`, `image`, `url`, `category`.

@@ -16,28 +16,17 @@ export const SITE_CONFIG = {
       "Thoughts on web development, programming, and technology. I write about what I learn and build",
   },
 
-  notes: {
-    title: "Notes",
-    description:
-      "Personal notes, quick thoughts, and learning snippets. A collection of my digital garden.",
-  },
-
   // Homepage Sections
   sections: {
-    notes: {
-      title: "Notes",
-      subtitle: "Personal notes",
-    },
-    articles: {
-      title: "Articles",
-      subtitle: "Guides, references",
+    blog: {
+      title: "Blog",
+      subtitle: "Essays, references, and working notes",
     },
   },
 
   // Navigation
   navigation: [
     { text: "Blog", url: "/blogs", icon: "blog" },
-    { text: "Notes", url: "/notes", icon: "notes" },
     { text: "Projects", url: "/projects", icon: "projects" },
     { text: "Links", url: "/links", icon: "links" },
     { text: "Resume", url: "/resume", icon: "resume" },

@@ -23,11 +23,3 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
-
-export const Notes: Story = {
-  args: {
-    title: "Notes",
-    description: "Smaller references, experiments, and implementation details.",
-    urlPrefix: "/notes",
-  },
-};

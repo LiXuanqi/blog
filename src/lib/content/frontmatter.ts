@@ -16,13 +16,6 @@ export const BLOG_FRONTMATTER_SCHEMA = BASE_FRONTMATTER_SCHEMA.extend({
 
 export type BlogFrontmatter = z.infer<typeof BLOG_FRONTMATTER_SCHEMA>;
 
-export const NOTE_FRONTMATTER_SCHEMA = BASE_FRONTMATTER_SCHEMA.extend({
-  description: z.string().optional(),
-  tags: z.array(z.string()).optional(),
-});
-
-export type NoteFrontmatter = z.infer<typeof NOTE_FRONTMATTER_SCHEMA>;
-
 export const LINK_FRONTMATTER_SCHEMA = BASE_FRONTMATTER_SCHEMA.extend({
   date: z.string().optional(),
   description: z.string().optional(),

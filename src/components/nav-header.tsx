@@ -5,7 +5,6 @@ import { SITE_CONFIG } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 import {
   BlogIcon,
-  NotesIcon,
   ResumeIcon,
   ProjectsIcon,
   LinksIcon,
@@ -65,8 +64,6 @@ function NavItem({
         return <BlogIcon size={16} />;
       case "projects":
         return <ProjectsIcon size={16} />;
-      case "notes":
-        return <NotesIcon size={16} />;
       case "resume":
         return <ResumeIcon size={16} />;
       case "links":

@@ -3,7 +3,7 @@ import path from "path";
 import { BaseFrontmatter } from "@/lib/content/frontmatter";
 import { LanguageKey, MarkdownDocument, TocItem } from "@/lib/content/types";
 
-type GeneratedCollectionId = "blogs" | "notes" | "links";
+type GeneratedCollectionId = "blogs" | "links";
 
 type GeneratedListItem = {
   slug: string;

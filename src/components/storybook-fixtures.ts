@@ -9,14 +9,14 @@ export const storybookPosts: ReadonlyArray<PostPreview> = [
     language: "en",
   },
   {
-    slug: "nextjs-app-router-notes",
-    title: "Next.js App Router Notes",
+    slug: "nextjs-app-router-guide",
+    title: "Next.js App Router Guide",
     date: "2026-01-08",
     language: "en",
   },
   {
     slug: "tailwind-v4-upgrade",
-    title: "Tailwind v4 Upgrade Notes",
+    title: "Tailwind v4 Upgrade Guide",
     date: "2025-11-03",
     language: "en",
   },

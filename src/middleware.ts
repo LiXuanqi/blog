@@ -2,12 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { DEFAULT_LOCALE, isLocale } from "@/lib/i18n";
 
 function needsLocalePrefix(pathname: string): boolean {
-  return (
-    pathname === "/blogs" ||
-    pathname.startsWith("/blogs/") ||
-    pathname === "/notes" ||
-    pathname.startsWith("/notes/")
-  );
+  return pathname === "/blogs" || pathname.startsWith("/blogs/");
 }
 
 export function middleware(request: NextRequest) {
@@ -28,5 +23,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/blogs/:path*", "/notes/:path*"],
+  matcher: ["/blogs/:path*"],
 };

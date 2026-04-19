@@ -2,7 +2,6 @@ import path from "path";
 import {
   BLOG_FRONTMATTER_SCHEMA,
   LINK_FRONTMATTER_SCHEMA,
-  NOTE_FRONTMATTER_SCHEMA,
 } from "./frontmatter.ts";
 import { LocalFileSystemConnector } from "./loaders/local-fs-loader.ts";
 import {
@@ -24,7 +23,6 @@ export const TEMP_OUTPUT_DIR = path.join(
 );
 export const CONTENT_WATCH_PATHS = [
   path.join(process.cwd(), "content/blogs"),
-  path.join(process.cwd(), "content/notes"),
   path.join(process.cwd(), "content/links"),
 ];
 
@@ -39,20 +37,6 @@ export const COLLECTION_CONFIGS: CollectionConfig[] = [
     }),
     documentPlugins: [
       frontmatterPlugin(BLOG_FRONTMATTER_SCHEMA),
-      languagePlugin(),
-      tocPlugin(),
-    ],
-    collectionPlugins: [visibleContentPlugin(), availableLanguagesPlugin()],
-    emitter: jsonEmitter,
-  },
-  {
-    id: "notes",
-    loader: new LocalFileSystemConnector({
-      contentDir: path.join(process.cwd(), "content/notes"),
-      sourceId: "notes",
-    }),
-    documentPlugins: [
-      frontmatterPlugin(NOTE_FRONTMATTER_SCHEMA),
       languagePlugin(),
       tocPlugin(),
     ],

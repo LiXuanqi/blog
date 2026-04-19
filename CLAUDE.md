@@ -20,17 +20,15 @@ This is a Next.js blog built with the App Router and TypeScript. The site featur
   - `/` - Homepage with hero section and post previews
   - `/blogs` - Blog listing page grouped by year
   - `/blogs/[slug]` - Individual blog post pages
-  - `/notes` - Notes page (placeholder)
   - `/links` - Links listing page with curated resources
   - `/links/[slug]` - Individual link detail pages
 
 ### Content Management
 
 - Blog posts are stored as MDX files in `content/blogs/`
-- Notes are stored as MDX files in `content/notes/`
 - Links are stored as MDX files in `content/links/`
 - Frontmatter formats:
-  - Blogs/Notes: `title`, `date`, `excerpt` (optional)
+  - Blogs: `title`, `date`, `description` (optional), `image` (optional), `tags` (optional)
   - Links: `title`, `date`, `description`, `image`, `url`, `category`
 - Content is processed using `gray-matter` and rendered with `next-mdx-remote`
 - Posts are automatically grouped by year and sorted by date (newest first)
@@ -79,7 +77,6 @@ This is a Next.js blog built with the App Router and TypeScript. The site featur
 - shadcn/ui components in `src/components/ui/`
 - Content structure:
   - Blog content in `content/blogs/*.mdx`
-  - Notes content in `content/notes/*.mdx`
   - Links content in `content/links/*.mdx`
 
 ### Links Feature

@@ -20,7 +20,7 @@ export default async function BlogPageByLanguage({ params }: PageProps) {
   if (!post) {
     notFound();
   }
-  return <PostDetailPage post={post} type="blog" locale={lang} />;
+  return <PostDetailPage post={post} locale={lang} />;
 }
 
 export const dynamicParams = false;

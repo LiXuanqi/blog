@@ -11,31 +11,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { MarkdownDocument } from "@/lib/content/types";
-import { BlogFrontmatter, NoteFrontmatter } from "@/lib/content/frontmatter";
+import { BlogFrontmatter } from "@/lib/content/frontmatter";
 
 interface PostDetailPageProps {
-  post: MarkdownDocument<BlogFrontmatter | NoteFrontmatter>;
-  type?: "blog" | "note";
+  post: MarkdownDocument<BlogFrontmatter>;
   locale?: string;
 }
 
-export default function PostDetailPage({
-  post,
-  type = "blog",
-  locale,
-}: PostDetailPageProps) {
+export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
   const { frontmatter } = post;
   const tocItems = post.tocItems ?? [];
   const showDraftBanner =
     process.env.NODE_ENV !== "production" && frontmatter.visible === false;
 
-  const backBaseUrl = type === "note" ? "/notes" : "/blogs";
+  const backBaseUrl = "/blogs";
   const backUrl = locale ? `/${locale}${backBaseUrl}` : backBaseUrl;
-  const backText = type === "note" ? "Back to Notes" : "Back to Blogs";
-  const coverImage =
-    "image" in frontmatter && typeof frontmatter.image === "string"
-      ? frontmatter.image
-      : undefined;
+  const backText = "Back to Blogs";
+  const coverImage = frontmatter.image;
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-12">

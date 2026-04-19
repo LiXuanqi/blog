@@ -14,7 +14,6 @@ This doc focuses only on:
 ## Source folders
 
 - `content/blogs/`
-- `content/notes/`
 - `content/links/`
 
 Supported file extensions:
@@ -47,9 +46,10 @@ Base fields (all collections):
 - `date: string`
 - `visible: boolean` (default `false` if omitted)
 
-Blogs and notes additional fields:
+Blog additional fields:
 
 - `description?: string`
+- `image?: string`
 - `tags?: string[]`
 
 Links additional fields:
@@ -65,7 +65,7 @@ Each raw file is normalized to:
 
 ```ts
 type RawInputDoc = {
-  collection: "blogs" | "notes" | "links";
+  collection: "blogs" | "links";
   slug: string; // e.g. "4-basic-sort-algorithms.zh"
   canonicalSlug: string; // e.g. "4-basic-sort-algorithms"
   language: "en" | "zh";
@@ -86,7 +86,6 @@ type RawInputDoc = {
 1. `src/generated/content/index.json`
 2. Per-document JSON:
    - `src/generated/content/blogs/{lang}/{canonicalSlug}.json`
-   - `src/generated/content/notes/{lang}/{canonicalSlug}.json`
    - `src/generated/content/links/{lang}/{canonicalSlug}.json` (optional in phase 1 if links are migrated)
 
 ## `index.json` structure
@@ -117,10 +116,6 @@ Purpose: list pages + static params generation.
           "availableLanguages": ["en"]
         }
       ]
-    },
-    "notes": {
-      "en": [],
-      "zh": []
     },
     "links": {
       "en": [],

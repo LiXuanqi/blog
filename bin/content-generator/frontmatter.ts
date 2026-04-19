@@ -14,11 +14,6 @@ export const BLOG_FRONTMATTER_SCHEMA = BASE_FRONTMATTER_SCHEMA.extend({
   tags: z.array(z.string()).optional(),
 });
 
-export const NOTE_FRONTMATTER_SCHEMA = BASE_FRONTMATTER_SCHEMA.extend({
-  description: z.string().optional(),
-  tags: z.array(z.string()).optional(),
-});
-
 export const LINK_FRONTMATTER_SCHEMA = BASE_FRONTMATTER_SCHEMA.extend({
   date: z.string().optional(),
   description: z.string().optional(),

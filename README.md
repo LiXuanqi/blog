@@ -4,12 +4,12 @@ A modern, responsive personal blog and resume website built with Next.js 15, Typ
 
 ## ✨ Features
 
-### 📝 Blog & Notes System
+### 📝 Blog System
 
 - **MDX Support** - Write content in Markdown with React components
 - **Mathematical Expressions** - LaTeX syntax support with KaTeX
 - **Syntax Highlighting** - Code blocks with light/dark themes using Shiki
-- **Separate Content Types** - Distinct routing for blogs (`/blogs`) and notes (`/notes`)
+- **Unified Blog Collection** - Essays, references, and working notes all live under `/blogs`
 - **Post Metadata** - Support for tags, dates, and excerpts
 - **Responsive Design** - Mobile-friendly layouts
 
@@ -82,8 +82,7 @@ A modern, responsive personal blog and resume website built with Next.js 15, Typ
 src/
 ├── app/                    # Next.js App Router
 │   ├── (main)/            # Main site routes
-│   │   ├── blogs/         # Blog pages
-│   │   ├── notes/         # Notes pages
+│   │   ├── [lang]/blogs/  # Localized blog pages
 │   │   └── layout.tsx     # Main layout with navigation
 │   ├── (resume)/          # Resume route group
 │   │   └── resume/        # Resume page
@@ -96,8 +95,7 @@ src/
 │   ├── yaml.ts          # YAML loader
 │   └── markdown/        # Markdown pipeline and content store
 └── content/              # Content files
-    ├── blogs/           # Blog posts (.mdx)
-    ├── notes/           # Notes (.mdx)
+    ├── blogs/           # Blog posts and notes (.md/.mdx)
     └── resume.yaml      # Resume data
 bin/
 └── content-generator/    # Build-time content generator CLI
@@ -142,9 +140,6 @@ git add . && git commit -m "message"
 # Add new blog post
 # Create: content/blogs/your-post.mdx
 
-# Add new note
-# Create: content/notes/your-note.mdx
-
 # Update resume
 # Edit: content/resume.yaml
 ```
@@ -162,7 +157,6 @@ export const SITE_CONFIG = {
   description: "Your description",
   navigation: [
     { text: "Blog", url: "/blogs" },
-    { text: "Notes", url: "/notes" },
     { text: "Resume", url: "/resume" },
   ],
   // ... more settings
@@ -174,7 +168,6 @@ export const SITE_CONFIG = {
 Content is loaded from local markdown directories and ingested by the markdown pipeline:
 
 - `content/blogs/`
-- `content/notes/`
 - `content/links/`
 
 Generated artifacts are written to:
@@ -225,7 +218,8 @@ Create `.mdx` files in `content/blogs/`:
 ---
 title: "Your Post Title"
 date: "2024-01-01"
-excerpt: "Brief description"
+description: "Brief description"
+image: "/blog-covers/example-cover.png"
 tags: ["tag1", "tag2"]
 ---
 

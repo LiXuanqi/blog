@@ -6,9 +6,9 @@ const meta = {
   component: Hero,
   tags: ["autodocs"],
   args: {
-    title: "Notes",
+    title: "Blog",
     content:
-      "Collected thoughts, working notes, and references from ongoing experiments.",
+      "Collected thoughts, references, and implementation details from ongoing experiments.",
   },
 } satisfies Meta<typeof Hero>;
 
@@ -22,6 +22,6 @@ export const LongCopy: Story = {
   args: {
     title: "Writing About Systems",
     content:
-      "Essays and implementation notes about content pipelines, developer tooling, and the tradeoffs that show up once a small codebase starts behaving like a product.",
+      "Essays and implementation details about content pipelines, developer tooling, and the tradeoffs that show up once a small codebase starts behaving like a product.",
   },
 };

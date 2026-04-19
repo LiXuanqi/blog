@@ -165,8 +165,6 @@
 
   --nav-icon-paper: var(--plate-brand-foreground);
   --nav-icon-blog: #4f46e5;
-  --nav-icon-notes: #10b981;
-  --nav-icon-notes-spine: #065f46;
   --nav-icon-resume-stroke: var(--plate-copy-muted);
   --nav-icon-resume-dot: var(--plate-danger);
   --nav-icon-projects-1: #8b5cf6;
@@ -210,8 +208,6 @@
   --chart-5: oklch(0.645 0.246 16.439);
 
   --nav-icon-blog: #818cf8;
-  --nav-icon-notes: #34d399;
-  --nav-icon-notes-spine: #10b981;
   --nav-icon-projects-1: #a78bfa;
   --nav-icon-projects-2: #22d3ee;
   --nav-icon-projects-3: #fbbf24;
