@@ -30,30 +30,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: "/blogs",
-        destination: "/posts",
-        permanent: true,
-      },
-      {
-        source: "/blogs/:path*",
-        destination: "/posts/:path*",
-        permanent: true,
-      },
-      {
-        source: "/:lang/blogs",
-        destination: "/:lang/posts",
-        permanent: true,
-      },
-      {
-        source: "/:lang/blogs/:path*",
-        destination: "/:lang/posts/:path*",
-        permanent: true,
-      },
-    ];
-  },
 };
 
 export default nextConfig;
