@@ -1,6 +1,5 @@
 ---
 title: "Performance Hints"
-image: "https://code.visualstudio.com/assets/images/code-stable.png"
 url: "https://abseil.io/fast/hints.html"
 category: "Development"
 date: "2024-01-13"

@@ -2,6 +2,7 @@
 title: All is Byte
 date: 2025-08-15
 description: ""
+image: "/blog-covers/all-is-byte-cover.png"
 tags: ["OS"]
 visible: true
 ---
