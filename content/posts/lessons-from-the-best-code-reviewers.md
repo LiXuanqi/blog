@@ -35,3 +35,12 @@ Even if you’re not a domain expert and can’t suggest a perfect fix, you can 
 “This design is tightly coupled with component X, which could make it harder to extend or support new features in the future.”
 
 Actionable feedback reduces iteration cycles and helps others improve—not just their code, but how they think about writing it.
+
+## Lesson 3: Approve with nit comments
+
+If the only comments is nit comment that you don't have strong opinion and more like a suggestion. be explictly about that by adding a prefix in your comment like.
+
+"nit: rename to `amount_in_cents`"
+
+and then just approve the PR.
+trust your peers and believe they will fix them directly.
