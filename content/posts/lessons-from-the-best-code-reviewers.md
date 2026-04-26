@@ -2,8 +2,9 @@
 title: Lessons from the Best Code Reviewers I've Known
 date: 2025-12-21
 description: ""
+image: "/blog-covers/lessons-from-the-best-code-reviewers-cover-v2.png"
 tags: []
-visible: false
+visible: true
 ---
 
 I’ve been lucky to work with some truly great code reviewers. Looking back, many of their comments stuck with me—not because they were strict, but because they taught me how to think. This post is a collection of those moments, written as reminders to myself.
@@ -36,11 +37,39 @@ Even if you’re not a domain expert and can’t suggest a perfect fix, you can 
 
 Actionable feedback reduces iteration cycles and helps others improve—not just their code, but how they think about writing it.
 
-## Lesson 3: Approve with nit comments
+## Lesson 3: Approve with nit Comments
 
-If the only comments is nit comment that you don't have strong opinion and more like a suggestion. be explictly about that by adding a prefix in your comment like.
+Not every comment needs to block a PR.
 
-"nit: rename to `amount_in_cents`"
+If your feedback is minor—more of a suggestion than a strong opinion—make that explicit. Prefix it with nit: so the author knows it’s optional:
 
-and then just approve the PR.
-trust your peers and believe they will fix them directly.
+nit: rename to `amount_in_cents`
+
+Then go ahead and approve the PR.
+
+This keeps the review process moving while still sharing improvements. More importantly, it shows trust—your peers can decide whether to incorporate small suggestions without being blocked.
+
+## Lesson 4: Switch to Real-Time When Threads Get Long
+
+If a comment thread goes beyond 2–3 rounds, it’s usually a signal: something isn’t aligning.
+
+At that point, stop iterating in comments.
+
+Send a quick message on Slack and talk it through—whether that’s a quick call or an in-person chat. A 5-minute conversation often replaces 30 minutes of back-and-forth.
+
+Async works well—until it doesn’t.
+
+## Lesson 5: Review the Approach Before the Details
+
+Before diving into naming, logic, or syntax, step back and evaluate the approach.
+
+Start by understanding the problem:
+
+What is this PR trying to solve?
+If you were implementing it, how would you approach it?
+
+Then compare that mental model with the author’s solution.
+
+This high-level alignment matters more than catching small issues—especially in today’s “vibe coding” era. As tools and models get better, most PRs already work. The real question is whether they represent the right approach for the system.
+
+Focus your energy there first.
