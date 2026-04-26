@@ -72,7 +72,7 @@ export const MDX_COMPONENTS = {
   },
   p: ({ children, ...props }: MDXComponentProps) => (
     <p
-      className="mb-6 leading-7 text-muted-foreground [&:not(:first-child)]:mt-6"
+      className="mb-6 leading-7 text-foreground [&:not(:first-child)]:mt-6"
       {...props}
     >
       {children}
@@ -94,13 +94,13 @@ export const MDX_COMPONENTS = {
   ),
 
   ul: ({ children, ...props }: MDXComponentProps) => (
-    <ul className="my-6 space-y-3 text-muted-foreground" {...props}>
+    <ul className="my-6 space-y-3 text-foreground" {...props}>
       {children}
     </ul>
   ),
 
   ol: ({ children, ...props }: MDXComponentProps) => (
-    <ol className="my-6 space-y-3 text-muted-foreground" {...props}>
+    <ol className="my-6 space-y-3 text-foreground" {...props}>
       {children}
     </ol>
   ),
