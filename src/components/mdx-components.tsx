@@ -27,7 +27,7 @@ export const MDX_COMPONENTS = {
     return (
       <h1
         id={id}
-        className="scroll-m-20 mb-6 mt-0 text-4xl font-bold tracking-tight text-foreground"
+        className="scroll-m-20 mb-6 mt-0 font-serif text-4xl font-semibold leading-tight tracking-tight text-foreground"
         {...props}
       >
         {children}
@@ -39,7 +39,7 @@ export const MDX_COMPONENTS = {
     return (
       <h2
         id={id}
-        className="scroll-m-20 mb-6 mt-12 text-2xl font-semibold tracking-tight text-foreground first:mt-0"
+        className="scroll-m-20 mb-6 mt-12 font-serif text-2xl font-semibold leading-tight tracking-tight text-foreground first:mt-0"
         {...props}
       >
         {children}
@@ -51,7 +51,7 @@ export const MDX_COMPONENTS = {
     return (
       <h3
         id={id}
-        className="scroll-m-20 mb-4 mt-10 text-xl font-semibold tracking-tight text-foreground"
+        className="scroll-m-20 mb-4 mt-10 font-serif text-xl font-semibold leading-tight tracking-tight text-foreground"
         {...props}
       >
         {children}
@@ -63,7 +63,7 @@ export const MDX_COMPONENTS = {
     return (
       <h4
         id={id}
-        className="scroll-m-20 mb-3 mt-6 text-lg font-semibold tracking-tight text-foreground"
+        className="scroll-m-20 mb-3 mt-6 font-serif text-lg font-semibold leading-tight tracking-tight text-foreground"
         {...props}
       >
         {children}
@@ -72,7 +72,7 @@ export const MDX_COMPONENTS = {
   },
   p: ({ children, ...props }: MDXComponentProps) => (
     <p
-      className="mb-6 leading-7 text-foreground [&:not(:first-child)]:mt-6"
+      className="mb-6 text-[1.0625rem] leading-8 text-foreground [&:not(:first-child)]:mt-6"
       {...props}
     >
       {children}
@@ -80,7 +80,7 @@ export const MDX_COMPONENTS = {
   ),
   blockquote: ({ children, ...props }: MDXComponentProps) => (
     <blockquote
-      className="my-6 rounded-r-lg border-l-4 border-info-border bg-info px-4 py-4 pl-6 text-muted-foreground"
+      className="my-6 rounded-r-lg border-l-4 border-info-border bg-info px-4 py-4 pl-6 text-[1.0625rem] leading-8 text-muted-foreground"
       {...props}
     >
       {children}
@@ -94,13 +94,19 @@ export const MDX_COMPONENTS = {
   ),
 
   ul: ({ children, ...props }: MDXComponentProps) => (
-    <ul className="my-6 space-y-3 text-foreground" {...props}>
+    <ul
+      className="my-6 space-y-3 text-[1.0625rem] leading-8 text-foreground"
+      {...props}
+    >
       {children}
     </ul>
   ),
 
   ol: ({ children, ...props }: MDXComponentProps) => (
-    <ol className="my-6 space-y-3 text-foreground" {...props}>
+    <ol
+      className="my-6 space-y-3 text-[1.0625rem] leading-8 text-foreground"
+      {...props}
+    >
       {children}
     </ol>
   ),

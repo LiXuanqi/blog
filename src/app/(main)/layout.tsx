@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import NavHeader from "@/components/nav-header";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -12,13 +12,20 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const sourceSerif = Newsreader({
+  variable: "--font-source-serif",
+  subsets: ["latin"],
+});
+
 export default function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <div className={`${geistSans.variable} ${geistMono.variable}`}>
+    <div
+      className={`${geistSans.variable} ${geistMono.variable} ${sourceSerif.variable}`}
+    >
       <ThemeProvider
         attribute="class"
         defaultTheme="system"

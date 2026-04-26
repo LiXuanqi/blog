@@ -56,7 +56,7 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
               </div>
             )}
 
-            <h1 className="mb-4 text-4xl font-bold text-foreground">
+            <h1 className="mb-4 font-serif text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
               {frontmatter.title}
             </h1>
 
@@ -76,7 +76,7 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
           {/* Mobile TOC */}
           <TableOfContents items={tocItems} variant="mobile" />
 
-          <div className="max-w-none">
+          <div className="max-w-none font-serif">
             <MDXRemote
               source={post.content}
               components={MDX_COMPONENTS}
