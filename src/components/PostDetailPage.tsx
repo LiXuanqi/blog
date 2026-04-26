@@ -36,7 +36,7 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
   const coverImage = frontmatter.image;
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-12">
+    <div className="max-w-6xl mx-auto px-6 pb-12 pt-8">
       <div className="flex gap-8 lg:gap-12">
         {/* Main Content */}
         <article className="flex-1 min-w-0">

@@ -95,7 +95,7 @@ export function TableOfContents({
 
   if (variant === "mobile") {
     return (
-      <div className="lg:hidden mb-8 border border-border rounded-lg">
+      <div className="mb-6 rounded-lg border border-border lg:hidden">
         <button
           onClick={() => setIsExpanded(!isExpanded)}
           className="w-full flex items-center justify-between p-4 text-left hover:bg-muted/50 transition-colors"

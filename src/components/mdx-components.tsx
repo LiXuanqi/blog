@@ -39,7 +39,7 @@ export const MDX_COMPONENTS = {
     return (
       <h2
         id={id}
-        className="scroll-m-20 mb-6 mt-12 font-serif text-2xl font-semibold leading-tight tracking-tight text-foreground first:mt-0"
+        className="scroll-m-20 mb-6 mt-10 font-serif text-2xl font-semibold leading-tight tracking-tight text-foreground first:mt-0"
         {...props}
       >
         {children}
@@ -72,7 +72,7 @@ export const MDX_COMPONENTS = {
   },
   p: ({ children, ...props }: MDXComponentProps) => (
     <p
-      className="mb-6 text-[1.0625rem] leading-8 text-foreground [&:not(:first-child)]:mt-6"
+      className="mb-5 text-[1.0625rem] leading-8 text-foreground [&:not(:first-child)]:mt-5"
       {...props}
     >
       {children}
