@@ -1,7 +1,7 @@
 ---
 title: Lessons from the Best Code Reviewers I've Known
 date: 2025-12-21
-description: ""
+description: "Five lessons from great code reviewers on coaching through comments, giving actionable feedback, using nit picks well, escalating long threads, and evaluating approach before details."
 image: "/blog-covers/lessons-from-the-best-code-reviewers-cover-v2.png"
 tags: []
 visible: true
