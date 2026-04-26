@@ -40,18 +40,18 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
       <div className="flex gap-8 lg:gap-12">
         {/* Main Content */}
         <article className="flex-1 min-w-0">
-          <header className="mb-12">
+          <header className="mb-8">
             {/* Back button */}
             <Link
               href={backUrl}
-              className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6"
+              className="mb-4 inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
             >
               <ArrowLeft className="w-4 h-4" />
               {backText}
             </Link>
 
             {coverImage && (
-              <div className="relative mb-8 aspect-[3/2] w-full overflow-hidden rounded-2xl border border-border bg-transparent shadow-sm">
+              <div className="relative mb-6 aspect-[3/2] w-full overflow-hidden rounded-2xl border border-border bg-transparent shadow-sm">
                 <Image
                   src={coverImage}
                   alt={frontmatter.title}
@@ -62,48 +62,52 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
               </div>
             )}
 
-            <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
-              <span className="inline-flex items-center gap-1.5">
-                <CalendarDays className="h-4 w-4" />
-                {formattedDate}
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <Clock3 className="h-4 w-4" />
-                {readingTime}
-              </span>
+            <div className="space-y-3">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+                <span className="inline-flex items-center gap-1.5">
+                  <CalendarDays className="h-4 w-4" />
+                  {formattedDate}
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Clock3 className="h-4 w-4" />
+                  {readingTime}
+                </span>
+              </div>
+
+              <h1 className="font-serif text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
+                {frontmatter.title}
+              </h1>
+
+              {showDraftBanner && (
+                <div>
+                  <Badge variant="destructive">Draft - not published</Badge>
+                </div>
+              )}
+
+              {frontmatter.description && (
+                <p className="max-w-3xl text-lg leading-8 text-muted-foreground">
+                  {frontmatter.description}
+                </p>
+              )}
+
+              {frontmatter.tags && frontmatter.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {frontmatter.tags.map((tag) => (
+                    <Badge key={tag} variant="secondary">
+                      #{tag}
+                    </Badge>
+                  ))}
+                </div>
+              )}
+
+              {/* Language Switcher */}
+              <div className="pt-1">
+                <LanguageSwitcher
+                  currentLanguage={post.language}
+                  availableLanguages={post.availableLanguages || []}
+                />
+              </div>
             </div>
-
-            <h1 className="mb-4 font-serif text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
-              {frontmatter.title}
-            </h1>
-
-            {showDraftBanner && (
-              <div className="mb-4">
-                <Badge variant="destructive">Draft - not published</Badge>
-              </div>
-            )}
-
-            {frontmatter.description && (
-              <p className="mb-6 max-w-3xl text-lg leading-8 text-muted-foreground">
-                {frontmatter.description}
-              </p>
-            )}
-
-            {frontmatter.tags && frontmatter.tags.length > 0 && (
-              <div className="mb-6 flex flex-wrap gap-2">
-                {frontmatter.tags.map((tag) => (
-                  <Badge key={tag} variant="secondary">
-                    #{tag}
-                  </Badge>
-                ))}
-              </div>
-            )}
-
-            {/* Language Switcher */}
-            <LanguageSwitcher
-              currentLanguage={post.language}
-              availableLanguages={post.availableLanguages || []}
-            />
           </header>
 
           {/* Mobile TOC */}
