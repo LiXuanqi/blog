@@ -9,7 +9,7 @@ import rehypeShiki from "@shikijs/rehype";
 import rehypeKatex from "rehype-katex";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Clock3, CalendarDays } from "lucide-react";
 import { MarkdownDocument } from "@/lib/content/types";
 import { BlogFrontmatter } from "@/lib/content/frontmatter";
 
@@ -23,6 +23,12 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
   const tocItems = post.tocItems ?? [];
   const showDraftBanner =
     process.env.NODE_ENV !== "production" && frontmatter.visible === false;
+  const formattedDate = formatPostDate(frontmatter.date, locale);
+  const readingTime = getReadingTimeLabel(
+    post.readingTime,
+    post.content,
+    locale,
+  );
 
   const backBaseUrl = "/posts";
   const backUrl = locale ? `/${locale}${backBaseUrl}` : backBaseUrl;
@@ -56,6 +62,17 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
               </div>
             )}
 
+            <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5">
+                <CalendarDays className="h-4 w-4" />
+                {formattedDate}
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <Clock3 className="h-4 w-4" />
+                {readingTime}
+              </span>
+            </div>
+
             <h1 className="mb-4 font-serif text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
               {frontmatter.title}
             </h1>
@@ -63,6 +80,22 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
             {showDraftBanner && (
               <div className="mb-4">
                 <Badge variant="destructive">Draft - not published</Badge>
+              </div>
+            )}
+
+            {frontmatter.description && (
+              <p className="mb-6 max-w-3xl text-lg leading-8 text-muted-foreground">
+                {frontmatter.description}
+              </p>
+            )}
+
+            {frontmatter.tags && frontmatter.tags.length > 0 && (
+              <div className="mb-6 flex flex-wrap gap-2">
+                {frontmatter.tags.map((tag) => (
+                  <Badge key={tag} variant="secondary">
+                    #{tag}
+                  </Badge>
+                ))}
               </div>
             )}
 
@@ -135,22 +168,6 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
         {/* Right Sidebar */}
         <aside className="hidden border-l border-border pl-8 lg:block lg:w-64 xl:w-72">
           <div className="sticky top-24 space-y-8">
-            {/* Tags */}
-            {frontmatter.tags && frontmatter.tags.length > 0 && (
-              <div>
-                <h3 className="text-lg font-semibold mb-4 text-foreground">
-                  Tags
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {frontmatter.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary">
-                      #{tag}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            )}
-
             {/* Table of Contents */}
             <TableOfContents items={tocItems} variant="sidebar" />
           </div>
@@ -158,4 +175,41 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
       </div>
     </div>
   );
+}
+
+function formatPostDate(date: string, locale?: string): string {
+  const formatterLocale = locale === "zh" ? "zh-CN" : "en-US";
+
+  return new Date(date).toLocaleDateString(formatterLocale, {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+function getReadingTimeLabel(
+  readingTime: number | undefined,
+  content: string,
+  locale?: string,
+): string {
+  const minutes = readingTime ?? estimateReadingTimeMinutes(content);
+
+  if (locale === "zh") {
+    return `${minutes} 分钟阅读`;
+  }
+
+  return `${minutes} min read`;
+}
+
+function estimateReadingTimeMinutes(content: string): number {
+  const plainText = content
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`[^`]*`/g, " ")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
+    .replace(/\[[^\]]*\]\([^)]*\)/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/[^\p{L}\p{N}\s-]/gu, " ");
+  const words = plainText.trim().split(/\s+/).filter(Boolean).length;
+
+  return Math.max(1, Math.ceil(words / 200));
 }
