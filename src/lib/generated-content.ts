@@ -17,6 +17,7 @@ type GeneratedListItem = {
   category?: string;
   url?: string;
   directLink?: boolean;
+  hasNotes?: boolean;
 };
 
 type GeneratedDocumentFile = {
@@ -102,7 +103,7 @@ export async function getGeneratedLinksStaticParamsAsync(): Promise<
 > {
   const links = await getGeneratedPostListAsync("links", "en");
   return links
-    .filter((link) => !link.directLink)
+    .filter((link) => link.hasNotes || !link.directLink)
     .map((link) => ({ slug: link.slug }));
 }
 

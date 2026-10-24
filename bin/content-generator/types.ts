@@ -98,6 +98,7 @@ export type IndexListItem = {
   category?: string;
   url?: string;
   directLink?: boolean;
+  hasNotes?: boolean;
 };
 
 export type IndexJson = {

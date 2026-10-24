@@ -1,3 +1,4 @@
+import { hasLinkNotes } from "@/lib/link-notes";
 import { notFound, redirect } from "next/navigation";
 import LinkDetailPage from "@/components/LinkDetailPage";
 import {
@@ -24,7 +25,7 @@ export default async function LinkPage({ params }: PageProps) {
     notFound();
   }
 
-  if (linkDocument.frontmatter.directLink && linkDocument.frontmatter.url) {
+  if (!hasLinkNotes(linkDocument.content) && linkDocument.frontmatter.url) {
     redirect(linkDocument.frontmatter.url);
   }
 

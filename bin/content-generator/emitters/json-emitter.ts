@@ -1,3 +1,4 @@
+import { hasLinkNotes } from "../../../src/lib/link-notes.ts";
 import fs from "fs/promises";
 import path from "path";
 import { toCanonicalSlug } from "../available-languages-decorator.ts";
@@ -74,6 +75,10 @@ export class JsonCollectionEmitter implements CollectionEmitter {
         url:
           typeof document.frontmatter.url === "string"
             ? document.frontmatter.url
+            : undefined,
+        hasNotes:
+          collection.id === "links"
+            ? hasLinkNotes(document.content)
             : undefined,
         directLink:
           typeof document.frontmatter.directLink === "boolean"

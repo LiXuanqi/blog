@@ -175,6 +175,21 @@ Generated artifacts are written to:
 - `src/generated/content/index.json`
 - `src/generated/content/{collection}/{lang}/{slug}.json`
 
+### Saved Links and Optional Notes
+
+Add a Markdown file to `content/links/` with `title`, `url`, `category`, and
+`visible: true` in its frontmatter. Use `description` for a short reason to save
+it; `date` is optional. The title on the Links page opens the original source.
+
+Add an optional `image` (local asset path or HTTPS image URL) for a small list
+thumbnail. YouTube links get video thumbnails automatically; other links remain
+text-only unless an image is supplied.
+
+Leave the Markdown body empty for a bookmark. Add your notes below the
+frontmatter to automatically show a separate **My notes** link and include the
+entry in **With notes**. Existing `directLink` flags do not need to change when
+adding notes. HTML comments alone do not count as notes.
+
 ### Resume Data
 
 Edit `content/resume.yaml`:
