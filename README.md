@@ -294,3 +294,10 @@ This project is open source and available under the [MIT License](LICENSE).
 ---
 
 Built with ❤️ using Next.js, TypeScript, and Tailwind CSS.
+
+### Development and Build Output
+
+`pnpm dev` writes Next.js output to `.next-dev`; `pnpm build` and `pnpm start`
+use `.next`. Keeping these separate prevents production builds from deleting
+manifests used by a running development server. Run only one development server
+per checkout, even when using different ports.
