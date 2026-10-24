@@ -1,7 +1,9 @@
+import { remarkHeadings } from "@/lib/remark-headings";
+import type { TocItem } from "@/lib/toc";
 import { MDX_COMPONENTS } from "@/components/mdx-components";
 import { TableOfContents } from "@/components/table-of-contents";
 import { Badge } from "@/components/ui/badge";
-import { MDXRemote } from "next-mdx-remote/rsc";
+import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeShiki from "@shikijs/rehype";
 import Image from "next/image";
@@ -14,12 +16,51 @@ interface LinkDetailPageProps {
   link: MarkdownDocument<LinkFrontmatter>;
 }
 
-export default function LinkDetailPage({ link }: LinkDetailPageProps) {
+export default async function LinkDetailPage({ link }: LinkDetailPageProps) {
   const { frontmatter } = link;
 
-  const tocItems = link.tocItems ?? [];
+  const tocItems: TocItem[] = [];
   const showDraftBanner =
     process.env.NODE_ENV !== "production" && frontmatter.visible === false;
+
+  const { content } = await compileMDX({
+    source: link.content,
+    components: MDX_COMPONENTS,
+    options: {
+      mdxOptions: {
+        remarkPlugins: [remarkGfm, remarkHeadings(tocItems)],
+        rehypePlugins: [
+          [
+            rehypeShiki,
+            {
+              themes: {
+                light: "github-light",
+                dark: "github-dark",
+              },
+              langs: [
+                "javascript",
+                "typescript",
+                "jsx",
+                "tsx",
+                "css",
+                "html",
+                "json",
+                "markdown",
+                "bash",
+                "python",
+                "go",
+                "rust",
+                "java",
+                "yaml",
+                "sql",
+                "dockerfile",
+              ],
+            },
+          ],
+        ],
+      },
+    },
+  });
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-12">
@@ -95,46 +136,7 @@ export default function LinkDetailPage({ link }: LinkDetailPageProps) {
           {/* Mobile TOC */}
           <TableOfContents items={tocItems} variant="mobile" />
 
-          <div className="max-w-none font-serif">
-            <MDXRemote
-              source={link.content}
-              components={MDX_COMPONENTS}
-              options={{
-                mdxOptions: {
-                  remarkPlugins: [remarkGfm],
-                  rehypePlugins: [
-                    [
-                      rehypeShiki,
-                      {
-                        themes: {
-                          light: "github-light",
-                          dark: "github-dark",
-                        },
-                        langs: [
-                          "javascript",
-                          "typescript",
-                          "jsx",
-                          "tsx",
-                          "css",
-                          "html",
-                          "json",
-                          "markdown",
-                          "bash",
-                          "python",
-                          "go",
-                          "rust",
-                          "java",
-                          "yaml",
-                          "sql",
-                          "dockerfile",
-                        ],
-                      },
-                    ],
-                  ],
-                },
-              }}
-            />
-          </div>
+          <div className="max-w-none font-serif">{content}</div>
         </article>
 
         {/* Right Sidebar */}

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { useState, useEffect, useId } from "react";
+import { ChevronDown } from "lucide-react";
 import { TocItem } from "@/lib/toc";
 
 interface TableOfContentsProps {
@@ -14,157 +14,94 @@ export function TableOfContents({
   variant = "sidebar",
 }: TableOfContentsProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [activeId, setActiveId] = useState<string>("");
+  const [activeId, setActiveId] = useState("");
+  const navId = useId();
 
   useEffect(() => {
-    if (items.length === 0) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Find the entry that's intersecting and has the highest intersection ratio
-        const visibleEntries = entries.filter((entry) => entry.isIntersecting);
-
-        if (visibleEntries.length > 0) {
-          // Sort by intersection ratio and position, prioritizing entries higher on the page
-          const sortedEntries = visibleEntries.sort((a, b) => {
-            // First, prioritize by how much of the element is visible
-            const ratioA = a.intersectionRatio;
-            const ratioB = b.intersectionRatio;
-
-            if (Math.abs(ratioA - ratioB) > 0.1) {
-              return ratioB - ratioA;
-            }
-
-            // If intersection ratios are similar, prioritize the one that's higher up
-            return a.boundingClientRect.top - b.boundingClientRect.top;
-          });
-
-          const topEntry = sortedEntries[0];
-          setActiveId(topEntry.target.id);
-        }
-      },
-      {
-        // Trigger when 10% of the heading is visible, with some margin for header
-        rootMargin: "-100px 0px -70% 0px",
-        threshold: [0, 0.25, 0.5, 0.75, 1],
-      },
-    );
-
-    // Observe all headings that have corresponding TOC items
-    const headingElements = items
-      .map((item) => document.getElementById(item.url.slice(1))) // Remove # from URL
-      .filter(Boolean);
-
-    headingElements.forEach((element) => {
-      if (element) observer.observe(element);
-    });
-
+    const headings = items
+      .map((item) => document.getElementById(item.url.slice(1)))
+      .filter((element): element is HTMLElement => !!element);
+    if (!headings.length) return;
+    let frame = 0;
+    const update = () => {
+      const offset = window.matchMedia("(min-width: 640px)").matches
+        ? 100
+        : 144;
+      let current = headings[0];
+      for (const heading of headings) {
+        if (heading.getBoundingClientRect().top <= offset) current = heading;
+        else break;
+      }
+      setActiveId(current.id);
+    };
+    const schedule = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
     return () => {
-      headingElements.forEach((element) => {
-        if (element) observer.unobserve(element);
-      });
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
     };
   }, [items]);
 
-  if (items.length === 0) {
-    return null;
-  }
+  if (!items.length) return null;
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, url: string) => {
-    e.preventDefault();
-
-    const targetId = url.replace("#", "");
-    const targetElement = document.getElementById(targetId);
-
-    if (targetElement) {
-      // Smooth scroll to the element
-      targetElement.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-
-      // Update URL without triggering a page reload
-      window.history.replaceState(null, "", url);
-
-      // Close mobile TOC after navigation
-      if (variant === "mobile") {
-        setIsExpanded(false);
-      }
-    }
-  };
+  const links = (
+    <nav id={navId} aria-label="On this page" className="space-y-1">
+      {items.map((item) => (
+        <a
+          key={item.url}
+          href={item.url}
+          aria-current={activeId === item.url.slice(1) ? "location" : undefined}
+          onClick={() => {
+            // Keep native hash navigation and move keyboard focus to the section.
+            document
+              .getElementById(item.url.slice(1))
+              ?.focus({ preventScroll: true });
+            setIsExpanded(false);
+          }}
+          className={`block border-l-2 py-1.5 pr-2 text-sm leading-5 transition-colors ${item.depth === 3 ? "pl-6" : "pl-3"} ${activeId === item.url.slice(1) ? "border-link text-foreground font-medium" : "border-transparent text-muted-foreground hover:text-foreground"}`}
+        >
+          {item.value}
+        </a>
+      ))}
+    </nav>
+  );
 
   if (variant === "mobile") {
     return (
-      <div className="mb-6 rounded-lg border border-border lg:hidden">
+      <div className="mb-8 rounded-lg border border-border lg:hidden">
         <button
+          type="button"
+          aria-expanded={isExpanded}
+          aria-controls={navId}
           onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full flex items-center justify-between p-4 text-left hover:bg-muted/50 transition-colors"
+          className="flex w-full items-center justify-between rounded-lg px-4 py-3 text-sm font-medium hover:bg-muted/50"
         >
-          <h3 className="text-lg font-semibold text-foreground">
-            Table of Contents
-          </h3>
-          {isExpanded ? (
-            <ChevronUp className="h-5 w-5 text-muted-foreground" />
-          ) : (
-            <ChevronDown className="h-5 w-5 text-muted-foreground" />
-          )}
+          On this page
+          <ChevronDown
+            aria-hidden="true"
+            className={`h-4 w-4 text-muted-foreground ${isExpanded ? "rotate-180" : ""}`}
+          />
         </button>
-
-        {isExpanded && (
-          <nav className="px-4 pb-4 space-y-2 border-t border-border pt-4">
-            {items.map((item, index) => {
-              const isActive = activeId === item.url.slice(1);
-              return (
-                <a
-                  key={index}
-                  href={item.url}
-                  onClick={(e) => handleClick(e, item.url)}
-                  className={`block text-sm transition-colors cursor-pointer py-1 ${
-                    isActive
-                      ? "text-link font-medium"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                  style={{ paddingLeft: `${(item.depth - 1) * 12}px` }}
-                >
-                  {item.value}
-                </a>
-              );
-            })}
-          </nav>
-        )}
+        <div
+          hidden={!isExpanded}
+          className="max-h-72 overflow-y-auto border-t border-border p-3"
+        >
+          {links}
+        </div>
       </div>
     );
   }
 
-  // Sidebar variant (desktop)
   return (
     <div>
-      <h3 className="text-lg font-semibold mb-4 text-foreground">
-        Table of Contents
-      </h3>
-      <nav className="space-y-2">
-        {items.map((item, index) => {
-          const isActive = activeId === item.url.slice(1);
-          return (
-            <a
-              key={index}
-              href={item.url}
-              onClick={(e) => handleClick(e, item.url)}
-              className={`block text-sm transition-colors cursor-pointer relative py-1 px-2 rounded ${
-                isActive
-                  ? "bg-link/10 text-link font-medium"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-              }`}
-              style={{ marginLeft: `${(item.depth - 1) * 12}px` }}
-            >
-              {isActive && (
-                <span className="absolute left-0 top-0 bottom-0 w-1 rounded-r bg-link" />
-              )}
-              {item.value}
-            </a>
-          );
-        })}
-      </nav>
+      <p className="mb-3 text-sm font-semibold text-foreground">On this page</p>
+      {links}
     </div>
   );
 }

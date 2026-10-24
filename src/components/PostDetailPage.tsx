@@ -2,7 +2,7 @@ import { MDX_COMPONENTS } from "@/components/mdx-components";
 import { TableOfContents } from "@/components/table-of-contents";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Badge } from "@/components/ui/badge";
-import { MDXRemote } from "next-mdx-remote/rsc";
+import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeShiki from "@shikijs/rehype";
@@ -14,14 +14,20 @@ import { MarkdownDocument } from "@/lib/content/types";
 import { formatContentDate } from "@/lib/format-content-date";
 import { BlogFrontmatter } from "@/lib/content/frontmatter";
 
+import { remarkHeadings } from "@/lib/remark-headings";
+import type { TocItem } from "@/lib/toc";
+
 interface PostDetailPageProps {
   post: MarkdownDocument<BlogFrontmatter>;
   locale?: string;
 }
 
-export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
+export default async function PostDetailPage({
+  post,
+  locale,
+}: PostDetailPageProps) {
   const { frontmatter } = post;
-  const tocItems = post.tocItems ?? [];
+  const tocItems: TocItem[] = [];
   const showDraftBanner =
     process.env.NODE_ENV !== "production" && frontmatter.visible === false;
   const formattedDate = formatPostDate(frontmatter.date, locale);
@@ -36,11 +42,68 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
   const backText = "Back to Posts";
   const coverImage = frontmatter.image;
 
+  const { content } = await compileMDX({
+    source: post.content,
+    components: MDX_COMPONENTS,
+    options: {
+      mdxOptions: {
+        // Github markdown flavor + math support
+        remarkPlugins: [remarkGfm, remarkMath, remarkHeadings(tocItems)],
+        rehypePlugins: [
+          // Math rendering
+          rehypeKatex,
+          // Code highlight
+          [
+            rehypeShiki,
+            {
+              themes: {
+                light: "github-light",
+                dark: "github-dark",
+              },
+              langs: [
+                "javascript",
+                "typescript",
+                "jsx",
+                "tsx",
+                "css",
+                "html",
+                "json",
+                "markdown",
+                "bash",
+                "python",
+                "go",
+                "rust",
+                "java",
+                "yaml",
+                "sql",
+                "dockerfile",
+              ],
+              inline: "tailing-curly-colon",
+              transformers: [
+                {
+                  name: "add-copy-button",
+                  pre(
+                    this: { options: { lang: string } },
+                    node: { properties: Record<string, unknown> },
+                  ) {
+                    // Add data attributes for copy functionality
+                    node.properties["data-code-block"] = true;
+                    node.properties["data-language"] = this.options.lang;
+                  },
+                },
+              ],
+            },
+          ],
+        ],
+      },
+    },
+  });
+
   return (
     <div className="max-w-6xl mx-auto px-6 pb-12 pt-8">
-      <div className="flex gap-8 lg:gap-12">
+      <div className="flex justify-center gap-10 lg:gap-12">
         {/* Main Content */}
-        <article className="flex-1 min-w-0">
+        <article className="w-full min-w-0 max-w-[680px]">
           <header className="mb-8">
             {/* Back button */}
             <Link
@@ -52,7 +115,7 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
             </Link>
 
             <div className="space-y-3">
-              <h1 className="font-serif text-3xl font-semibold leading-tight text-foreground sm:text-5xl">
+              <h1 className="font-serif text-3xl font-semibold leading-[1.15] text-balance text-foreground sm:text-[2.5rem]">
                 {frontmatter.title}
               </h1>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
@@ -113,69 +176,18 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
           {/* Mobile TOC */}
           <TableOfContents items={tocItems} variant="mobile" />
 
-          <div className="max-w-none font-serif">
-            <MDXRemote
-              source={post.content}
-              components={MDX_COMPONENTS}
-              options={{
-                mdxOptions: {
-                  // Github markdown flavor + math support
-                  remarkPlugins: [remarkGfm, remarkMath],
-                  rehypePlugins: [
-                    // Math rendering
-                    rehypeKatex,
-                    // Code highlight
-                    [
-                      rehypeShiki,
-                      {
-                        themes: {
-                          light: "github-light",
-                          dark: "github-dark",
-                        },
-                        langs: [
-                          "javascript",
-                          "typescript",
-                          "jsx",
-                          "tsx",
-                          "css",
-                          "html",
-                          "json",
-                          "markdown",
-                          "bash",
-                          "python",
-                          "go",
-                          "rust",
-                          "java",
-                          "yaml",
-                          "sql",
-                          "dockerfile",
-                        ],
-                        inline: "tailing-curly-colon",
-                        transformers: [
-                          {
-                            name: "add-copy-button",
-                            pre(node: { properties: Record<string, unknown> }) {
-                              // Add data attributes for copy functionality
-                              node.properties["data-code-block"] = true;
-                            },
-                          },
-                        ],
-                      },
-                    ],
-                  ],
-                },
-              }}
-            />
-          </div>
+          <div className="article-content min-w-0 font-sans">{content}</div>
         </article>
 
         {/* Right Sidebar */}
-        <aside className="hidden border-l border-border pl-8 lg:block lg:w-64 xl:w-72">
-          <div className="sticky top-24 space-y-8">
-            {/* Table of Contents */}
-            <TableOfContents items={tocItems} variant="sidebar" />
-          </div>
-        </aside>
+        {tocItems.length > 0 && (
+          <aside className="hidden w-52 shrink-0 lg:block">
+            <div className="sticky top-24 max-h-[calc(100dvh-8rem)] overflow-y-auto">
+              {/* Table of Contents */}
+              <TableOfContents items={tocItems} variant="sidebar" />
+            </div>
+          </aside>
+        )}
       </div>
     </div>
   );

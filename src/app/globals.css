@@ -249,7 +249,7 @@
 
   /* Style for inline code (not inside pre blocks) */
   :not(pre) > code {
-    @apply bg-code-inline text-code-inline-foreground px-2 py-1 rounded text-sm font-mono font-medium border border-code-border;
+    @apply bg-code-inline text-code-inline-foreground px-1 py-0.5 rounded text-[0.875em] font-mono border border-code-border;
   }
 
   /* Ensure code inside pre blocks is not affected */
@@ -281,7 +281,7 @@
   /* Add proper spacing to code block containers */
   pre.shiki {
     padding: 1rem !important;
-    padding-right: 3.5rem !important;
+    padding-right: 1rem !important;
     overflow-x: auto !important;
     white-space: pre !important;
     word-wrap: normal !important;
@@ -344,5 +344,36 @@
 
   .warning {
     @apply my-6 p-4 rounded-lg border-l-4 border-yellow-400 bg-yellow-50 dark:bg-yellow-950/30 dark:border-yellow-500;
+  }
+}
+
+/* Reading surfaces inherit the site's light and dark semantic palette. */
+.article-content {
+  overflow-wrap: anywhere;
+}
+.article-content table {
+  overflow-wrap: normal;
+}
+.article-content td {
+  color: var(--foreground);
+  line-height: 1.65;
+}
+.article-content th {
+  white-space: nowrap;
+}
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  margin-block: 1.75rem;
+  border-radius: 0.5rem;
+}
+.article-content .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: 0.5rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }

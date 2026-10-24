@@ -34,7 +34,7 @@ export function extractTocFromMarkdown(content: string): TocItem[] {
 export function generateSlug(text: string): string {
   return text
     .toLowerCase()
-    .replace(/[^\w\s-]/g, "") // Remove special characters except spaces and hyphens
+    .replace(/[^\p{L}\p{N}\s_-]/gu, "") // Remove special characters except spaces and hyphens
     .replace(/\s+/g, "-") // Replace spaces with hyphens
     .replace(/-+/g, "-") // Replace multiple hyphens with single hyphen
     .replace(/^-|-$/g, "") // Remove leading/trailing hyphens
