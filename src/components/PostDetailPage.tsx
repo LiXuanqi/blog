@@ -11,6 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Clock3, CalendarDays } from "lucide-react";
 import { MarkdownDocument } from "@/lib/content/types";
+import { formatContentDate } from "@/lib/format-content-date";
 import { BlogFrontmatter } from "@/lib/content/frontmatter";
 
 interface PostDetailPageProps {
@@ -50,19 +51,10 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
               {backText}
             </Link>
 
-            {coverImage && (
-              <div className="relative mb-6 aspect-[3/2] w-full overflow-hidden rounded-2xl border border-border bg-transparent shadow-sm">
-                <Image
-                  src={coverImage}
-                  alt={frontmatter.title}
-                  fill
-                  priority
-                  className="object-contain"
-                />
-              </div>
-            )}
-
             <div className="space-y-3">
+              <h1 className="font-serif text-3xl font-semibold leading-tight text-foreground sm:text-5xl">
+                {frontmatter.title}
+              </h1>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
                 <span className="inline-flex items-center gap-1.5">
                   <CalendarDays className="h-4 w-4" />
@@ -74,10 +66,6 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
                 </span>
               </div>
 
-              <h1 className="font-serif text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
-                {frontmatter.title}
-              </h1>
-
               {showDraftBanner && (
                 <div>
                   <Badge variant="destructive">Draft - not published</Badge>
@@ -85,7 +73,7 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
               )}
 
               {frontmatter.description && (
-                <p className="max-w-3xl text-lg leading-8 text-muted-foreground">
+                <p className="max-w-3xl text-base leading-7 sm:text-lg sm:leading-8 text-muted-foreground">
                   {frontmatter.description}
                 </p>
               )}
@@ -108,6 +96,18 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
                 />
               </div>
             </div>
+            {coverImage && (
+              <div className="relative mt-6 aspect-video w-full overflow-hidden rounded-2xl border border-border bg-transparent shadow-sm">
+                <Image
+                  src={coverImage}
+                  alt={frontmatter.title}
+                  fill
+                  sizes="(min-width: 1024px) 768px, 100vw"
+                  priority
+                  className="object-contain"
+                />
+              </div>
+            )}
           </header>
 
           {/* Mobile TOC */}
@@ -184,11 +184,7 @@ export default function PostDetailPage({ post, locale }: PostDetailPageProps) {
 function formatPostDate(date: string, locale?: string): string {
   const formatterLocale = locale === "zh" ? "zh-CN" : "en-US";
 
-  return new Date(date).toLocaleDateString(formatterLocale, {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+  return formatContentDate(date, formatterLocale, "long");
 }
 
 function getReadingTimeLabel(

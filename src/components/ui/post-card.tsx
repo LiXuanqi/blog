@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { formatContentDate } from "@/lib/format-content-date";
 
 // Import types from shared types file to avoid circular dependencies
 import type { Post } from "./types";
@@ -157,13 +158,7 @@ export function PostCard({ data, actions, appearance }: PostCardProps) {
     );
   };
 
-  const formatDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
-  };
+  const formatDate = (dateStr: string) => formatContentDate(dateStr);
 
   if (variant === "covered") {
     return (
@@ -250,7 +245,7 @@ export function PostCard({ data, actions, appearance }: PostCardProps) {
     return (
       <div className="flex flex-col sm:flex-row gap-4 rounded-lg border bg-card p-3">
         {showImage && post.coverImage && (
-          <div className="aspect-video sm:aspect-square sm:h-24 sm:w-24 shrink-0 overflow-hidden rounded-md">
+          <div className="aspect-video sm:aspect-video sm:w-40 lg:w-48 shrink-0 overflow-hidden rounded-md">
             <img
               src={post.coverImage}
               alt={post.title || ""}
@@ -258,7 +253,7 @@ export function PostCard({ data, actions, appearance }: PostCardProps) {
             />
           </div>
         )}
-        <div className="flex flex-1 flex-col justify-between">
+        <div className="flex min-w-0 flex-1 flex-col justify-between">
           <div>
             {showCategory && post.category && (
               <p className="mb-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
@@ -266,12 +261,12 @@ export function PostCard({ data, actions, appearance }: PostCardProps) {
               </p>
             )}
             {post.title && (
-              <h3 className="line-clamp-2 text-sm font-medium leading-tight">
+              <h3 className="text-base font-semibold leading-snug sm:text-lg">
                 {post.title}
               </h3>
             )}
             {post.excerpt && (
-              <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">
+              <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
                 {post.excerpt}
               </p>
             )}

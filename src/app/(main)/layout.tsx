@@ -33,7 +33,9 @@ export default function MainLayout({
         disableTransitionOnChange
       >
         <NavHeader />
-        <main className="pt-16">{children}</main>
+        <main id="main-content" className="pt-28 sm:pt-16">
+          {children}
+        </main>
       </ThemeProvider>
     </div>
   );

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { SITE_CONFIG } from "@/lib/site-config";
 import type { PostPreview } from "@/components/post-preview";
 import { PostCard } from "@/components/ui/post-card";
 import type { Post } from "@/components/ui/types";
@@ -43,7 +42,7 @@ export function ManifestEntryList({
                 appearance={{
                   variant: "horizontal",
                   showAuthor: false,
-                  showCategory: true,
+                  showCategory: false,
                   hideAction: true,
                 }}
               />
@@ -63,7 +62,7 @@ function toManifestPosts(
   return posts.map((post) => ({
     title: post.title,
     excerpt: post.description,
-    coverImage: post.image || SITE_CONFIG.assets.profileImage,
+    coverImage: post.image,
     publishedAt: post.date,
     tags: post.tags ? [...post.tags] : undefined,
     category: post.category ?? post.tags?.[0] ?? defaultCategory,

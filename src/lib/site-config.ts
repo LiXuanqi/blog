@@ -2,7 +2,8 @@ export const SITE_CONFIG = {
   // Personal Information
   name: "Sam",
   title: "Sam's Blog",
-  description: "Backend engineer by day, explorer by night.",
+  description:
+    "I’m a backend engineer. I write about software, systems, and what I learn along the way.",
 
   // Site Metadata
   siteTitle: "Sam's Blog",
@@ -19,10 +20,18 @@ export const SITE_CONFIG = {
   // Homepage Sections
   sections: {
     blog: {
-      title: "Posts",
+      title: "Featured articles",
       subtitle: "Essays, references, and working notes",
     },
   },
+
+  // Homepage selection, in display order. Missing or unpublished posts are omitted.
+  featuredPostSlugs: [
+    "lessons-from-the-best-code-reviewers",
+    "all-is-byte",
+    "union-find",
+    "4-basic-sort-algorithms",
+  ],
 
   // Navigation
   navigation: [

@@ -27,7 +27,7 @@ export const MDX_COMPONENTS = {
     return (
       <h1
         id={id}
-        className="scroll-m-20 mb-6 mt-0 font-serif text-4xl font-semibold leading-tight tracking-tight text-foreground"
+        className="scroll-mt-32 sm:scroll-mt-20 mb-6 mt-0 font-serif text-4xl font-semibold leading-tight tracking-tight text-foreground"
         {...props}
       >
         {children}
@@ -39,7 +39,7 @@ export const MDX_COMPONENTS = {
     return (
       <h2
         id={id}
-        className="scroll-m-20 mb-6 mt-10 font-serif text-2xl font-semibold leading-tight tracking-tight text-foreground first:mt-0"
+        className="scroll-mt-32 sm:scroll-mt-20 mb-6 mt-10 font-serif text-2xl font-semibold leading-tight tracking-tight text-foreground first:mt-0"
         {...props}
       >
         {children}
@@ -51,7 +51,7 @@ export const MDX_COMPONENTS = {
     return (
       <h3
         id={id}
-        className="scroll-m-20 mb-4 mt-10 font-serif text-xl font-semibold leading-tight tracking-tight text-foreground"
+        className="scroll-mt-32 sm:scroll-mt-20 mb-4 mt-10 font-serif text-xl font-semibold leading-tight tracking-tight text-foreground"
         {...props}
       >
         {children}
@@ -63,7 +63,7 @@ export const MDX_COMPONENTS = {
     return (
       <h4
         id={id}
-        className="scroll-m-20 mb-3 mt-6 font-serif text-lg font-semibold leading-tight tracking-tight text-foreground"
+        className="scroll-mt-32 sm:scroll-mt-20 mb-3 mt-6 font-serif text-lg font-semibold leading-tight tracking-tight text-foreground"
         {...props}
       >
         {children}
