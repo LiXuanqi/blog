@@ -1,0 +1,7 @@
+allowBuilds:
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
+minimumReleaseAgeExclude:
+  - '@resume-sdk/cli@0.1.0-beta.2'
+  - '@resume-sdk/core@0.1.0-beta.2'

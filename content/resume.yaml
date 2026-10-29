@@ -1,129 +1,127 @@
-name: Xuanqi Li
-address: Sunnyvale, CA 94089
-tel: 408.406.8721
-email: lixuanqi1995@gmail.com
-github: github.com/LiXuanqi
-linkedin: www.linkedin.com/in/xuanqi-li
-blog: blog-sepia-theta-23.vercel.app/
-
-# about: todo
-
-education:
-  - name: Northeastern University
-    time: 09/2018 – 12/2019
-    desc:
-      - M.S. Information Systems, concentrating in Computer Software Engineering, GPA 3.89
-
-# skills:
-#   languages:
-#     - Java
-#     - Python
-#     - TypeScript(JavaScript)
-#     - Rust
-#     - Scala
-#     - Go
-#     - Bash
-#     - SQL
-#     - HTML5/CSS3
-#   frameworks:
-#     - Flask
-#     - Spring Framework
-#     - React
-#     - Vue
-#     - Angular
-#     - Flutter
-
-#   databases:
-#     - MySQL
-#     - Cassandra
-#     - Redshift
-#     - MongoDB
-#     - Redis
-
-#   tools:
-#     - Git
-#     - Kafka
-#     - ElasticSearch
-#     - Splunk
-#     - Spark
-#     - MapReduce
-#     - Apache Beam
-#     - VIM
-#     - GraphQL
-
-workExperience:
-  - position: Senior Software Engineer
-    time: 04/2024 - Present
-    company: Airtable
+schemaVersion: "1"
+basics:
+  name: Xuanqi Li
+  email: lixuanqi1995@gmail.com
+  phone: 408.406.8721
+  location: Sunnyvale, CA 94089
+  url: https://blog-sepia-theta-23.vercel.app/
+  profiles:
+    - network: GitHub
+      url: https://github.com/LiXuanqi
+    - network: LinkedIn
+      url: https://www.linkedin.com/in/xuanqi-li
+work:
+  - name: Airtable
+    position: Senior Software Engineer
     location: San Francisco, CA
-    desc:
-      - Airtable is a no-code platform for building custom databases and workflows with a spreadsheet-like interface. My team is responsible for improving application <strong>vertical scalability</strong>, a critical initiative that grew from <strong>6 to 14 engineers</strong> since I joined.
-      - Core contributor to in-house <strong>relational database built from scratch</strong>, implementing cascading deletion system for removeModel operations (DROP TABLE with FK/relationship cleanup), consolidating <strong>Rust-TypeScript interop</strong> protocols for <strong>30% improved data exchange performance</strong>, and optimizing cold-load performance through deferred index statistics
-      - Orchestrated seamless migration from legacy in-memory systems to new relational database architecture, designing <strong>dual-write strategy</strong> to gradually migrate data and business logic without service disruption
-      - Led multi-quarter re-architecture of <strong>Node.js</strong> request processing framework from <strong>single-threaded to multi-threaded</strong> implementation, delivering significant throughput improvements for high-concurrency workloads
-      - Enhanced team productivity by configuring <strong>Rust-analyzer</strong> integration with custom <strong>Bazel</strong> build system, enabling full IDE support (auto-completion, linting, error detection) for Rust development
-      # - Responsible for the performance and architecture of core worker service, which powers airtable tables
-      # - Build in-house <strong>memory relational database</strong> with <strong>Rust</strong> to support more table records and faster query
-      # - Worked on interop protocol to improve the data exchange performance between Rust and Typescript.
-      # - Migrated the most popular third part API "list rows" to a <strong>Node.js</strong> thread implemetation which improves the overall base performance.
-  - position: Senior Software Engineer
-    time: 08/2021 – 04/2024
-    company: LinkedIn
+    startDate: 2024-04
+    current: true
+    highlights:
+      - >-
+        Airtable is a no-code platform for building custom databases and workflows with a
+        spreadsheet-like interface. My team is responsible for improving application **vertical
+        scalability**, a critical initiative that grew from **6 to 14 engineers** since I joined.
+      - >-
+        Core contributor to in-house **relational database built from scratch**, implementing
+        cascading deletion system for removeModel operations (DROP TABLE with FK/relationship
+        cleanup), consolidating **Rust-TypeScript interop** protocols for **30% improved data
+        exchange performance**, and optimizing cold-load performance through deferred index
+        statistics
+      - >-
+        Orchestrated seamless migration from legacy in-memory systems to new relational database
+        architecture, designing **dual-write strategy** to gradually migrate data and business logic
+        without service disruption
+      - >-
+        Led multi-quarter re-architecture of **Node.js** request processing framework from
+        **single-threaded to multi-threaded** implementation, delivering significant throughput
+        improvements for high-concurrency workloads
+      - >-
+        Enhanced team productivity by configuring **Rust-analyzer** integration with custom
+        **Bazel** build system, enabling full IDE support (auto-completion, linting, error
+        detection) for Rust development
+  - name: LinkedIn
+    position: Senior Software Engineer
     location: Sunnyvale, CA
-    desc:
-      # - Owned backend development for LinkedIn Pages admin dashboard, enabling businesses to manage their company presence, track follower analytics, and engage with their professional audience across 67M business pages
-      # - Built APIs with <strong>Java</strong> for Pages Admin Experience features such as analytics, invitation, follow.
-      # - Created offline workflow with <strong>Spark(Scala)</strong> to power the email and notification features
-      # - Adapted the concept of <strong>Server Driven User Interface (SDUI)</strong> to my org which saves about <strong>66.7%</strong> work to onboard a new feature.
-      # - One of member of Productivity Working Group and improved Engineer happiness and productivity. e.g. unified code formatter and test framework.
-      # - Helped manager on LoE estimation and quaterly team project planning
-      # - Acted as mentor, code reviewer, project leader and got reward such as MVP, Top interviewers.
-      - Owned end-to-end backend development for <strong>LinkedIn Pages</strong> admin experience, empowering <strong>67M+ businesses</strong> to manage company presence and analyze follower engagement
-      - Collaborated with cross-functional teams (PM, Design, Marketing, Support) and platform teams (Premium, Feed, Invitations, Infrastructure) to deliver weekly analytics notifications, page-to-page following, invitation credits, competitor analytics, and dashboard redesign
-      - Built <strong>Java</strong> APIs and <strong>Spark</strong> data pipelines integrating with internal <strong>NoSQL databases</strong> (document, graph, time-series) for real-time insights and batch processing
-      - Pioneered <strong>Server Driven UI (SDUI)</strong> architecture adoption, reducing feature development time by <strong>67%</strong> and eliminating mobile app releases for UI changes
-      - Productivity Working Group initiatives - conducted engineer interviews, leveraged <strong>LLM analysis</strong> to prioritize improvements, co-authored company-wide best practices, and championed modern tooling adoption (<strong>JUnit, AssertJ, GitHub Copilot</strong>)
-      - Mentored interns and frontend engineers transitioning to backend, supported quarterly OKR planning, and recognized with <strong>MVP award</strong> and <strong>Top Interviewer</strong> distinction
-
-  - position: Software Engineer at Ads Platform
-    time: 01/2020 - 08/2021
-    company: Yelp
+    startDate: 2021-08
+    endDate: 2024-04
+    highlights:
+      - >-
+        Owned end-to-end backend development for **LinkedIn Pages** admin experience, empowering
+        **67M+ businesses** to manage company presence and analyze follower engagement
+      - >-
+        Collaborated with cross-functional teams (PM, Design, Marketing, Support) and platform teams
+        (Premium, Feed, Invitations, Infrastructure) to deliver weekly analytics notifications,
+        page-to-page following, invitation credits, competitor analytics, and dashboard redesign
+      - >-
+        Built **Java** APIs and **Spark** data pipelines integrating with internal **NoSQL
+        databases** (document, graph, time-series) for real-time insights and batch processing
+      - >-
+        Pioneered **Server Driven UI (SDUI)** architecture adoption, reducing feature development
+        time by **67%** and eliminating mobile app releases for UI changes
+      - >-
+        Productivity Working Group initiatives - conducted engineer interviews, leveraged **LLM
+        analysis** to prioritize improvements, co-authored company-wide best practices, and
+        championed modern tooling adoption (**JUnit, AssertJ, GitHub Copilot**)
+      - >-
+        Mentored interns and frontend engineers transitioning to backend, supported quarterly OKR
+        planning, and recognized with **MVP award** and **Top Interviewer** distinction
+  - name: Yelp
+    position: Software Engineer at Ads Platform
     location: San Francisco, CA
-    desc:
-      - One of the developers/maintainers for the <strong>Yelp Campaign Management APIs</strong>.
-      - Developed the customization features (e.g. Location targeting, Keywords targeting) for campaigns with <strong>AWS SQS</strong>, <strong>Kafka</strong>, <strong>StreamSQL</strong>, <strong>Redshift</Strong>
-      - Migrated daily ad inventory ETL from <strong>MapReduce</strong> to <strong>Spark</strong> and reduced the <strong>75%</strong> runtime and cost.
-      - Led the project to integrate our experimentation platform into Ads team, cooperated with stakeholders across teams, and advocate new tool in Ads team (~50 engineers).
-      - <strong>Release engineer</strong> for deploying code across multiple teams
-      - <strong>Mentored new hires</strong> and helped them onboard smoothly and quickly.
-      - Joined <strong>on-call</strong> rotation to debug production issues across Ad system.
+    startDate: 2020-01
+    endDate: 2021-08
+    highlights:
+      - One of the developers/maintainers for the **Yelp Campaign Management APIs**.
+      - >-
+        Developed the customization features (e.g. Location targeting, Keywords targeting) for
+        campaigns with **AWS SQS**, **Kafka**, **StreamSQL**, **Redshift**
+      - >-
+        Migrated daily ad inventory ETL from **MapReduce** to **Spark** and reduced the **75%**
+        runtime and cost.
+      - >-
+        Led the project to integrate our experimentation platform into Ads team, cooperated with
+        stakeholders across teams, and advocate new tool in Ads team (~50 engineers).
+      - "**Release engineer** for deploying code across multiple teams"
+      - "**Mentored new hires** and helped them onboard smoothly and quickly."
+      - Joined **on-call** rotation to debug production issues across Ad system.
       - Became the on-point who answered any question related to our system in team slack channel.
-      - One of the <strong>instructors of Ads academy</strong> and teached ~ 20 new hires each cohort.
-  - position: Software Engineering Intern
-    time: 05/2019 – 08/2019
-    company: Yelp
+      - One of the **instructors of Ads academy** and teached ~ 20 new hires each cohort.
+  - name: Yelp
+    position: Software Engineering Intern
     location: San Francisco, CA
-    desc:
-      - Designed the schema of new <strong>Cassandra</strong> table to support more complex and flexible query.
-      - Modified a <strong>MapReduce</strong> batch and persisted data into <strong>AWS S3</strong>, <strong>Cassandra</strong> and <strong>Redshift</strong>
-      - Created a <strong>RESTful API</strong> using <strong>Pyramid</strong> and manipulated <strong>MySQL</strong> tables with <strong>SQLALchemy</strong>.
-      - Built a <strong>Python</strong> batch for comparing or backfilling Cassandra tables in the past two years(140GB) and solved the performance problems of querying without partition key.
-
+    startDate: 2019-05
+    endDate: 2019-08
+    highlights:
+      - Designed the schema of new **Cassandra** table to support more complex and flexible query.
+      - >-
+        Modified a **MapReduce** batch and persisted data into **AWS S3**, **Cassandra** and
+        **Redshift**
+      - >-
+        Created a **RESTful API** using **Pyramid** and manipulated **MySQL** tables with
+        **SQLALchemy**.
+      - >-
+        Built a **Python** batch for comparing or backfilling Cassandra tables in the past two
+        years(140GB) and solved the performance problems of querying without partition key.
+education:
+  - institution: Northeastern University
+    startDate: 2018-09
+    endDate: 2019-12
+    highlights:
+      - M.S. Information Systems, concentrating in Computer Software Engineering, GPA 3.89
 projects:
   - name: "Snackathon: A React and Flask based Web Application for snack availability detection"
-    desc:
-      - Build the front end with <strong>React</strong>, <strong>Bootstrap</strong> and backend with <strong>Flask</strong>, <strong>Redis</strong>
-      - Programed Raspberry Pi and controled the camera to take the photo for snack rack per 10 seconds.
-      - Implemented the tool with <strong>OpenCV</strong> for labeling pictures and preprocess data with <strong>Numpy</strong>, <strong>Pandas</strong>.
-      - Trained the Support Vector Machine (SVM) model with <strong>scikit-learn</strong> and stored on disk with pickle.
-  # - name: An Angular and Spring based IoT Application for device monitoring
-  #   desc:
-  #     - Created a dashboard web application with advanced charts using <strong>Angular</strong>, <strong>Ant Design</strong>, <strong>D3.js</strong> for monitoring
-  #     - Developed the backend with <strong>Spring Boot</strong>, <strong>Spring Data JPA</strong>, <strong>Spring WebSocket</strong>
-  #     - Design the <strong>RESTful API</strong> and implemented the <strong>token-based authentication</strong> feature with <strong>Spring Security</strong>, <strong>JWT</strong>.
-  #     - Containerized the application with <strong>Docker</strong> and Docker compose and deployed at <strong>AWS EC2</strong>.
-  #     - Sold the application to a chinese company and made <strong>$2,000</strong>
+    highlights:
+      - Build the front end with **React**, **Bootstrap** and backend with **Flask**, **Redis**
+      - >-
+        Programed Raspberry Pi and controled the camera to take the photo for snack rack per 10
+        seconds.
+      - >-
+        Implemented the tool with **OpenCV** for labeling pictures and preprocess data with
+        **Numpy**, **Pandas**.
+      - >-
+        Trained the Support Vector Machine (SVM) model with **scikit-learn** and stored on disk with
+        pickle.
   - name: "Undefined: My personal tech blog"
-    desc:
-      - Created with <strong>Gatsby(React)</strong> to optimize <strong>SEO</strong> and managed data with <strong>GraphQL</strong>.
+    highlights:
+      - Created with **Gatsby(React)** to optimize **SEO** and managed data with **GraphQL**.
       - Supported the dark/light mode toggle, i18n, latex formula, mdx, code highlight.

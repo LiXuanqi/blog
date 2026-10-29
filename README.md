@@ -190,24 +190,39 @@ frontmatter to automatically show a separate **My notes** link and include the
 entry in **With notes**. Existing `directLink` flags do not need to change when
 adding notes. HTML comments alone do not count as notes.
 
-### Resume Data
+### Resume data
 
-Edit `content/resume.yaml`:
+Edit `content/resume.yaml` using the resume-sdk schema. Descriptions use Markdown emphasis instead of HTML.
 
 ```yaml
-name: "Your Name"
-email: "your.email@example.com"
-education:
-  - name: "University Name"
-    time: "2020-2024"
-    desc: ["Degree details"]
-workExperience:
-  - company: "Company Name"
-    position: "Your Position"
-    time: "2022-Present"
-    location: "Location"
-    desc: ["Achievement 1", "Achievement 2"]
+schemaVersion: "1"
+basics:
+  name: Your Name
+  email: your.email@example.com
+work:
+  - name: Company Name
+    position: Your Position
+    startDate: "2022-01"
+    current: true
+    highlights:
+      - Built **reliable services**.
 ```
+
+The blog uses published `@resume-sdk/core` and `@resume-sdk/cli` packages. Set up Node.js 24 or later, then run:
+
+```sh
+pnpm install --frozen-lockfile
+pnpm resume:install-browser
+pnpm dev
+```
+
+`pnpm build` generates HTML, scoped CSS, and `/resume.pdf` before compiling Next.js. `pnpm dev` generates them at startup. After changing the YAML during development, run `pnpm generate:resume` again. Configure template, paper, and sections in `resume.config.mjs`.
+
+The `/resume` page wraps generated HTML with blog navigation and a PDF download button. `/resume-online` redirects to `/resume`. Generated files are ignored by Git. The SDK and Chromium are build-time dependencies; production requests serve static artifacts.
+
+On Linux CI, install the browser and system libraries with `pnpm resume:install-browser --with-deps` before building. This can require elevated privileges. Browser installation is explicit and is not part of the build command.
+
+To test a production server, run `RESUME_TEST_URL=http://127.0.0.1:3140 pnpm test:resume`. The test checks the redirect, selected resume text, PDF download, mobile width, and print controls.
 
 ## 🎨 Styling
 
@@ -221,7 +236,7 @@ MDX files support custom React components defined in `src/components/mdx-compone
 
 ### Print Styles
 
-The resume page includes print-specific styling for professional PDF generation.
+The SDK owns resume typography and pagination. The blog hides its surrounding controls when printing and serves the SDK-generated PDF at `/resume.pdf`.
 
 ## 📝 Writing Content
 

@@ -45,3 +45,6 @@ next-env.d.ts
 
 # playwright screenshots and temp files
 .playwright-mcp/
+
+# SDK-generated resume download
+/public/resume.pdf

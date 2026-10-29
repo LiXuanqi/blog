@@ -5,17 +5,20 @@
   "scripts": {
     "generate:content": "node --import tsx bin/content-generator/cli.ts",
     "generate:content:watch": "NODE_ENV=development node --import tsx bin/content-generator/cli.ts --watch",
-    "dev": "concurrently -k -n content,next -c yellow,cyan \"pnpm generate:content:watch\" \"next dev --turbopack\"",
+    "dev": "pnpm generate:resume && concurrently -k -n content,next -c yellow,cyan \"pnpm generate:content:watch\" \"next dev --turbopack\"",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "prebuild": "NODE_ENV=production pnpm generate:content",
+    "prebuild": "NODE_ENV=production pnpm generate:content && pnpm generate:resume",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:run": "vitest run",
-    "prepare": "husky"
+    "prepare": "husky",
+    "generate:resume": "node bin/resume/generate.mjs",
+    "resume:install-browser": "resume-sdk install-browser",
+    "test:resume": "node bin/resume/verify.mjs"
   },
   "dependencies": {
     "@excalidraw/excalidraw": "^0.18.0",
@@ -43,6 +46,8 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@resume-sdk/cli": "0.1.0-beta.2",
+    "@resume-sdk/core": "0.1.0-beta.2",
     "@shikijs/rehype": "3.21.0",
     "@storybook/addon-docs": "10.3.3",
     "@storybook/addon-links": "^10.3.3",
