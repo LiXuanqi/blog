@@ -9,6 +9,7 @@ import rehypeShiki from "@shikijs/rehype";
 import rehypeKatex from "rehype-katex";
 import Image from "next/image";
 import Link from "next/link";
+import { AudienceBadge } from "@/components/audience-badge";
 import { ArrowLeft, Clock3, CalendarDays } from "lucide-react";
 import { MarkdownDocument } from "@/lib/content/types";
 import { formatContentDate } from "@/lib/format-content-date";
@@ -127,6 +128,7 @@ export default async function PostDetailPage({
                   <Clock3 className="h-4 w-4" />
                   {readingTime}
                 </span>
+                <AudienceBadge level={frontmatter.audience_level} />
               </div>
 
               {showDraftBanner && (

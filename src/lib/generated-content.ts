@@ -14,6 +14,7 @@ type GeneratedListItem = {
   description?: string;
   image?: string;
   tags?: string[];
+  audience_level?: import("./content/audience-level").AudienceLevel;
   category?: string;
   url?: string;
   directLink?: boolean;

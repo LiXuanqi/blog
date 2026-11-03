@@ -4,6 +4,7 @@ date: 2025-08-15
 description: "A practical introduction to bytes, binary and hexadecimal conversion, primitive data storage, and how text encodings like UTF-8 turn characters into machine-readable data."
 image: "/blog-covers/all-is-byte-cover.png"
 tags: ["OS"]
+audience_level: beginner
 visible: true
 ---
 

@@ -6,5 +6,6 @@ export type PostPreview = {
   description?: string;
   image?: string;
   tags?: ReadonlyArray<string>;
+  audience_level?: import("@/lib/content/audience-level").AudienceLevel;
   category?: string;
 };

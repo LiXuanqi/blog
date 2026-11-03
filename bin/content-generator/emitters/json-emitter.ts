@@ -1,5 +1,6 @@
 import { hasLinkNotes } from "../../../src/lib/link-notes.ts";
 import fs from "fs/promises";
+import { AUDIENCE_LEVEL_SCHEMA } from "../../../src/lib/content/audience-level.ts";
 import path from "path";
 import { toCanonicalSlug } from "../available-languages-decorator.ts";
 import type {
@@ -68,6 +69,12 @@ export class JsonCollectionEmitter implements CollectionEmitter {
               (tag): tag is string => typeof tag === "string",
             )
           : undefined,
+        audience_level:
+          collection.id === "posts"
+            ? AUDIENCE_LEVEL_SCHEMA.parse(
+                document.frontmatter.audience_level ?? "everyone",
+              )
+            : undefined,
         category:
           typeof document.frontmatter.category === "string"
             ? document.frontmatter.category

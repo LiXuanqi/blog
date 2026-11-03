@@ -95,6 +95,7 @@ export type IndexListItem = {
   description?: string;
   image?: string;
   tags?: string[];
+  audience_level?: import("../../src/lib/content/audience-level").AudienceLevel;
   category?: string;
   url?: string;
   directLink?: boolean;
