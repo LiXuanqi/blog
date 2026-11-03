@@ -1,0 +1,4 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "dnf install -y nspr nss mesa-libgbm libXdamage libxkbcommon && pnpm install --frozen-lockfile"
+}
