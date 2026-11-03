@@ -1,6 +1,7 @@
 export const SITE_CONFIG = {
   // Personal Information
   name: "Xuanqi",
+  copyrightName: "Xuanqi Li",
   title: "Xuanqi.dev",
   description:
     "I’m a backend engineer. I write about software, systems, and what I learn along the way.",
@@ -47,13 +48,13 @@ export const SITE_CONFIG = {
     profileImage: "/home-logo-2.png",
   },
 
-  // Contact & Social (placeholder for future use)
+  // Contact & Social
   contact: {
     email: "", // Add your email if needed
     social: {
-      github: "", // Add your GitHub if needed
+      github: "https://github.com/LiXuanqi",
       twitter: "", // Add your Twitter if needed
-      linkedin: "", // Add your LinkedIn if needed
+      linkedin: "https://www.linkedin.com/in/xuanqi-li",
     },
   },
 } as const;

@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import NavHeader from "@/components/nav-header";
+import SiteFooter from "@/components/site-footer";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
@@ -24,7 +25,7 @@ export default function MainLayout({
 }>) {
   return (
     <div
-      className={`${geistSans.variable} ${geistMono.variable} ${sourceSerif.variable}`}
+      className={`${geistSans.variable} ${geistMono.variable} ${sourceSerif.variable} flex min-h-screen flex-col`}
     >
       <ThemeProvider
         attribute="class"
@@ -33,9 +34,10 @@ export default function MainLayout({
         disableTransitionOnChange
       >
         <NavHeader />
-        <main id="main-content" className="pt-28 sm:pt-16">
+        <main id="main-content" className="flex-1 pt-28 sm:pt-16">
           {children}
         </main>
+        <SiteFooter />
       </ThemeProvider>
     </div>
   );
