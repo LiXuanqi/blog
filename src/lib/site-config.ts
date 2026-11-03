@@ -1,6 +1,6 @@
 export const SITE_CONFIG = {
   // Personal Information
-  name: "Sam",
+  name: "Xuanqi",
   title: "Sam's Blog",
   description:
     "I’m a backend engineer. I write about software, systems, and what I learn along the way.",
