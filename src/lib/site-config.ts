@@ -1,12 +1,12 @@
 export const SITE_CONFIG = {
   // Personal Information
   name: "Xuanqi",
-  title: "Sam's Blog",
+  title: "Xuanqi.dev",
   description:
     "I’m a backend engineer. I write about software, systems, and what I learn along the way.",
 
   // Site Metadata
-  siteTitle: "Sam's Blog",
+  siteTitle: "Xuanqi.dev",
   siteDescription:
     "Personal blog about web development, programming, and technology",
 
