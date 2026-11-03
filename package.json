@@ -8,7 +8,7 @@
     "dev": "pnpm generate:resume && concurrently -k -n content,next -c yellow,cyan \"pnpm generate:content:watch\" \"next dev --turbopack\"",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "prebuild": "NODE_ENV=production pnpm generate:content && pnpm generate:resume",
+    "prebuild": "NODE_ENV=production pnpm generate:content && pnpm resume:install-browser && pnpm generate:resume",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
