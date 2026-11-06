@@ -64,7 +64,7 @@ export function LinkEntryList({
         {entries.map((post) => {
           const source = post.url ? getHostname(post.url) : undefined;
           return (
-            <li key={post.slug} className="py-4">
+            <li key={post.slug} className="py-6">
               <article className="flex items-start gap-4">
                 <div className="min-w-0 flex-1">
                   <div className="mb-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs leading-5 text-muted-foreground">
@@ -84,7 +84,7 @@ export function LinkEntryList({
                       </>
                     )}
                   </div>
-                  <h2 className="text-base font-semibold leading-snug text-foreground sm:text-lg">
+                  <h2 className="text-lg font-medium leading-snug tracking-tight text-foreground">
                     <a
                       href={post.url ?? `${urlPrefix}/${post.slug}`}
                       target={post.url ? "_blank" : undefined}
@@ -104,7 +104,7 @@ export function LinkEntryList({
                     </a>
                   </h2>
                   {post.description && (
-                    <p className="mt-1 max-w-2xl text-sm leading-5 text-muted-foreground">
+                    <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
                       {post.description}
                     </p>
                   )}

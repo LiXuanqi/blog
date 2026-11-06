@@ -14,8 +14,7 @@ export const SITE_CONFIG = {
   // Page Descriptions
   blog: {
     title: "Posts",
-    description:
-      "Thoughts on web development, programming, and technology. I write about what I learn and build",
+    description: "Notes on software, systems, and the ideas behind them.",
   },
 
   // Homepage Sections

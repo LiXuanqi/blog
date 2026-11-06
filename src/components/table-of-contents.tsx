@@ -26,8 +26,8 @@ export function TableOfContents({
     if (!headings.length) return;
     let frame = 0;
     const update = () => {
-      const offset = window.matchMedia("(min-width: 640px)").matches
-        ? 100
+      const offset = window.matchMedia("(min-width: 768px)").matches
+        ? 112
         : 144;
       let current = headings[0];
       for (const heading of headings) {
@@ -95,7 +95,7 @@ export function TableOfContents({
   if (variant === "mobile") {
     return (
       <div
-        className="mb-8 border-y border-border/70 lg:hidden"
+        className="mb-8 border-y border-border/70 xl:hidden"
         onKeyDown={(event) => {
           if (event.key === "Escape" && isExpanded) {
             setIsExpanded(false);

@@ -101,8 +101,8 @@ export default async function PostDetailPage({
   });
 
   return (
-    <div className="max-w-6xl mx-auto px-6 pb-12 pt-8">
-      <div className="flex justify-center gap-10 lg:gap-12">
+    <div className="max-w-6xl mx-auto px-6 pb-16 pt-12">
+      <div className="flex justify-center gap-10 xl:gap-12">
         {/* Main Content */}
         <article className="w-full min-w-0 max-w-[680px]">
           <header className="mb-8">
@@ -116,7 +116,7 @@ export default async function PostDetailPage({
             </Link>
 
             <div className="space-y-3">
-              <h1 className="font-serif text-3xl font-semibold leading-[1.15] text-balance text-foreground sm:text-[2.5rem]">
+              <h1 className="font-serif text-4xl font-medium leading-[1.12] text-balance text-foreground sm:text-5xl">
                 {frontmatter.title}
               </h1>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
@@ -183,8 +183,8 @@ export default async function PostDetailPage({
 
         {/* Right Sidebar */}
         {tocItems.length > 0 && (
-          <aside className="hidden w-52 shrink-0 lg:block">
-            <div className="sticky top-24 max-h-[calc(100dvh-8rem)] overflow-y-auto">
+          <aside className="hidden w-44 shrink-0 xl:block">
+            <div className="sticky top-28 max-h-[calc(100dvh-8rem)] overflow-y-auto">
               {/* Table of Contents */}
               <TableOfContents items={tocItems} variant="sidebar" />
             </div>

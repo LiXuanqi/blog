@@ -34,7 +34,7 @@ export default function MainLayout({
         disableTransitionOnChange
       >
         <NavHeader />
-        <main id="main-content" className="flex-1 pt-28 sm:pt-16">
+        <main id="main-content" className="flex-1 pt-28 md:pt-20">
           {children}
         </main>
         <SiteFooter />

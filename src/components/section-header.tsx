@@ -11,12 +11,10 @@ export default function SectionHeader({
   ctaUrl: string;
 }) {
   return (
-    <div className="mb-6">
+    <div className="mb-1">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-xl sm:text-2xl font-bold text-foreground">
-            {title}
-          </h2>
+          <h2 className="text-base font-semibold text-foreground">{title}</h2>
           <p className="text-muted-foreground text-sm mt-1">{subtitle}</p>
         </div>
         <Button
@@ -28,6 +26,7 @@ export default function SectionHeader({
           <Link href={ctaUrl} className="flex items-center gap-1">
             See all
             <svg
+              aria-hidden="true"
               className="w-4 h-4"
               fill="none"
               stroke="currentColor"

@@ -1,4 +1,4 @@
-import Hero from "@/components/hero";
+import { PageHeader } from "@/components/page-header";
 import { ManifestEntryList } from "@/components/ManifestEntryList";
 import type { PostPreview } from "@/components/post-preview";
 
@@ -16,10 +16,10 @@ export default function PostListPage({
   urlPrefix,
 }: PostListPageProps) {
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-4xl mx-auto px-6 py-12">
+    <div className="bg-background">
+      <div className="site-page">
         {/* Header */}
-        <Hero title={title} content={description} />
+        <PageHeader title={title} description={description} />
 
         {/* Main content */}
         <ManifestEntryList posts={posts} urlPrefix={urlPrefix} />

@@ -14,7 +14,7 @@ export const MDX_COMPONENTS = {
     return (
       <h1
         tabIndex={-1}
-        className="scroll-mt-32 sm:scroll-mt-20 mb-6 mt-0 text-4xl font-semibold leading-tight tracking-tight text-foreground"
+        className="scroll-mt-32 md:scroll-mt-24 mb-6 mt-0 text-4xl font-semibold leading-tight tracking-tight text-foreground"
         {...props}
       >
         {children}
@@ -34,7 +34,7 @@ export const MDX_COMPONENTS = {
     return (
       <h2
         tabIndex={-1}
-        className="scroll-mt-32 sm:scroll-mt-20 mb-4 mt-10 text-2xl sm:text-[1.625rem] font-semibold leading-[1.3] tracking-tight text-foreground first:mt-0"
+        className="scroll-mt-32 md:scroll-mt-24 mb-4 mt-10 text-2xl sm:text-[1.625rem] font-semibold leading-[1.3] tracking-tight text-foreground first:mt-0"
         {...props}
       >
         {children}
@@ -54,7 +54,7 @@ export const MDX_COMPONENTS = {
     return (
       <h3
         tabIndex={-1}
-        className="scroll-mt-32 sm:scroll-mt-20 mb-3 mt-8 text-xl sm:text-[1.3125rem] font-semibold leading-[1.35] tracking-tight text-foreground"
+        className="scroll-mt-32 md:scroll-mt-24 mb-3 mt-8 text-xl sm:text-[1.3125rem] font-semibold leading-[1.35] tracking-tight text-foreground"
         {...props}
       >
         {children}
@@ -74,7 +74,7 @@ export const MDX_COMPONENTS = {
     return (
       <h4
         tabIndex={-1}
-        className="scroll-mt-32 sm:scroll-mt-20 mb-3 mt-6 text-lg font-semibold leading-tight tracking-tight text-foreground"
+        className="scroll-mt-32 md:scroll-mt-24 mb-3 mt-6 text-lg font-semibold leading-tight tracking-tight text-foreground"
         {...props}
       >
         {children}

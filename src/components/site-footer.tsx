@@ -3,7 +3,7 @@ import { SITE_CONFIG } from "@/lib/site-config";
 export default function SiteFooter() {
   return (
     <footer className="border-t border-border bg-background text-sm text-muted-foreground print:hidden">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 sm:flex-row sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 px-6 py-8 sm:flex-row">
         <p>
           © {new Date().getFullYear()} {SITE_CONFIG.copyrightName}
         </p>

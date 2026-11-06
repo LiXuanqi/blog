@@ -51,8 +51,14 @@ export function ThemeSelector() {
     <div
       ref={containerRef}
       className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      onKeyDown={(event) => {
+        if (event.key === "Escape") {
+          setOpen(false);
+          containerRef.current
+            ?.querySelector<HTMLButtonElement>("button")
+            ?.focus();
+        }
+      }}
       onBlur={handleBlur}
     >
       <Button
