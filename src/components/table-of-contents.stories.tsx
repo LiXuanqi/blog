@@ -58,17 +58,23 @@ function TocStoryLayout({ variant }: { variant: "sidebar" | "mobile" }) {
           : "mx-auto max-w-md"
       }
     >
-      <div className={variant === "sidebar" ? "order-1" : "order-2"}>
+      <div className={variant === "sidebar" ? "sticky top-8 self-start" : ""}>
         <TableOfContents items={storybookTocItems} variant={variant} />
       </div>
-      <div className={variant === "sidebar" ? "order-2" : "order-1"}>
+      <div className="min-w-0">
         <article className="prose max-w-none">
           {headings.map((heading) => {
             const HeadingTag = `h${heading.depth}` as "h1" | "h2" | "h3";
 
             return (
               <section key={heading.id} className="mb-16">
-                <HeadingTag id={heading.id}>{heading.title}</HeadingTag>
+                <HeadingTag
+                  id={heading.id}
+                  tabIndex={-1}
+                  className="scroll-mt-24"
+                >
+                  {heading.title}
+                </HeadingTag>
                 <p>{heading.content}</p>
                 <p>
                   The content area is intentionally long enough to make TOC
@@ -88,5 +94,46 @@ export const Sidebar: Story = {
 };
 
 export const Mobile: Story = {
+  parameters: { docs: { story: { inline: false, iframeHeight: 600 } } },
   render: () => <TocStoryLayout variant="mobile" />,
+};
+
+export const LongHeadings: Story = {
+  args: {
+    items: [
+      {
+        value: "Designing a reading experience that works across screen sizes",
+        depth: 2,
+        url: "#reading",
+      },
+      {
+        value: "Navigation and keyboard accessibility",
+        depth: 3,
+        url: "#navigation",
+      },
+      {
+        value: "Moving focus to the selected section",
+        depth: 4,
+        url: "#focus",
+      },
+      {
+        value:
+          "Supporting headings with verylongunbrokenwordsthatshouldneveroverflowthesidebar",
+        depth: 3,
+        url: "#wrapping",
+      },
+      { value: "Summary", depth: 2, url: "#summary" },
+    ],
+  },
+  decorators: [
+    (Story) => (
+      <div className="w-52">
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const Empty: Story = {
+  args: { items: [] },
 };

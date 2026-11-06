@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useId } from "react";
+import { useState, useEffect, useId, useRef } from "react";
 import { ChevronDown } from "lucide-react";
-import { TocItem } from "@/lib/toc";
+import type { TocItem } from "@/lib/toc";
 
 interface TableOfContentsProps {
   items: TocItem[];
@@ -16,6 +16,8 @@ export function TableOfContents({
   const [isExpanded, setIsExpanded] = useState(false);
   const [activeId, setActiveId] = useState("");
   const navId = useId();
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const minimumDepth = Math.min(...items.map((item) => item.depth));
 
   useEffect(() => {
     const headings = items
@@ -51,46 +53,76 @@ export function TableOfContents({
   if (!items.length) return null;
 
   const links = (
-    <nav id={navId} aria-label="On this page" className="space-y-1">
-      {items.map((item) => (
-        <a
-          key={item.url}
-          href={item.url}
-          aria-current={activeId === item.url.slice(1) ? "location" : undefined}
-          onClick={() => {
-            // Keep native hash navigation and move keyboard focus to the section.
-            document
-              .getElementById(item.url.slice(1))
-              ?.focus({ preventScroll: true });
-            setIsExpanded(false);
-          }}
-          className={`block border-l-2 py-1.5 pr-2 text-sm leading-5 transition-colors ${item.depth === 3 ? "pl-6" : "pl-3"} ${activeId === item.url.slice(1) ? "border-link text-foreground font-medium" : "border-transparent text-muted-foreground hover:text-foreground"}`}
-        >
-          {item.value}
-        </a>
-      ))}
+    <nav id={navId} aria-label="On this page">
+      <ul className="relative space-y-0.5 before:absolute before:inset-y-2 before:left-0 before:w-px before:bg-border/60">
+        {items.map((item) => {
+          const isActive = activeId === item.url.slice(1);
+          return (
+            <li key={item.url}>
+              <a
+                href={item.url}
+                aria-current={isActive ? "location" : undefined}
+                onClick={(event) => {
+                  if (
+                    event.metaKey ||
+                    event.ctrlKey ||
+                    event.shiftKey ||
+                    event.altKey
+                  )
+                    return;
+                  const heading = document.getElementById(item.url.slice(1));
+                  if (heading) {
+                    if (!heading.hasAttribute("tabindex"))
+                      heading.tabIndex = -1;
+                    heading.focus({ preventScroll: true });
+                  }
+                  setIsExpanded(false);
+                }}
+                style={{
+                  paddingInlineStart: `${16 + Math.max(0, item.depth - minimumDepth) * 12}px`,
+                }}
+                className={`relative block py-1.5 pr-1 text-[13px] leading-5 [overflow-wrap:anywhere] transition-colors motion-reduce:transition-none focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2 ${isActive ? "font-medium text-foreground before:absolute before:inset-y-2 before:-left-px before:w-[3px] before:rounded-full before:bg-link" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                {item.value}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
     </nav>
   );
 
   if (variant === "mobile") {
     return (
-      <div className="mb-8 rounded-lg border border-border lg:hidden">
+      <div
+        className="mb-8 border-y border-border/70 lg:hidden"
+        onKeyDown={(event) => {
+          if (event.key === "Escape" && isExpanded) {
+            setIsExpanded(false);
+            toggleRef.current?.focus();
+          }
+        }}
+      >
         <button
+          ref={toggleRef}
           type="button"
           aria-expanded={isExpanded}
           aria-controls={navId}
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="flex w-full items-center justify-between rounded-lg px-4 py-3 text-sm font-medium hover:bg-muted/50"
+          onClick={() => setIsExpanded((expanded) => !expanded)}
+          className="flex min-h-12 w-full items-center gap-3 py-3 text-left text-sm hover:text-link focus-visible:outline-2 focus-visible:outline-ring focus-visible:-outline-offset-2"
         >
-          On this page
+          <span className="flex-1 font-medium">On this page</span>
+          <span className="text-xs tabular-nums text-muted-foreground">
+            {items.length} sections
+          </span>
           <ChevronDown
             aria-hidden="true"
-            className={`h-4 w-4 text-muted-foreground ${isExpanded ? "rotate-180" : ""}`}
+            className={`size-4 shrink-0 text-muted-foreground transition-transform motion-reduce:transition-none ${isExpanded ? "rotate-180" : ""}`}
           />
         </button>
         <div
           hidden={!isExpanded}
-          className="max-h-72 overflow-y-auto border-t border-border p-3"
+          className="max-h-72 overflow-y-auto overscroll-contain pb-4 pl-1 pr-3"
         >
           {links}
         </div>
@@ -100,7 +132,9 @@ export function TableOfContents({
 
   return (
     <div>
-      <p className="mb-3 text-sm font-semibold text-foreground">On this page</p>
+      <p className="mb-4 pl-4 text-[13px] font-semibold tracking-normal text-foreground">
+        On this page
+      </p>
       {links}
     </div>
   );
