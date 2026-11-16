@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 import { formatContentDate } from "@/lib/format-content-date";
 
 // Import types from shared types file to avoid circular dependencies
@@ -165,9 +166,11 @@ export function PostCard({ data, actions, appearance }: PostCardProps) {
       <div className="relative overflow-hidden rounded-lg border">
         <div className="min-h-[280px] sm:aspect-[16/9] sm:min-h-0 w-full">
           {post.coverImage ? (
-            <img
+            <Image
               src={post.coverImage}
               alt={post.title || ""}
+              fill
+              sizes="(min-width: 1024px) 512px, 100vw"
               className="absolute inset-0 h-full w-full object-cover"
             />
           ) : (
@@ -209,9 +212,11 @@ export function PostCard({ data, actions, appearance }: PostCardProps) {
               {showAuthor && (
                 <div className="flex items-center gap-2">
                   {post.author?.avatar && (
-                    <img
+                    <Image
                       src={post.author.avatar}
                       alt={post.author?.name || ""}
+                      width={24}
+                      height={24}
                       className="h-6 w-6 rounded-full ring-1 ring-white/30"
                     />
                   )}
@@ -245,10 +250,12 @@ export function PostCard({ data, actions, appearance }: PostCardProps) {
     return (
       <div className="flex flex-col sm:flex-row gap-4 rounded-lg border bg-card p-3">
         {showImage && post.coverImage && (
-          <div className="aspect-video sm:aspect-video sm:w-40 lg:w-48 shrink-0 overflow-hidden rounded-md">
-            <img
+          <div className="relative aspect-video sm:aspect-video sm:w-40 lg:w-48 shrink-0 overflow-hidden rounded-md">
+            <Image
               src={post.coverImage}
               alt={post.title || ""}
+              fill
+              sizes="(min-width: 1024px) 192px, (min-width: 640px) 160px, 100vw"
               className="h-full w-full object-cover"
             />
           </div>
@@ -286,9 +293,11 @@ export function PostCard({ data, actions, appearance }: PostCardProps) {
           <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               {showAuthor && post.author?.avatar && (
-                <img
+                <Image
                   src={post.author.avatar}
                   alt={post.author?.name || ""}
+                  width={16}
+                  height={16}
                   className="h-4 w-4 rounded-full"
                 />
               )}
@@ -345,9 +354,11 @@ export function PostCard({ data, actions, appearance }: PostCardProps) {
         <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2">
             {showAuthor && post.author?.avatar && (
-              <img
+              <Image
                 src={post.author.avatar}
                 alt={post.author?.name || ""}
+                width={20}
+                height={20}
                 className="h-5 w-5 rounded-full"
               />
             )}
@@ -367,10 +378,12 @@ export function PostCard({ data, actions, appearance }: PostCardProps) {
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-lg border bg-card">
       {showImage && post.coverImage && (
-        <div className="aspect-video overflow-hidden">
-          <img
+        <div className="relative aspect-video overflow-hidden">
+          <Image
             src={post.coverImage}
             alt={post.title || ""}
+            fill
+            sizes="(min-width: 1024px) 512px, 100vw"
             className="h-full w-full object-cover transition-transform hover:scale-105"
           />
         </div>
@@ -407,9 +420,11 @@ export function PostCard({ data, actions, appearance }: PostCardProps) {
           {showAuthor && (
             <div className="flex items-center gap-2">
               {post.author?.avatar && (
-                <img
+                <Image
                   src={post.author.avatar}
                   alt={post.author?.name || ""}
+                  width={24}
+                  height={24}
                   className="h-6 w-6 rounded-full"
                 />
               )}
