@@ -1,32 +1,22 @@
-import Image from "next/image";
-import { SITE_CONFIG } from "@/lib/site-config";
-
 export default function HomeHero() {
   return (
-    <section
-      aria-labelledby="home-intro"
-      className="mx-auto flex max-w-4xl items-start gap-4 py-4 sm:items-center sm:gap-6 sm:py-6"
-    >
-      <Image
-        src={SITE_CONFIG.assets.profileImage}
-        alt=""
-        width={80}
-        height={80}
-        sizes="(min-width: 640px) 80px, 56px"
-        className="size-14 shrink-0 rounded-2xl object-cover sm:size-20"
-        priority
-      />
-      <div className="min-w-0">
-        <h1
-          id="home-intro"
-          className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
-        >
-          Hi, I’m {SITE_CONFIG.name}
-        </h1>
-        <p className="mt-2 max-w-xl text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
-          {SITE_CONFIG.description}
-        </p>
-      </div>
-    </section>
+    <header className="home-introduction">
+      <h1 className="font-serif text-[clamp(2.75rem,5vw,4.75rem)] font-medium leading-[1.02] tracking-tight text-foreground">
+        Hi, I’m Xuanqi.
+      </h1>
+      <p className="mt-5 max-w-lg text-base leading-7 text-muted-foreground">
+        I’m a Member of Technical Staff at OpenAI, previously at Airtable,
+        LinkedIn, and Yelp. I’m a generalist software engineer whose work spans
+        product development, data platforms, and infrastructure, from building
+        tools used by millions of businesses to helping build a relational
+        database from scratch.
+      </p>
+      <p className="mt-5 max-w-lg text-base leading-7 text-muted-foreground">
+        I enjoy learning unfamiliar systems and working across the boundaries
+        between them. Along the way, I’ve led engineering projects, taught and
+        mentored engineers, and helped teams improve how they build software.
+        This site is where I share what I’m working on and learning.
+      </p>
+    </header>
   );
 }
