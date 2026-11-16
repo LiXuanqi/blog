@@ -367,3 +367,9 @@
     scroll-behavior: auto;
   }
 }
+
+@layer components {
+  .home-introduction {
+    @apply mx-auto mb-10 grid max-w-4xl gap-6 py-4 sm:mb-12 sm:py-6 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-12;
+  }
+}
